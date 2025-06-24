@@ -139,7 +139,7 @@ public class ContactPointPinStiffener : MonoBehaviour
             
             // *** 关键修改 4: 核心逻辑 - 获取碰撞点的世界坐标作为锚点 ***
             // contact.point 是碰撞在世界空间中的确切位置。这就是我们需要的静态锚点。
-            Vector3 pinAnchorWorldPosition = contact.pointA;
+            Vector3 pinAnchorWorldPosition = contact.pointB;
             
             // 传入锚点，激活约束
             ActivatePin(particleSolverIndex, pinAnchorWorldPosition);
