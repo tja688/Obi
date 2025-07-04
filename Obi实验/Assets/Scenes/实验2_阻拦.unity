@@ -2309,7 +2309,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435336633728200261}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fbe93a5eb8c343488c3b2e3675ffa0c, type: 3}
   m_Name: 
@@ -2317,7 +2317,7 @@ MonoBehaviour:
   colliderTag: TestObi
   pinPoolSize: 64
   pinStiffness: 1
-  enableDisengagement: 1
+  enableDisengagement: 0
   disengagementDistance: 0.01
   enableVisualization: 1
   pinnedParticleColor: {r: 1, g: 0, b: 0, a: 1}
