@@ -1,0 +1,6968 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca6ebc904cae74824a9329f2f41de1ed, type: 3}
+  m_Name: ClothSkinmap2
+  m_EditorClassIdentifier: 
+  particlesOnVertices:
+    influences:
+      serializedContents:
+      - index: 283
+        weight: 0.4
+      - index: 280
+        weight: 0.2
+      - index: 210
+        weight: 0.2
+      - index: 282
+        weight: 0.2
+      - index: 280
+        weight: 0.4
+      - index: 279
+        weight: 0.2
+      - index: 284
+        weight: 0.2
+      - index: 281
+        weight: 0.2
+      - index: 282
+        weight: 0.43613023
+      - index: 281
+        weight: 0.21806511
+      - index: 283
+        weight: 0.21806511
+      - index: 280
+        weight: 0.1277396
+      - index: 281
+        weight: 0.4
+      - index: 280
+        weight: 0.2
+      - index: 270
+        weight: 0.2
+      - index: 282
+        weight: 0.2
+      - index: 210
+        weight: 0.4
+      - index: 284
+        weight: 0.2
+      - index: 209
+        weight: 0.2
+      - index: 283
+        weight: 0.2
+      - index: 270
+        weight: 0.4
+      - index: 269
+        weight: 0.2
+      - index: 279
+        weight: 0.2
+      - index: 281
+        weight: 0.2
+      - index: 284
+        weight: 0.4
+      - index: 208
+        weight: 0.2
+      - index: 278
+        weight: 0.2
+      - index: 280
+        weight: 0.2
+      - index: 208
+        weight: 0.4
+      - index: 207
+        weight: 0.2
+      - index: 285
+        weight: 0.2
+      - index: 284
+        weight: 0.2
+      - index: 278
+        weight: 0.4
+      - index: 277
+        weight: 0.2
+      - index: 285
+        weight: 0.2
+      - index: 279
+        weight: 0.2
+      - index: 209
+        weight: 0.4
+      - index: 208
+        weight: 0.2
+      - index: 165
+        weight: 0.2
+      - index: 210
+        weight: 0.2
+      - index: 165
+        weight: 0.4
+      - index: 207
+        weight: 0.2
+      - index: 164
+        weight: 0.2
+      - index: 209
+        weight: 0.2
+      - index: 279
+        weight: 0.4
+      - index: 268
+        weight: 0.2
+      - index: 278
+        weight: 0.2
+      - index: 280
+        weight: 0.2
+      - index: 268
+        weight: 0.4
+      - index: 267
+        weight: 0.2
+      - index: 277
+        weight: 0.2
+      - index: 269
+        weight: 0.2
+      - index: 269
+        weight: 0.4
+      - index: 268
+        weight: 0.2
+      - index: 260
+        weight: 0.2
+      - index: 270
+        weight: 0.2
+      - index: 260
+        weight: 0.4
+      - index: 259
+        weight: 0.2
+      - index: 267
+        weight: 0.2
+      - index: 269
+        weight: 0.2
+      - index: 207
+        weight: 0.4
+      - index: 162
+        weight: 0.2
+      - index: 200
+        weight: 0.2
+      - index: 208
+        weight: 0.2
+      - index: 162
+        weight: 0.4
+      - index: 161
+        weight: 0.2
+      - index: 199
+        weight: 0.2
+      - index: 207
+        weight: 0.2
+      - index: 200
+        weight: 0.4
+      - index: 286
+        weight: 0.2
+      - index: 199
+        weight: 0.2
+      - index: 207
+        weight: 0.2
+      - index: 164
+        weight: 0.4
+      - index: 162
+        weight: 0.2
+      - index: 160
+        weight: 0.2
+      - index: 165
+        weight: 0.2
+      - index: 160
+        weight: 0.4
+      - index: 161
+        weight: 0.2
+      - index: 159
+        weight: 0.2
+      - index: 164
+        weight: 0.2
+      - index: 285
+        weight: 0.4
+      - index: 276
+        weight: 0.2
+      - index: 200
+        weight: 0.2
+      - index: 208
+        weight: 0.2
+      - index: 276
+        weight: 0.4
+      - index: 275
+        weight: 0.2
+      - index: 286
+        weight: 0.2
+      - index: 277
+        weight: 0.2
+      - index: 277
+        weight: 0.4
+      - index: 276
+        weight: 0.2
+      - index: 266
+        weight: 0.2
+      - index: 268
+        weight: 0.2
+      - index: 266
+        weight: 0.4
+      - index: 265
+        weight: 0.2
+      - index: 275
+        weight: 0.2
+      - index: 267
+        weight: 0.2
+      - index: 267
+        weight: 0.4
+      - index: 258
+        weight: 0.2
+      - index: 266
+        weight: 0.2
+      - index: 268
+        weight: 0.2
+      - index: 258
+        weight: 0.4
+      - index: 257
+        weight: 0.2
+      - index: 265
+        weight: 0.2
+      - index: 259
+        weight: 0.2
+      - index: 259
+        weight: 0.4
+      - index: 258
+        weight: 0.2
+      - index: 250
+        weight: 0.2
+      - index: 260
+        weight: 0.2
+      - index: 250
+        weight: 0.4
+      - index: 249
+        weight: 0.2
+      - index: 257
+        weight: 0.2
+      - index: 259
+        weight: 0.2
+      - index: 161
+        weight: 0.4
+      - index: 158
+        weight: 0.2
+      - index: 162
+        weight: 0.2
+      - index: 163
+        weight: 0.2
+      - index: 158
+        weight: 0.4
+      - index: 166
+        weight: 0.2
+      - index: 161
+        weight: 0.2
+      - index: 157
+        weight: 0.2
+      - index: 163
+        weight: 0.4
+      - index: 191
+        weight: 0.2
+      - index: 166
+        weight: 0.2
+      - index: 161
+        weight: 0.2
+      - index: 159
+        weight: 0.4
+      - index: 158
+        weight: 0.2
+      - index: 160
+        weight: 0.2
+      - index: 148
+        weight: 0.2
+      - index: 148
+        weight: 0.4
+      - index: 157
+        weight: 0.2
+      - index: 159
+        weight: 0.2
+      - index: 147
+        weight: 0.2
+      - index: 199
+        weight: 0.4
+      - index: 192
+        weight: 0.2
+      - index: 162
+        weight: 0.2
+      - index: 163
+        weight: 0.2
+      - index: 192
+        weight: 0.4
+      - index: 191
+        weight: 0.2
+      - index: 287
+        weight: 0.2
+      - index: 286
+        weight: 0.2
+      - index: 286
+        weight: 0.4
+      - index: 192
+        weight: 0.2
+      - index: 274
+        weight: 0.2
+      - index: 276
+        weight: 0.2
+      - index: 274
+        weight: 0.4
+      - index: 273
+        weight: 0.2
+      - index: 287
+        weight: 0.2
+      - index: 275
+        weight: 0.2
+      - index: 275
+        weight: 0.4
+      - index: 264
+        weight: 0.2
+      - index: 274
+        weight: 0.2
+      - index: 276
+        weight: 0.2
+      - index: 264
+        weight: 0.4
+      - index: 263
+        weight: 0.2
+      - index: 273
+        weight: 0.2
+      - index: 265
+        weight: 0.2
+      - index: 265
+        weight: 0.4
+      - index: 264
+        weight: 0.2
+      - index: 256
+        weight: 0.2
+      - index: 258
+        weight: 0.2
+      - index: 256
+        weight: 0.4
+      - index: 255
+        weight: 0.2
+      - index: 263
+        weight: 0.2
+      - index: 257
+        weight: 0.2
+      - index: 257
+        weight: 0.4
+      - index: 248
+        weight: 0.2
+      - index: 256
+        weight: 0.2
+      - index: 258
+        weight: 0.2
+      - index: 248
+        weight: 0.4
+      - index: 247
+        weight: 0.2
+      - index: 255
+        weight: 0.2
+      - index: 249
+        weight: 0.2
+      - index: 249
+        weight: 0.4
+      - index: 248
+        weight: 0.2
+      - index: 240
+        weight: 0.2
+      - index: 250
+        weight: 0.2
+      - index: 240
+        weight: 0.4
+      - index: 239
+        weight: 0.2
+      - index: 247
+        weight: 0.2
+      - index: 249
+        weight: 0.2
+      - index: 247
+        weight: 0.4
+      - index: 238
+        weight: 0.2
+      - index: 246
+        weight: 0.2
+      - index: 248
+        weight: 0.2
+      - index: 238
+        weight: 0.4
+      - index: 237
+        weight: 0.2
+      - index: 245
+        weight: 0.2
+      - index: 239
+        weight: 0.2
+      - index: 246
+        weight: 0.4
+      - index: 245
+        weight: 0.2
+      - index: 253
+        weight: 0.2
+      - index: 247
+        weight: 0.2
+      - index: 239
+        weight: 0.4
+      - index: 238
+        weight: 0.2
+      - index: 232
+        weight: 0.2
+      - index: 240
+        weight: 0.2
+      - index: 232
+        weight: 0.4
+      - index: 231
+        weight: 0.20000002
+      - index: 237
+        weight: 0.2
+      - index: 239
+        weight: 0.2
+      - index: 255
+        weight: 0.4
+      - index: 254
+        weight: 0.2
+      - index: 246
+        weight: 0.2
+      - index: 248
+        weight: 0.2
+      - index: 254
+        weight: 0.4
+      - index: 253
+        weight: 0.2
+      - index: 261
+        weight: 0.2
+      - index: 255
+        weight: 0.2
+      - index: 263
+        weight: 0.4
+      - index: 254
+        weight: 0.2
+      - index: 262
+        weight: 0.2
+      - index: 264
+        weight: 0.2
+      - index: 262
+        weight: 0.4
+      - index: 261
+        weight: 0.2
+      - index: 271
+        weight: 0.2
+      - index: 263
+        weight: 0.2
+      - index: 273
+        weight: 0.4
+      - index: 272
+        weight: 0.2
+      - index: 262
+        weight: 0.2
+      - index: 264
+        weight: 0.2
+      - index: 272
+        weight: 0.4
+      - index: 271
+        weight: 0.2
+      - index: 288
+        weight: 0.2
+      - index: 273
+        weight: 0.2
+      - index: 287
+        weight: 0.4
+      - index: 272
+        weight: 0.2
+      - index: 184
+        weight: 0.2
+      - index: 192
+        weight: 0.2
+      - index: 184
+        weight: 0.4
+      - index: 288
+        weight: 0.2
+      - index: 183
+        weight: 0.2
+      - index: 191
+        weight: 0.2
+      - index: 191
+        weight: 0.4
+      - index: 167
+        weight: 0.2
+      - index: 184
+        weight: 0.2
+      - index: 192
+        weight: 0.2
+      - index: 167
+        weight: 0.4
+      - index: 183
+        weight: 0.2
+      - index: 191
+        weight: 0.2
+      - index: 168
+        weight: 0.2
+      - index: 166
+        weight: 0.4
+      - index: 167
+        weight: 0.2
+      - index: 158
+        weight: 0.2
+      - index: 163
+        weight: 0.2
+      - index: 156
+        weight: 0.4
+      - index: 168
+        weight: 0.2
+      - index: 166
+        weight: 0.2
+      - index: 155
+        weight: 0.2
+      - index: 157
+        weight: 0.4
+      - index: 158
+        weight: 0.2
+      - index: 146
+        weight: 0.2
+      - index: 156
+        weight: 0.2
+      - index: 146
+        weight: 0.4
+      - index: 145
+        weight: 0.2
+      - index: 155
+        weight: 0.2
+      - index: 157
+        weight: 0.2
+      - index: 147
+        weight: 0.4
+      - index: 146
+        weight: 0.2
+      - index: 138
+        weight: 0.2
+      - index: 148
+        weight: 0.2
+      - index: 138
+        weight: 0.4
+      - index: 145
+        weight: 0.2
+      - index: 137
+        weight: 0.2
+      - index: 147
+        weight: 0.2
+      - index: 145
+        weight: 0.4
+      - index: 136
+        weight: 0.2
+      - index: 144
+        weight: 0.2
+      - index: 146
+        weight: 0.2
+      - index: 136
+        weight: 0.4
+      - index: 135
+        weight: 0.2
+      - index: 143
+        weight: 0.2
+      - index: 145
+        weight: 0.2
+      - index: 144
+        weight: 0.4
+      - index: 153
+        weight: 0.2
+      - index: 143
+        weight: 0.2
+      - index: 145
+        weight: 0.2
+      - index: 137
+        weight: 0.4
+      - index: 136
+        weight: 0.2
+      - index: 130
+        weight: 0.2
+      - index: 138
+        weight: 0.2
+      - index: 130
+        weight: 0.4
+      - index: 135
+        weight: 0.2
+      - index: 129
+        weight: 0.2
+      - index: 137
+        weight: 0.2
+      - index: 155
+        weight: 0.4
+      - index: 154
+        weight: 0.2
+      - index: 144
+        weight: 0.2
+      - index: 146
+        weight: 0.2
+      - index: 154
+        weight: 0.4
+      - index: 153
+        weight: 0.2
+      - index: 170
+        weight: 0.2
+      - index: 168
+        weight: 0.2
+      - index: 168
+        weight: 0.4
+      - index: 167
+        weight: 0.2
+      - index: 154
+        weight: 0.2
+      - index: 169
+        weight: 0.2
+      - index: 169
+        weight: 0.4
+      - index: 179
+        weight: 0.2
+      - index: 183
+        weight: 0.2
+      - index: 170
+        weight: 0.2
+      - index: 183
+        weight: 0.4
+      - index: 180
+        weight: 0.2
+      - index: 167
+        weight: 0.2
+      - index: 184
+        weight: 0.2
+      - index: 180
+        weight: 0.4
+      - index: 189
+        weight: 0.2
+      - index: 288
+        weight: 0.2
+      - index: 179
+        weight: 0.2
+      - index: 288
+        weight: 0.4
+      - index: 180
+        weight: 0.2
+      - index: 190
+        weight: 0.2
+      - index: 272
+        weight: 0.2
+      - index: 190
+        weight: 0.4
+      - index: 197
+        weight: 0.2
+      - index: 189
+        weight: 0.2
+      - index: 271
+        weight: 0.2
+      - index: 271
+        weight: 0.4
+      - index: 198
+        weight: 0.2
+      - index: 190
+        weight: 0.2
+      - index: 272
+        weight: 0.2
+      - index: 198
+        weight: 0.4
+      - index: 197
+        weight: 0.2
+      - index: 205
+        weight: 0.2
+      - index: 261
+        weight: 0.2
+      - index: 261
+        weight: 0.4
+      - index: 198
+        weight: 0.2
+      - index: 206
+        weight: 0.2
+      - index: 254
+        weight: 0.2
+      - index: 206
+        weight: 0.4
+      - index: 252
+        weight: 0.2
+      - index: 205
+        weight: 0.2
+      - index: 253
+        weight: 0.2
+      - index: 253
+        weight: 0.4
+      - index: 244
+        weight: 0.2
+      - index: 206
+        weight: 0.2
+      - index: 254
+        weight: 0.2
+      - index: 244
+        weight: 0.4
+      - index: 243
+        weight: 0.2
+      - index: 252
+        weight: 0.2
+      - index: 245
+        weight: 0.2
+      - index: 245
+        weight: 0.4
+      - index: 244
+        weight: 0.2
+      - index: 236
+        weight: 0.2
+      - index: 238
+        weight: 0.2
+      - index: 236
+        weight: 0.4
+      - index: 235
+        weight: 0.20000002
+      - index: 243
+        weight: 0.2
+      - index: 237
+        weight: 0.2
+      - index: 237
+        weight: 0.4
+      - index: 230
+        weight: 0.20000002
+      - index: 236
+        weight: 0.2
+      - index: 238
+        weight: 0.2
+      - index: 230
+        weight: 0.4
+      - index: 237
+        weight: 0.20000002
+      - index: 229
+        weight: 0.2
+      - index: 235
+        weight: 0.2
+      - index: 231
+        weight: 0.4
+      - index: 232
+        weight: 0.20000002
+      - index: 230
+        weight: 0.2
+      - index: 226
+        weight: 0.2
+      - index: 226
+        weight: 0.4
+      - index: 229
+        weight: 0.2
+      - index: 231
+        weight: 0.2
+      - index: 225
+        weight: 0.19999996
+      - index: 229
+        weight: 0.4
+      - index: 228
+        weight: 0.2
+      - index: 230
+        weight: 0.2
+      - index: 226
+        weight: 0.2
+      - index: 224
+        weight: 0.4
+      - index: 223
+        weight: 0.2
+      - index: 227
+        weight: 0.2
+      - index: 225
+        weight: 0.2
+      - index: 228
+        weight: 0.4
+      - index: 233
+        weight: 0.2
+      - index: 229
+        weight: 0.2
+      - index: 235
+        weight: 0.2
+      - index: 225
+        weight: 0.4
+      - index: 224
+        weight: 0.2
+      - index: 222
+        weight: 0.2
+      - index: 226
+        weight: 0.19999996
+      - index: 222
+        weight: 0.4
+      - index: 221
+        weight: 0.2
+      - index: 223
+        weight: 0.2
+      - index: 225
+        weight: 0.2
+      - index: 235
+        weight: 0.4
+      - index: 236
+        weight: 0.20000002
+      - index: 234
+        weight: 0.2
+      - index: 228
+        weight: 0.2
+      - index: 234
+        weight: 0.4
+      - index: 243
+        weight: 0.20000002
+      - index: 233
+        weight: 0.2
+      - index: 241
+        weight: 0.2
+      - index: 243
+        weight: 0.4
+      - index: 234
+        weight: 0.20000002
+      - index: 242
+        weight: 0.2
+      - index: 244
+        weight: 0.2
+      - index: 242
+        weight: 0.4
+      - index: 241
+        weight: 0.20000002
+      - index: 251
+        weight: 0.2
+      - index: 243
+        weight: 0.2
+      - index: 252
+        weight: 0.4
+      - index: 202
+        weight: 0.2
+      - index: 242
+        weight: 0.2
+      - index: 244
+        weight: 0.2
+      - index: 202
+        weight: 0.4
+      - index: 201
+        weight: 0.2
+      - index: 251
+        weight: 0.2
+      - index: 252
+        weight: 0.2
+      - index: 205
+        weight: 0.4
+      - index: 202
+        weight: 0.2
+      - index: 194
+        weight: 0.2
+      - index: 198
+        weight: 0.2
+      - index: 194
+        weight: 0.4
+      - index: 201
+        weight: 0.2
+      - index: 193
+        weight: 0.2
+      - index: 197
+        weight: 0.2
+      - index: 197
+        weight: 0.4
+      - index: 186
+        weight: 0.2
+      - index: 194
+        weight: 0.2
+      - index: 198
+        weight: 0.2
+      - index: 186
+        weight: 0.4
+      - index: 193
+        weight: 0.2
+      - index: 197
+        weight: 0.2
+      - index: 185
+        weight: 0.2
+      - index: 189
+        weight: 0.4
+      - index: 186
+        weight: 0.2
+      - index: 180
+        weight: 0.2
+      - index: 190
+        weight: 0.2
+      - index: 178
+        weight: 0.4
+      - index: 185
+        weight: 0.2
+      - index: 189
+        weight: 0.2
+      - index: 177
+        weight: 0.2
+      - index: 179
+        weight: 0.4
+      - index: 180
+        weight: 0.2
+      - index: 171
+        weight: 0.2
+      - index: 178
+        weight: 0.2
+      - index: 171
+        weight: 0.4
+      - index: 172
+        weight: 0.2
+      - index: 177
+        weight: 0.2
+      - index: 179
+        weight: 0.2
+      - index: 170
+        weight: 0.4
+      - index: 171
+        weight: 0.2
+      - index: 152
+        weight: 0.2
+      - index: 154
+        weight: 0.2
+      - index: 152
+        weight: 0.4
+      - index: 172
+        weight: 0.2
+      - index: 151
+        weight: 0.2
+      - index: 153
+        weight: 0.2
+      - index: 153
+        weight: 0.4
+      - index: 142
+        weight: 0.2
+      - index: 152
+        weight: 0.2
+      - index: 154
+        weight: 0.2
+      - index: 142
+        weight: 0.4
+      - index: 141
+        weight: 0.2
+      - index: 151
+        weight: 0.2
+      - index: 153
+        weight: 0.2
+      - index: 143
+        weight: 0.4
+      - index: 142
+        weight: 0.2
+      - index: 134
+        weight: 0.2
+      - index: 136
+        weight: 0.2
+      - index: 134
+        weight: 0.4
+      - index: 141
+        weight: 0.2
+      - index: 133
+        weight: 0.2
+      - index: 135
+        weight: 0.2
+      - index: 135
+        weight: 0.4
+      - index: 128
+        weight: 0.2
+      - index: 134
+        weight: 0.2
+      - index: 136
+        weight: 0.2
+      - index: 128
+        weight: 0.4
+      - index: 127
+        weight: 0.2
+      - index: 133
+        weight: 0.2
+      - index: 135
+        weight: 0.2
+      - index: 129
+        weight: 0.4
+      - index: 128
+        weight: 0.2
+      - index: 126
+        weight: 0.2
+      - index: 130
+        weight: 0.2
+      - index: 126
+        weight: 0.4
+      - index: 127
+        weight: 0.2
+      - index: 125
+        weight: 0.2
+      - index: 129
+        weight: 0.2
+      - index: 127
+        weight: 0.4
+      - index: 121
+        weight: 0.2
+      - index: 122
+        weight: 0.2
+      - index: 128
+        weight: 0.2
+      - index: 121
+        weight: 0.4
+      - index: 120
+        weight: 0.2
+      - index: 123
+        weight: 0.2
+      - index: 127
+        weight: 0.2
+      - index: 122
+        weight: 0.4
+      - index: 131
+        weight: 0.2
+      - index: 120
+        weight: 0.2
+      - index: 127
+        weight: 0.2
+      - index: 125
+        weight: 0.4
+      - index: 121
+        weight: 0.2
+      - index: 124
+        weight: 0.2
+      - index: 126
+        weight: 0.2
+      - index: 124
+        weight: 0.43613023
+      - index: 123
+        weight: 0.21806511
+      - index: 125
+        weight: 0.21806511
+      - index: 121
+        weight: 0.1277396
+      - index: 123
+        weight: 0.4
+      - index: 119
+        weight: 0.2
+      - index: 121
+        weight: 0.2
+      - index: 124
+        weight: 0.2
+      - index: 119
+        weight: 0.4
+      - index: 118
+        weight: 0.2
+      - index: 120
+        weight: 0.2
+      - index: 123
+        weight: 0.2
+      - index: 120
+        weight: 0.4
+      - index: 117
+        weight: 0.2
+      - index: 119
+        weight: 0.2
+      - index: 121
+        weight: 0.2
+      - index: 117
+        weight: 0.4
+      - index: 116
+        weight: 0.2
+      - index: 118
+        weight: 0.2
+      - index: 131
+        weight: 0.2
+      - index: 118
+        weight: 0.4
+      - index: 70
+        weight: 0.2
+      - index: 117
+        weight: 0.2
+      - index: 119
+        weight: 0.2
+      - index: 70
+        weight: 0.4
+      - index: 69
+        weight: 0.2
+      - index: 116
+        weight: 0.2
+      - index: 118
+        weight: 0.2
+      - index: 133
+        weight: 0.4
+      - index: 132
+        weight: 0.2
+      - index: 122
+        weight: 0.2
+      - index: 128
+        weight: 0.2
+      - index: 132
+        weight: 0.4
+      - index: 131
+        weight: 0.2
+      - index: 139
+        weight: 0.2
+      - index: 141
+        weight: 0.2
+      - index: 131
+        weight: 0.4
+      - index: 117
+        weight: 0.2
+      - index: 115
+        weight: 0.2
+      - index: 132
+        weight: 0.2
+      - index: 115
+        weight: 0.4
+      - index: 114
+        weight: 0.2
+      - index: 116
+        weight: 0.2
+      - index: 131
+        weight: 0.2
+      - index: 116
+        weight: 0.4
+      - index: 67
+        weight: 0.2
+      - index: 70
+        weight: 0.2
+      - index: 117
+        weight: 0.2
+      - index: 67
+        weight: 0.4
+      - index: 66
+        weight: 0.2
+      - index: 69
+        weight: 0.2
+      - index: 114
+        weight: 0.2
+      - index: 69
+        weight: 0.4
+      - index: 65
+        weight: 0.2
+      - index: 67
+        weight: 0.2
+      - index: 70
+        weight: 0.2
+      - index: 65
+        weight: 0.4
+      - index: 64
+        weight: 0.2
+      - index: 66
+        weight: 0.2
+      - index: 69
+        weight: 0.2
+      - index: 141
+        weight: 0.4
+      - index: 132
+        weight: 0.2
+      - index: 140
+        weight: 0.2
+      - index: 142
+        weight: 0.2
+      - index: 140
+        weight: 0.4
+      - index: 149
+        weight: 0.2
+      - index: 139
+        weight: 0.2
+      - index: 141
+        weight: 0.2
+      - index: 139
+        weight: 0.4
+      - index: 113
+        weight: 0.2
+      - index: 115
+        weight: 0.2
+      - index: 132
+        weight: 0.2
+      - index: 113
+        weight: 0.4
+      - index: 112
+        weight: 0.2
+      - index: 114
+        weight: 0.2
+      - index: 149
+        weight: 0.2
+      - index: 114
+        weight: 0.4
+      - index: 67
+        weight: 0.2
+      - index: 68
+        weight: 0.2
+      - index: 113
+        weight: 0.2
+      - index: 68
+        weight: 0.4
+      - index: 71
+        weight: 0.2
+      - index: 66
+        weight: 0.2
+      - index: 112
+        weight: 0.2
+      - index: 66
+        weight: 0.4
+      - index: 63
+        weight: 0.2
+      - index: 65
+        weight: 0.2
+      - index: 67
+        weight: 0.2
+      - index: 63
+        weight: 0.4
+      - index: 62
+        weight: 0.2
+      - index: 64
+        weight: 0.2
+      - index: 71
+        weight: 0.2
+      - index: 64
+        weight: 0.4
+      - index: 32
+        weight: 0.2
+      - index: 63
+        weight: 0.2
+      - index: 65
+        weight: 0.2
+      - index: 32
+        weight: 0.4
+      - index: 31
+        weight: 0.2
+      - index: 62
+        weight: 0.2
+      - index: 64
+        weight: 0.2
+      - index: 151
+        weight: 0.4
+      - index: 150
+        weight: 0.2
+      - index: 140
+        weight: 0.2
+      - index: 142
+        weight: 0.2
+      - index: 150
+        weight: 0.4
+      - index: 149
+        weight: 0.2
+      - index: 174
+        weight: 0.2
+      - index: 172
+        weight: 0.2
+      - index: 149
+        weight: 0.4
+      - index: 113
+        weight: 0.2
+      - index: 111
+        weight: 0.2
+      - index: 150
+        weight: 0.2
+      - index: 111
+        weight: 0.4
+      - index: 110
+        weight: 0.2
+      - index: 112
+        weight: 0.2
+      - index: 149
+        weight: 0.2
+      - index: 112
+        weight: 0.4
+      - index: 72
+        weight: 0.2
+      - index: 68
+        weight: 0.2
+      - index: 113
+        weight: 0.2
+      - index: 72
+        weight: 0.4
+      - index: 71
+        weight: 0.2
+      - index: 73
+        weight: 0.2
+      - index: 110
+        weight: 0.2
+      - index: 71
+        weight: 0.4
+      - index: 63
+        weight: 0.2
+      - index: 61
+        weight: 0.2
+      - index: 72
+        weight: 0.2
+      - index: 61
+        weight: 0.4
+      - index: 60
+        weight: 0.2
+      - index: 62
+        weight: 0.2
+      - index: 71
+        weight: 0.2
+      - index: 62
+        weight: 0.4
+      - index: 29
+        weight: 0.2
+      - index: 32
+        weight: 0.2
+      - index: 63
+        weight: 0.2
+      - index: 29
+        weight: 0.4
+      - index: 28
+        weight: 0.2
+      - index: 31
+        weight: 0.2
+      - index: 60
+        weight: 0.2
+      - index: 31
+        weight: 0.4
+      - index: 19
+        weight: 0.2
+      - index: 29
+        weight: 0.2
+      - index: 32
+        weight: 0.2
+      - index: 19
+        weight: 0.4
+      - index: 18
+        weight: 0.20000002
+      - index: 28
+        weight: 0.2
+      - index: 31
+        weight: 0.2
+      - index: 28
+        weight: 0.4
+      - index: 16
+        weight: 0.20000002
+      - index: 19
+        weight: 0.2
+      - index: 29
+        weight: 0.2
+      - index: 16
+        weight: 0.4
+      - index: 28
+        weight: 0.20000002
+      - index: 15
+        weight: 0.2
+      - index: 18
+        weight: 0.2
+      - index: 30
+        weight: 0.4
+      - index: 33
+        weight: 0.20000002
+      - index: 28
+        weight: 0.2
+      - index: 58
+        weight: 0.2
+      - index: 18
+        weight: 0.4
+      - index: 19
+        weight: 0.20000002
+      - index: 10
+        weight: 0.2
+      - index: 16
+        weight: 0.2
+      - index: 10
+        weight: 0.4
+      - index: 15
+        weight: 0.2
+      - index: 18
+        weight: 0.2
+      - index: 9
+        weight: 0.19999996
+      - index: 60
+        weight: 0.4
+      - index: 29
+        weight: 0.2
+      - index: 30
+        weight: 0.2
+      - index: 59
+        weight: 0.2
+      - index: 59
+        weight: 0.4
+      - index: 58
+        weight: 0.2
+      - index: 60
+        weight: 0.2
+      - index: 75
+        weight: 0.2
+      - index: 73
+        weight: 0.4
+      - index: 59
+        weight: 0.2
+      - index: 61
+        weight: 0.2
+      - index: 72
+        weight: 0.2
+      - index: 74
+        weight: 0.4
+      - index: 75
+        weight: 0.2
+      - index: 73
+        weight: 0.2
+      - index: 108
+        weight: 0.2
+      - index: 110
+        weight: 0.4
+      - index: 72
+        weight: 0.2
+      - index: 74
+        weight: 0.2
+      - index: 109
+        weight: 0.2
+      - index: 109
+        weight: 0.4
+      - index: 108
+        weight: 0.2
+      - index: 110
+        weight: 0.2
+      - index: 175
+        weight: 0.2
+      - index: 174
+        weight: 0.4
+      - index: 109
+        weight: 0.2
+      - index: 111
+        weight: 0.2
+      - index: 150
+        weight: 0.2
+      - index: 173
+        weight: 0.4
+      - index: 175
+        weight: 0.2
+      - index: 174
+        weight: 0.2
+      - index: 172
+        weight: 0.2
+      - index: 172
+        weight: 0.4
+      - index: 150
+        weight: 0.2
+      - index: 171
+        weight: 0.2
+      - index: 173
+        weight: 0.2
+      - index: 177
+        weight: 0.4
+      - index: 176
+        weight: 0.2
+      - index: 171
+        weight: 0.2
+      - index: 173
+        weight: 0.2
+      - index: 176
+        weight: 0.4
+      - index: 175
+        weight: 0.2
+      - index: 181
+        weight: 0.2
+      - index: 185
+        weight: 0.2
+      - index: 175
+        weight: 0.4
+      - index: 109
+        weight: 0.2
+      - index: 107
+        weight: 0.2
+      - index: 176
+        weight: 0.2
+      - index: 107
+        weight: 0.4
+      - index: 106
+        weight: 0.2
+      - index: 108
+        weight: 0.2
+      - index: 175
+        weight: 0.2
+      - index: 108
+        weight: 0.4
+      - index: 76
+        weight: 0.2
+      - index: 74
+        weight: 0.2
+      - index: 109
+        weight: 0.2
+      - index: 76
+        weight: 0.4
+      - index: 75
+        weight: 0.2
+      - index: 77
+        weight: 0.2
+      - index: 106
+        weight: 0.2
+      - index: 185
+        weight: 0.4
+      - index: 186
+        weight: 0.2
+      - index: 176
+        weight: 0.2
+      - index: 182
+        weight: 0.2
+      - index: 182
+        weight: 0.4
+      - index: 187
+        weight: 0.2
+      - index: 193
+        weight: 0.2
+      - index: 181
+        weight: 0.2
+      - index: 75
+        weight: 0.4
+      - index: 59
+        weight: 0.2
+      - index: 57
+        weight: 0.2
+      - index: 76
+        weight: 0.2
+      - index: 57
+        weight: 0.4
+      - index: 56
+        weight: 0.20000002
+      - index: 58
+        weight: 0.2
+      - index: 75
+        weight: 0.2
+      - index: 181
+        weight: 0.4
+      - index: 105
+        weight: 0.2
+      - index: 107
+        weight: 0.2
+      - index: 176
+        weight: 0.2
+      - index: 105
+        weight: 0.4
+      - index: 104
+        weight: 0.2
+      - index: 106
+        weight: 0.2
+      - index: 187
+        weight: 0.2
+      - index: 193
+        weight: 0.4
+      - index: 188
+        weight: 0.2
+      - index: 186
+        weight: 0.2
+      - index: 194
+        weight: 0.2
+      - index: 188
+        weight: 0.4
+      - index: 195
+        weight: 0.2
+      - index: 201
+        weight: 0.2
+      - index: 187
+        weight: 0.2
+      - index: 106
+        weight: 0.4
+      - index: 76
+        weight: 0.2
+      - index: 78
+        weight: 0.2
+      - index: 105
+        weight: 0.2
+      - index: 78
+        weight: 0.4
+      - index: 79
+        weight: 0.20000002
+      - index: 77
+        weight: 0.2
+      - index: 104
+        weight: 0.2
+      - index: 58
+        weight: 0.4
+      - index: 34
+        weight: 0.20000002
+      - index: 30
+        weight: 0.2
+      - index: 59
+        weight: 0.2
+      - index: 34
+        weight: 0.4
+      - index: 58
+        weight: 0.20000002
+      - index: 33
+        weight: 0.2
+      - index: 35
+        weight: 0.2
+      - index: 187
+        weight: 0.4
+      - index: 188
+        weight: 0.2
+      - index: 105
+        weight: 0.2
+      - index: 103
+        weight: 0.2
+      - index: 103
+        weight: 0.4
+      - index: 102
+        weight: 0.20000002
+      - index: 195
+        weight: 0.2
+      - index: 104
+        weight: 0.2
+      - index: 201
+        weight: 0.4
+      - index: 188
+        weight: 0.2
+      - index: 196
+        weight: 0.2
+      - index: 202
+        weight: 0.2
+      - index: 196
+        weight: 0.4
+      - index: 203
+        weight: 0.20000002
+      - index: 195
+        weight: 0.2
+      - index: 201
+        weight: 0.2
+      - index: 104
+        weight: 0.4
+      - index: 80
+        weight: 0.20000002
+      - index: 78
+        weight: 0.2
+      - index: 105
+        weight: 0.2
+      - index: 80
+        weight: 0.4
+      - index: 104
+        weight: 0.20000002
+      - index: 79
+        weight: 0.2
+      - index: 81
+        weight: 0.2
+      - index: 33
+        weight: 0.4
+      - index: 30
+        weight: 0.20000002
+      - index: 16
+        weight: 0.2
+      - index: 17
+        weight: 0.2
+      - index: 17
+        weight: 0.4
+      - index: 15
+        weight: 0.2
+      - index: 33
+        weight: 0.2
+      - index: 35
+        weight: 0.2
+      - index: 195
+        weight: 0.4
+      - index: 101
+        weight: 0.20000002
+      - index: 188
+        weight: 0.2
+      - index: 196
+        weight: 0.2
+      - index: 101
+        weight: 0.4
+      - index: 195
+        weight: 0.20000002
+      - index: 100
+        weight: 0.2
+      - index: 203
+        weight: 0.2
+      - index: 251
+        weight: 0.4
+      - index: 204
+        weight: 0.20000002
+      - index: 196
+        weight: 0.2
+      - index: 202
+        weight: 0.2
+      - index: 204
+        weight: 0.4
+      - index: 251
+        weight: 0.20000002
+      - index: 203
+        weight: 0.2
+      - index: 211
+        weight: 0.2
+      - index: 102
+        weight: 0.4
+      - index: 103
+        weight: 0.20000002
+      - index: 101
+        weight: 0.2
+      - index: 80
+        weight: 0.2
+      - index: 82
+        weight: 0.4
+      - index: 100
+        weight: 0.2
+      - index: 81
+        weight: 0.2
+      - index: 102
+        weight: 0.2
+      - index: 15
+        weight: 0.4
+      - index: 10
+        weight: 0.2
+      - index: 16
+        weight: 0.2
+      - index: 17
+        weight: 0.2
+      - index: 7
+        weight: 0.4
+      - index: 6
+        weight: 0.2
+      - index: 9
+        weight: 0.2
+      - index: 20
+        weight: 0.2
+      - index: 9
+        weight: 0.4
+      - index: 4
+        weight: 0.2
+      - index: 7
+        weight: 0.2
+      - index: 10
+        weight: 0.19999996
+      - index: 4
+        weight: 0.4
+      - index: 1
+        weight: 0.2
+      - index: 6
+        weight: 0.2
+      - index: 9
+        weight: 0.2
+      - index: 241
+        weight: 0.4
+      - index: 242
+        weight: 0.20000002
+      - index: 204
+        weight: 0.2
+      - index: 212
+        weight: 0.2
+      - index: 212
+        weight: 0.4
+      - index: 211
+        weight: 0.2
+      - index: 233
+        weight: 0.2
+      - index: 241
+        weight: 0.2
+      - index: 233
+        weight: 0.4
+      - index: 212
+        weight: 0.2
+      - index: 234
+        weight: 0.2
+      - index: 228
+        weight: 0.2
+      - index: 214
+        weight: 0.4
+      - index: 213
+        weight: 0.2
+      - index: 215
+        weight: 0.2
+      - index: 227
+        weight: 0.2
+      - index: 227
+        weight: 0.4
+      - index: 214
+        weight: 0.2
+      - index: 216
+        weight: 0.2
+      - index: 224
+        weight: 0.2
+      - index: 216
+        weight: 0.4
+      - index: 217
+        weight: 0.2
+      - index: 215
+        weight: 0.2
+      - index: 223
+        weight: 0.2
+      - index: 223
+        weight: 0.4
+      - index: 218
+        weight: 0.2
+      - index: 216
+        weight: 0.2
+      - index: 224
+        weight: 0.2
+      - index: 218
+        weight: 0.39999998
+      - index: 219
+        weight: 0.20000008
+      - index: 217
+        weight: 0.19999999
+      - index: 221
+        weight: 0.19999999
+      - index: 221
+        weight: 0.39999998
+      - index: 220
+        weight: 0.20000008
+      - index: 218
+        weight: 0.19999999
+      - index: 222
+        weight: 0.19999999
+      - index: 220
+        weight: 0.43613014
+      - index: 221
+        weight: 0.21806517
+      - index: 219
+        weight: 0.21806507
+      - index: 218
+        weight: 0.12773964
+      - index: 219
+        weight: 0.39999998
+      - index: 218
+        weight: 0.20000008
+      - index: 95
+        weight: 0.19999999
+      - index: 220
+        weight: 0.19999999
+      - index: 95
+        weight: 0.39999998
+      - index: 217
+        weight: 0.20000008
+      - index: 94
+        weight: 0.19999999
+      - index: 219
+        weight: 0.19999999
+      - index: 217
+        weight: 0.39999998
+      - index: 95
+        weight: 0.20000008
+      - index: 92
+        weight: 0.19999999
+      - index: 218
+        weight: 0.19999999
+      - index: 92
+        weight: 0.39999998
+      - index: 94
+        weight: 0.20000008
+      - index: 91
+        weight: 0.19999999
+      - index: 217
+        weight: 0.19999999
+      - index: 94
+        weight: 0.39999998
+      - index: 92
+        weight: 0.20000008
+      - index: 90
+        weight: 0.19999999
+      - index: 95
+        weight: 0.19999999
+      - index: 90
+        weight: 0.39999998
+      - index: 91
+        weight: 0.20000008
+      - index: 89
+        weight: 0.19999999
+      - index: 94
+        weight: 0.19999999
+      - index: 215
+        weight: 0.4
+      - index: 92
+        weight: 0.2
+      - index: 93
+        weight: 0.2
+      - index: 214
+        weight: 0.2
+      - index: 93
+        weight: 0.4
+      - index: 91
+        weight: 0.2
+      - index: 96
+        weight: 0.2
+      - index: 213
+        weight: 0.2
+      - index: 91
+        weight: 0.39999998
+      - index: 90
+        weight: 0.20000008
+      - index: 88
+        weight: 0.19999999
+      - index: 92
+        weight: 0.19999999
+      - index: 88
+        weight: 0.39999998
+      - index: 89
+        weight: 0.20000008
+      - index: 87
+        weight: 0.19999999
+      - index: 91
+        weight: 0.19999999
+      - index: 89
+        weight: 0.39999998
+      - index: 88
+        weight: 0.20000008
+      - index: 49
+        weight: 0.19999999
+      - index: 90
+        weight: 0.19999999
+      - index: 49
+        weight: 0.39999998
+      - index: 87
+        weight: 0.20000008
+      - index: 48
+        weight: 0.19999999
+      - index: 89
+        weight: 0.19999999
+      - index: 213
+        weight: 0.4
+      - index: 97
+        weight: 0.2
+      - index: 93
+        weight: 0.2
+      - index: 214
+        weight: 0.2
+      - index: 97
+        weight: 0.4
+      - index: 96
+        weight: 0.2
+      - index: 98
+        weight: 0.2
+      - index: 213
+        weight: 0.2
+      - index: 96
+        weight: 0.4
+      - index: 88
+        weight: 0.2
+      - index: 86
+        weight: 0.2
+      - index: 97
+        weight: 0.2
+      - index: 86
+        weight: 0.4
+      - index: 87
+        weight: 0.2
+      - index: 85
+        weight: 0.2
+      - index: 96
+        weight: 0.2
+      - index: 87
+        weight: 0.39999998
+      - index: 49
+        weight: 0.20000008
+      - index: 46
+        weight: 0.19999999
+      - index: 88
+        weight: 0.19999999
+      - index: 46
+        weight: 0.39999998
+      - index: 48
+        weight: 0.20000008
+      - index: 87
+        weight: 0.19999999
+      - index: 45
+        weight: 0.19999999
+      - index: 48
+        weight: 0.39999998
+      - index: 46
+        weight: 0.20000008
+      - index: 49
+        weight: 0.19999999
+      - index: 44
+        weight: 0.19999999
+      - index: 44
+        weight: 0.39999998
+      - index: 45
+        weight: 0.20000008
+      - index: 48
+        weight: 0.19999999
+      - index: 43
+        weight: 0.19999999
+      - index: 211
+        weight: 0.4
+      - index: 99
+        weight: 0.2
+      - index: 204
+        weight: 0.2
+      - index: 212
+        weight: 0.2
+      - index: 99
+        weight: 0.4
+      - index: 100
+        weight: 0.2
+      - index: 203
+        weight: 0.2
+      - index: 211
+        weight: 0.2
+      - index: 98
+        weight: 0.4
+      - index: 84
+        weight: 0.2
+      - index: 86
+        weight: 0.2
+      - index: 97
+        weight: 0.2
+      - index: 84
+        weight: 0.4
+      - index: 85
+        weight: 0.2
+      - index: 98
+        weight: 0.2
+      - index: 83
+        weight: 0.2
+      - index: 85
+        weight: 0.4
+      - index: 46
+        weight: 0.2
+      - index: 84
+        weight: 0.2
+      - index: 86
+        weight: 0.2
+      - index: 47
+        weight: 0.4
+      - index: 45
+        weight: 0.2
+      - index: 85
+        weight: 0.2
+      - index: 50
+        weight: 0.2
+      - index: 45
+        weight: 0.39999998
+      - index: 44
+        weight: 0.20000008
+      - index: 46
+        weight: 0.19999999
+      - index: 42
+        weight: 0.19999999
+      - index: 42
+        weight: 0.39999998
+      - index: 43
+        weight: 0.20000008
+      - index: 41
+        weight: 0.19999999
+      - index: 45
+        weight: 0.19999999
+      - index: 43
+        weight: 0.39999998
+      - index: 42
+        weight: 0.20000008
+      - index: 27
+        weight: 0.19999999
+      - index: 44
+        weight: 0.19999999
+      - index: 27
+        weight: 0.39999998
+      - index: 41
+        weight: 0.20000008
+      - index: 26
+        weight: 0.19999999
+      - index: 43
+        weight: 0.19999999
+      - index: 203
+        weight: 0.4
+      - index: 196
+        weight: 0.20000002
+      - index: 101
+        weight: 0.2
+      - index: 99
+        weight: 0.2
+      - index: 100
+        weight: 0.4
+      - index: 101
+        weight: 0.2
+      - index: 99
+        weight: 0.2
+      - index: 82
+        weight: 0.2
+      - index: 83
+        weight: 0.4
+      - index: 84
+        weight: 0.2
+      - index: 51
+        weight: 0.2
+      - index: 47
+        weight: 0.2
+      - index: 51
+        weight: 0.4
+      - index: 50
+        weight: 0.2
+      - index: 52
+        weight: 0.2
+      - index: 83
+        weight: 0.2
+      - index: 50
+        weight: 0.4
+      - index: 42
+        weight: 0.2
+      - index: 40
+        weight: 0.2
+      - index: 51
+        weight: 0.2
+      - index: 40
+        weight: 0.4
+      - index: 41
+        weight: 0.2
+      - index: 39
+        weight: 0.2
+      - index: 50
+        weight: 0.2
+      - index: 41
+        weight: 0.39999998
+      - index: 27
+        weight: 0.20000008
+      - index: 25
+        weight: 0.19999999
+      - index: 42
+        weight: 0.19999999
+      - index: 25
+        weight: 0.39999998
+      - index: 26
+        weight: 0.20000008
+      - index: 24
+        weight: 0.19999999
+      - index: 41
+        weight: 0.19999999
+      - index: 26
+        weight: 0.39999998
+      - index: 25
+        weight: 0.20000008
+      - index: 14
+        weight: 0.19999999
+      - index: 27
+        weight: 0.19999999
+      - index: 14
+        weight: 0.39999998
+      - index: 24
+        weight: 0.20000008
+      - index: 13
+        weight: 0.19999999
+      - index: 26
+        weight: 0.19999999
+      - index: 81
+        weight: 0.4
+      - index: 53
+        weight: 0.2
+      - index: 80
+        weight: 0.2
+      - index: 82
+        weight: 0.2
+      - index: 53
+        weight: 0.4
+      - index: 54
+        weight: 0.2
+      - index: 79
+        weight: 0.2
+      - index: 81
+        weight: 0.2
+      - index: 52
+        weight: 0.4
+      - index: 38
+        weight: 0.2
+      - index: 40
+        weight: 0.2
+      - index: 51
+        weight: 0.2
+      - index: 38
+        weight: 0.4
+      - index: 37
+        weight: 0.2
+      - index: 39
+        weight: 0.2
+      - index: 52
+        weight: 0.2
+      - index: 39
+        weight: 0.4
+      - index: 25
+        weight: 0.2
+      - index: 23
+        weight: 0.2
+      - index: 38
+        weight: 0.2
+      - index: 23
+        weight: 0.4
+      - index: 24
+        weight: 0.2
+      - index: 22
+        weight: 0.2
+      - index: 37
+        weight: 0.2
+      - index: 24
+        weight: 0.39999998
+      - index: 14
+        weight: 0.20000008
+      - index: 12
+        weight: 0.19999999
+      - index: 25
+        weight: 0.19999999
+      - index: 12
+        weight: 0.39999998
+      - index: 13
+        weight: 0.20000008
+      - index: 11
+        weight: 0.19999999
+      - index: 24
+        weight: 0.19999999
+      - index: 13
+        weight: 0.39999998
+      - index: 12
+        weight: 0.20000008
+      - index: 5
+        weight: 0.19999999
+      - index: 14
+        weight: 0.19999999
+      - index: 5
+        weight: 0.39999998
+      - index: 11
+        weight: 0.20000008
+      - index: 3
+        weight: 0.19999999
+      - index: 13
+        weight: 0.19999999
+      - index: 79
+        weight: 0.4
+      - index: 78
+        weight: 0.20000002
+      - index: 55
+        weight: 0.2
+      - index: 53
+        weight: 0.2
+      - index: 55
+        weight: 0.4
+      - index: 77
+        weight: 0.20000002
+      - index: 54
+        weight: 0.2
+      - index: 56
+        weight: 0.2
+      - index: 54
+        weight: 0.4
+      - index: 36
+        weight: 0.2
+      - index: 55
+        weight: 0.2
+      - index: 53
+        weight: 0.2
+      - index: 36
+        weight: 0.4
+      - index: 35
+        weight: 0.2
+      - index: 54
+        weight: 0.2
+      - index: 56
+        weight: 0.2
+      - index: 37
+        weight: 0.4
+      - index: 21
+        weight: 0.2
+      - index: 23
+        weight: 0.2
+      - index: 38
+        weight: 0.2
+      - index: 21
+        weight: 0.4
+      - index: 20
+        weight: 0.2
+      - index: 22
+        weight: 0.2
+      - index: 37
+        weight: 0.2
+      - index: 22
+        weight: 0.4
+      - index: 12
+        weight: 0.2
+      - index: 8
+        weight: 0.2
+      - index: 21
+        weight: 0.2
+      - index: 8
+        weight: 0.4
+      - index: 11
+        weight: 0.2
+      - index: 6
+        weight: 0.2
+      - index: 20
+        weight: 0.2
+      - index: 11
+        weight: 0.39999998
+      - index: 5
+        weight: 0.20000008
+      - index: 0
+        weight: 0.19999999
+      - index: 12
+        weight: 0.19999999
+      - index: 0
+        weight: 0.39999998
+      - index: 3
+        weight: 0.20000008
+      - index: 1
+        weight: 0.19999999
+      - index: 11
+        weight: 0.19999999
+      - index: 3
+        weight: 0.39999998
+      - index: 0
+        weight: 0.20000008
+      - index: 2
+        weight: 0.19999999
+      - index: 5
+        weight: 0.19999999
+      - index: 2
+        weight: 0.43613014
+      - index: 1
+        weight: 0.21806517
+      - index: 3
+        weight: 0.21806507
+      - index: 0
+        weight: 0.12773964
+      - index: 1
+        weight: 0.39999998
+      - index: 2
+        weight: 0.20000008
+      - index: 0
+        weight: 0.19999999
+      - index: 4
+        weight: 0.19999999
+      - index: 6
+        weight: 0.4
+      - index: 0
+        weight: 0.2
+      - index: 4
+        weight: 0.2
+      - index: 7
+        weight: 0.2
+      - index: 20
+        weight: 0.4
+      - index: 7
+        weight: 0.2
+      - index: 8
+        weight: 0.2
+      - index: 21
+        weight: 0.2
+      - index: 35
+        weight: 0.4
+      - index: 17
+        weight: 0.2
+      - index: 34
+        weight: 0.2
+      - index: 36
+        weight: 0.2
+      - index: 56
+        weight: 0.4
+      - index: 57
+        weight: 0.20000002
+      - index: 34
+        weight: 0.2
+      - index: 36
+        weight: 0.2
+      - index: 77
+        weight: 0.4
+      - index: 55
+        weight: 0.20000002
+      - index: 57
+        weight: 0.2
+      - index: 76
+        weight: 0.2
+      m_AlignBytes: 16
+    influenceOffsets:
+      serializedContents: 0000000004000000080000000c0000001000000014000000180000001c0000002000000024000000280000002c0000003000000034000000380000003c0000004000000044000000480000004c0000005000000054000000580000005c0000006000000064000000680000006c0000007000000074000000780000007c0000008000000084000000880000008c0000009000000094000000980000009c000000a0000000a4000000a8000000ac000000b0000000b4000000b8000000bc000000c0000000c4000000c8000000cc000000d0000000d4000000d8000000dc000000e0000000e4000000e8000000ec000000f0000000f4000000f8000000fc0000000001000004010000080100000c0100001001000014010000180100001c0100002001000024010000280100002c0100003001000034010000380100003c0100004001000044010000480100004c0100005001000054010000580100005c0100006001000064010000680100006c0100007001000074010000780100007c0100008001000084010000880100008c0100009001000094010000980100009c010000a0010000a4010000a8010000ac010000b0010000b4010000b8010000bc010000c0010000c4010000c8010000cc010000d0010000d4010000d8010000dc010000e0010000e4010000e8010000ec010000f0010000f4010000f8010000fc0100000002000004020000080200000c0200001002000014020000180200001c0200002002000024020000280200002c0200003002000034020000380200003c0200004002000044020000480200004c0200005002000054020000580200005c0200006002000064020000680200006c0200007002000074020000780200007c0200008002000084020000880200008c0200009002000094020000980200009c020000a0020000a4020000a8020000ac020000b0020000b4020000b8020000bc020000c0020000c4020000c8020000cc020000d0020000d4020000d8020000dc020000e0020000e4020000e8020000ec020000f0020000f4020000f8020000fc0200000003000004030000080300000c0300001003000014030000180300001c0300002003000024030000280300002c0300003003000034030000380300003c0300004003000044030000480300004c0300005003000054030000580300005c0300006003000064030000680300006c0300007003000074030000780300007c0300008003000084030000880300008c0300009003000094030000980300009c030000a0030000a4030000a8030000ac030000b0030000b4030000b8030000bc030000c0030000c4030000c8030000cc030000d0030000d4030000d8030000dc030000e0030000e4030000e8030000ec030000f0030000f4030000f8030000fc0300000004000004040000080400000c0400001004000014040000180400001c0400002004000024040000280400002c0400003004000034040000380400003c0400004004000044040000480400004c0400005004000054040000580400005c0400006004000064040000680400006c0400007004000074040000780400007c0400008004000084040000
+      m_AlignBytes: 16
+  bonesOnParticles:
+    influences:
+      serializedContents: []
+      m_AlignBytes: 16
+    influenceOffsets:
+      serializedContents: 
+      m_AlignBytes: 16
+  bindPoses:
+    serializedContents:
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.9964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.8714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.7464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.6214999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.4964999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.3714999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.2464999
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: 0.121499896
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.0034999847
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.12849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.9865
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.8615
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.7365
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.6115
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.48650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.36150002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.23650002
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: 0.111500025
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.013499975
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.13849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.26349998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -1.0035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.8785
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -1.0135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.7535
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.8885
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.6285
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.7635
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.5035
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.6385
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.37849998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.5135
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    - e00: 0
+      e01: 0
+      e02: 1
+      e03: -0.25349998
+      e10: 1
+      e11: 0
+      e12: 0
+      e13: -0.38849998
+      e20: 0
+      e21: 1
+      e22: 0
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_AlignBytes: 16
+  checksum: 3630689645
