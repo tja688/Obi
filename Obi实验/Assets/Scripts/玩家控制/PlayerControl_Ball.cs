@@ -84,10 +84,12 @@ public class PlayerControl_Ball : MonoBehaviour
         softbody.AddForce(Vector3.up * jumpPower, ForceMode.VelocityChange);
     }
 
-    private void Update()
+    private void LateUpdate()
     {
-        if (!actor || !actor.isLoaded) return;
+        if (!actor || !actor.isLoaded || !actorTrans) return;
+        
         actor.GetMass(out var com);
+        
         actorTrans.position = actor.solver.transform.TransformPoint(com) + offset;
     }
 
