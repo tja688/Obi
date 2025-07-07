@@ -59,10 +59,10 @@ namespace Obi
 
         private void OnEnable()
         {
-            if (PlayerInputManager.Instance != null)
+            if (PlayerInputManager.instance != null)
             {
-                PlayerInputManager.Instance.onMove += HandleMoveInput;
-                PlayerInputManager.Instance.onJump += HandleJumpInput;
+                PlayerInputManager.instance.OnOnMove += HandleMoveInput;
+                PlayerInputManager.instance.OnOnJump += HandleJumpInput;
             }
             else
             {
@@ -75,10 +75,10 @@ namespace Obi
         private void OnDisable()
         {
             // 安全地取消订阅
-            if (PlayerInputManager.Instance != null)
+            if (PlayerInputManager.instance != null)
             {
-                PlayerInputManager.Instance.onMove -= HandleMoveInput;
-                PlayerInputManager.Instance.onJump -= HandleJumpInput;
+                PlayerInputManager.instance.OnOnMove -= HandleMoveInput;
+                PlayerInputManager.instance.OnOnJump -= HandleJumpInput;
             }
         }
 
