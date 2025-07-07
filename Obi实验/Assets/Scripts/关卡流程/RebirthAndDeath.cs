@@ -23,14 +23,14 @@ public class RebirthAndDeath : MonoBehaviour
     public UnityEvent onRestart = new UnityEvent();
 
     private bool restart;
-    private ExtrapolationCamera extrapolationCamera; // <--- 新增：用于缓存相机组件
+    private CameraFollow cameraFollow; // <--- 新增：用于缓存相机组件
 
     private void Start()
     {
         if (camera1 != null)
         {
-            extrapolationCamera = camera1.GetComponent<ExtrapolationCamera>();
-            if (extrapolationCamera == null)
+            cameraFollow = camera1.GetComponent<CameraFollow>();
+            if (cameraFollow == null)
             {
                 Debug.LogError("Main Camera does not have an 'ExtrapolationCamera' component attached!", this.gameObject);
             }
@@ -52,19 +52,30 @@ public class RebirthAndDeath : MonoBehaviour
     {
         solver.OnCollision += Solver_OnCollision;
         solver.OnSimulationStart += Solver_OnSimulationStart;
+        PlayerInputManager.instance.OnOnReStart += Restart;
     }
 
     private void OnDisable()
     {
         solver.OnCollision -= Solver_OnCollision;
         solver.OnSimulationStart -= Solver_OnSimulationStart;
+        PlayerInputManager.instance.OnOnReStart -= Restart;
+
     }
 
-    private void Update()
+    private void Restart()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            restart = true;
+        restart = true;
+        
+        if (!restart || !spawnPoint) return;
+        softbody.Teleport(spawnPoint.position, spawnPoint.rotation);
+        
+        if (camera1)
+            cameraFollow.Teleport(cameraSpawnPoint.position, cameraSpawnPoint.rotation);
+        
+        restart = false;
     }
+    
 
     private void Solver_OnSimulationStart(ObiSolver s, float timeToSimulate, float substepTime)
     {
@@ -76,8 +87,7 @@ public class RebirthAndDeath : MonoBehaviour
         softbodyCom.Update();
 
         if (camera1)
-            camera1.GetComponent<ExtrapolationCamera>()
-                .Teleport(cameraSpawnPoint.position, cameraSpawnPoint.rotation);
+            cameraFollow.Teleport(cameraSpawnPoint.position, cameraSpawnPoint.rotation);
 
         restart = false;
         onRestart.Invoke();
@@ -95,6 +105,7 @@ public class RebirthAndDeath : MonoBehaviour
             if (col == deathPitCollider)
             {
                 onDeath.Invoke();
+                Restart();
                 return;
             }
 

@@ -41,6 +41,8 @@ public class PlayerInputManager : MonoBehaviour
     public event Action OnOnJump;
 
     public event Action OnOnInteract;
+    
+    public event Action OnOnReStart;
 
     // Q键按下事件
     public event Action OnOnQPressed;
@@ -141,5 +143,12 @@ public class PlayerInputManager : MonoBehaviour
         {
             OnOnMouseRightClick?.Invoke();
         }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            OnOnReStart?.Invoke();
+        }
     }
+
+
 }
