@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Obi;
@@ -12,7 +13,6 @@ public class RebirthAndDeath : MonoBehaviour
 
     public Camera camera1;
     public ObiSoftbody softbody;
-    public ActorCOMTransform softbodyCom;
     public ObiCollider deathPitCollider;
     public ObiCollider finishCollider;
     public Transform spawnPoint;
@@ -39,6 +39,8 @@ public class RebirthAndDeath : MonoBehaviour
         {
             Debug.LogError("Could not find Main Camera in the scene. Make sure your camera has the 'MainCamera' tag.", this.gameObject);
         }
+        
+        PlayerInputManager.instance.OnOnReStart += Restart;
     }
 
     private void Awake()
@@ -52,45 +54,38 @@ public class RebirthAndDeath : MonoBehaviour
     {
         solver.OnCollision += Solver_OnCollision;
         solver.OnSimulationStart += Solver_OnSimulationStart;
-        PlayerInputManager.instance.OnOnReStart += Restart;
     }
 
     private void OnDisable()
     {
         solver.OnCollision -= Solver_OnCollision;
         solver.OnSimulationStart -= Solver_OnSimulationStart;
-        PlayerInputManager.instance.OnOnReStart -= Restart;
+    }
 
+    private void OnDestroy()
+    {
+        PlayerInputManager.instance.OnOnReStart -= Restart;
     }
 
     private void Restart()
     {
         restart = true;
-        
-        if (!restart || !spawnPoint) return;
-        softbody.Teleport(spawnPoint.position, spawnPoint.rotation);
-        
-        if (camera1)
-            cameraFollow.Teleport(cameraSpawnPoint.position, cameraSpawnPoint.rotation);
-        
-        restart = false;
     }
     
 
     private void Solver_OnSimulationStart(ObiSolver s, float timeToSimulate, float substepTime)
     {
-        if (!softbody || !softbodyCom) return;
-
-        if (!restart || !spawnPoint) return;
-        softbody.Teleport(spawnPoint.position, spawnPoint.rotation);
+        if (!softbody) return;
         
-        softbodyCom.Update();
+        if (restart && spawnPoint)
+        {
+            softbody.Teleport(spawnPoint.position, spawnPoint.rotation);
 
-        if (camera1)
             cameraFollow.Teleport(cameraSpawnPoint.position, cameraSpawnPoint.rotation);
 
-        restart = false;
-        onRestart.Invoke();
+            restart = false;
+            onRestart.Invoke();
+        }
     }
 
     private void Solver_OnCollision(ObiSolver s, ObiNativeContactList e)
@@ -105,7 +100,6 @@ public class RebirthAndDeath : MonoBehaviour
             if (col == deathPitCollider)
             {
                 onDeath.Invoke();
-                Restart();
                 return;
             }
 
