@@ -41,28 +41,24 @@ public class PlayerControl_Ball : MonoBehaviour
     {
         softbody = GetComponent<ObiSoftbody>();
         softbody.solver.OnCollision += Solver_OnCollision;
-    }
-    
-    private void OnEnable()
-    {
+        
         if (PlayerInputManager.instance == null) return;
         PlayerInputManager.instance.OnOnMove += HandleMove;
         PlayerInputManager.instance.OnOnJump += HandleJump;
     }
-
-    private void OnDisable()
-    {
-        if (PlayerInputManager.instance == null) return;
-        PlayerInputManager.instance.OnOnMove -= HandleMove;
-        PlayerInputManager.instance.OnOnJump -= HandleJump;
-    }
+    
 
     private void OnDestroy()
     {
+        
         if(softbody != null && softbody.solver != null)
         {
             softbody.solver.OnCollision -= Solver_OnCollision;
         }
+        
+        if (PlayerInputManager.instance == null) return;
+        PlayerInputManager.instance.OnOnMove -= HandleMove;
+        PlayerInputManager.instance.OnOnJump -= HandleJump;
     }
 
     private void HandleMove(Vector2 moveInput)
