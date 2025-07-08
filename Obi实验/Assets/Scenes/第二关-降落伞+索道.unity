@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 76233745}
   serializedVersion: 2
   m_LocalRotation: {x: 0.19103839, y: -0, z: -0, w: 0.9815826}
-  m_LocalPosition: {x: 0.07999992, y: -1.79, z: -96.63126}
+  m_LocalPosition: {x: 0.07999992, y: -6.09, z: -96.63126}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1648,7 +1648,7 @@ Transform:
   m_GameObject: {fileID: 1138549898}
   serializedVersion: 2
   m_LocalRotation: {x: 0.19103839, y: -0, z: -0, w: 0.9815826}
-  m_LocalPosition: {x: 0.6388235, y: 10.715918, z: -14.495802}
+  m_LocalPosition: {x: 0.6388235, y: 6.4159174, z: -14.495802}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2725,7 +2725,7 @@ Transform:
   m_GameObject: {fileID: 1539821899}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.07999992, y: -4.62, z: -89.88126}
+  m_LocalPosition: {x: 0.07999992, y: -8.92, z: -89.88126}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4438,7 +4438,7 @@ Transform:
   m_GameObject: {fileID: 7924846107846144411}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 7.8859177, z: -7.745802}
+  m_LocalPosition: {x: 0, y: 3.5859175, z: -7.745802}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4463,7 +4463,7 @@ MonoBehaviour:
   m_CollisionMaterial: {fileID: 11400000, guid: 56297c6e785b44eb28e469b62cedc016, type: 2}
   m_SurfaceCollisions: 0
   m_MassScale: 1
-  m_SoftbodyBlueprint: {fileID: 11400000, guid: f28ba033f1514441b850ab3ed76d0c71, type: 2}
+  m_SoftbodyBlueprint: {fileID: 11400000, guid: a8a0912a608c81343b2b5b7a0c4cc603, type: 2}
   m_SelfCollisions: 0
   m_DirectionalCollisions: 0
   centerBatch: -1
@@ -5418,15 +5418,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924846107846144411}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4d03c9194b7ab4aaba4dfa5afec22c69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actor: {fileID: 775131123273879725}
   m_Target: {fileID: 0}
-  m_ParticleGroup: {fileID: 0}
-  m_AttachmentType: 0
+  m_ParticleGroup: {fileID: -6152272672442233658, guid: a8a0912a608c81343b2b5b7a0c4cc603, type: 2}
+  m_AttachmentType: 1
   m_ConstrainOrientation: 0
   m_Projection: 0
   m_Compliance: 0
