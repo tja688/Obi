@@ -1541,11 +1541,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 95212545563132974}
+  linearSpeed: 0.02
+  distanceFromTarget: 5
+  mouseSensitivity: 0.8
+  pitchClamp: {x: -10, y: 45}
   extrapolation: 12
-  smoothness: 0.9
-  linearSpeed: 0.05
-  rotationalSpeed: 0.05
-  distanceFromTarget: 6
+  smoothness: 0.5
 --- !u!1001 &1197603191
 PrefabInstance:
   m_ObjectHideFlags: 0
