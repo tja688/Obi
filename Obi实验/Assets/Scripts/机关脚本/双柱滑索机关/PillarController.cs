@@ -2,10 +2,15 @@ using UnityEngine;
 using Cysharp.Threading.Tasks;
 using System.Threading;
 using Obi;
-using System; // 需要引入System命名空间来使用Action
 
 public class PillarController : MonoBehaviour
 {
+    [Header("核心求解器与目标Actor")]
+    [Tooltip("场景中驱动物理的核心Obi Solver")]
+    [SerializeField] private ObiSolver targetSolver; // [新增]
+    [Tooltip("代表玩家的Obi Actor")]
+    [SerializeField] private ObiActor playerActor;   // [新增]
+
     [Header("场景对象引用")]
     [SerializeField] private Transform pillarParentA;
     [SerializeField] private Transform pillarParentB;
@@ -19,73 +24,48 @@ public class PillarController : MonoBehaviour
     [SerializeField] private float attachmentGracePeriodDuration = 1.5f;
 
     [Header("Obi 交互设置")]
-    // **修改点**: 不再需要引用任何Solver，只需引用自身的碰撞体
     [SerializeField] private ObiCollider pillarAObiCollider;
     [SerializeField] private ObiCollider pillarBObiCollider;
 
     private ObiParticleAttachment _playerAttachment;
 
-    // --- 公共状态属性 ---
     public bool IsCartInGracePeriod { get; private set; } = false;
     public bool IsAttachmentInGracePeriod { get; private set; } = false;
 
-    // --- 私有状态 ---
     private bool _isMoving = false;
     private Transform _lockedPillarParent = null; 
     private bool _isPillarAHigh = true;
     private CancellationTokenSource _cts;
     
-    // **修改点**: 为每个需要注册的回调创建一个Action实例，以便正确注销
-    private Action<Oni.Contact> _onCollisionWithPillarA;
-    private Action<Oni.Contact> _onCollisionWithPillarB;
-
-
+    // [删除] 不再需要外部管理器的回调实例
+    
     #region Unity生命周期
     void Start()
     {
         _cts = new CancellationTokenSource();
 
-        // 初始化玩家附件的引用
         if (PlayerControl_Ball.instance != null)
         {
             _playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
         }
 
-        // 检查管理器是否存在
-        if (ObiCollisionManager.Instance == null)
+        // [改造] 检查并直接订阅目标Solver的事件
+        if (targetSolver == null || playerActor == null)
         {
-            Debug.LogError("PillarController 初始化失败: 场景中缺少 ObiCollisionManager 实例！", this);
+            Debug.LogError("PillarController 初始化失败: 请在Inspector中指定 Target Solver 和 Player Actor！", this);
+            enabled = false;
             return;
         }
 
-        // **修改点**: 向管理器注册碰撞回调
-        // 1. 为柱子A注册
-        if (pillarAObiCollider != null)
-        {
-            _onCollisionWithPillarA = (contact) => { RequestPillarSwap(pillarAObiCollider); };
-            ObiCollisionManager.Instance.RegisterCollisionCallback(pillarAObiCollider, _onCollisionWithPillarA);
-        }
-        // 2. 为柱子B注册
-        if (pillarBObiCollider != null)
-        {
-            _onCollisionWithPillarB = (contact) => { RequestPillarSwap(pillarBObiCollider); };
-            ObiCollisionManager.Instance.RegisterCollisionCallback(pillarBObiCollider, _onCollisionWithPillarB);
-        }
+        targetSolver.OnCollision += HandleObiCollision;
     }
     
     void OnDestroy() 
     { 
-        // **修改点**: 在销毁时，向管理器取消注册，释放资源
-        if (ObiCollisionManager.Instance != null)
+        // [改造] 在销毁时取消订阅
+        if (targetSolver != null)
         {
-            if (pillarAObiCollider != null)
-            {
-                ObiCollisionManager.Instance.UnregisterCollisionCallback(pillarAObiCollider, _onCollisionWithPillarA);
-            }
-            if (pillarBObiCollider != null)
-            {
-                ObiCollisionManager.Instance.UnregisterCollisionCallback(pillarBObiCollider, _onCollisionWithPillarB);
-            }
+            targetSolver.OnCollision -= HandleObiCollision;
         }
 
         if (_cts != null) 
@@ -96,7 +76,30 @@ public class PillarController : MonoBehaviour
     }
     #endregion
 
-    #region 核心逻辑 (这部分无需修改)
+    // [新增] 新的碰撞处理函数，专门处理玩家与柱子的碰撞
+    private void HandleObiCollision(ObiSolver solver, ObiNativeContactList contacts)
+    {
+        if (solver != targetSolver) return;
+
+        var world = ObiColliderWorld.GetInstance();
+
+        foreach (Oni.Contact contact in contacts)
+        {
+            var pair = ObiUtils.GetColliderActorPair(solver, world, contact);
+            if (pair == null) continue;
+
+            // 验证：碰撞方必须是玩家Actor，且碰撞体必须是两个柱子之一
+            if (pair.Value.actor == playerActor && (pair.Value.collider == pillarAObiCollider || pair.Value.collider == pillarBObiCollider))
+            {
+                // 条件满足，请求交换
+                RequestPillarSwap(pair.Value.collider as ObiCollider);
+                break; // 处理一次即可
+            }
+        }
+    }
+
+
+    #region 核心逻辑 (这部分与您的原始脚本完全一致，未作修改)
     public void LockCartToPillarParent(Transform pillarParentTransform)
     {
         if (cartRigidbody != null && cartRigidbody.transform.parent != pillarParentTransform)

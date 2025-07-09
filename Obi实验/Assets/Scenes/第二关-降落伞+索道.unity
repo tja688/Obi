@@ -324,7 +324,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4020377640995630884, guid: 96bed0f6a1c6de443b42fa95beaeed32, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -375,6 +375,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238d75b833e7b844a9fc58fdb7602bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetSolver: {fileID: 1278208582}
+  playerActor: {fileID: 2101593900}
   pillarParentA: {fileID: 919013565}
   pillarParentB: {fileID: 1990707297}
   cartRigidbody: {fileID: 2097444423}
@@ -1523,7 +1525,6 @@ GameObject:
   - component: {fileID: 1039790952}
   - component: {fileID: 1039790951}
   - component: {fileID: 1039790953}
-  - component: {fileID: 1039790954}
   m_Layer: 0
   m_Name: GameController
   m_TagString: Untagged
@@ -1602,19 +1603,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1ec16f985ba9448b959ed0679f7655, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1039790954
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1039790950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0ec3507b8fce4d47962df5d355e8420, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableDebugLogging: 1
 --- !u!1 &1048212385
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,6 +1682,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048212385}
   m_CullTransparentMesh: 0
+--- !u!1 &1079769424
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1079769426}
+  - component: {fileID: 1079769425}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1079769425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079769424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1079769426
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079769424}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100414523
 GameObject:
   m_ObjectHideFlags: 0
@@ -3818,52 +3852,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1372949651088259803, guid: e7a71c117b1c58d48accd9c280f12d7d, type: 3}
   m_PrefabInstance: {fileID: 1521767969}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2041886191
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2041886193}
-  - component: {fileID: 2041886192}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &2041886192
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041886191}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &2041886193
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041886191}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2047827352
 GameObject:
   m_ObjectHideFlags: 0
@@ -4227,6 +4215,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pillarController: {fileID: 233824962}
   cartObiCollider: {fileID: 2097444422}
+  targetSolver: {fileID: 1278208582}
+  playerActor: {fileID: 2101593900}
 --- !u!1001 &2101593899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5122,4 +5112,4 @@ SceneRoots:
   - {fileID: 1039790952}
   - {fileID: 215527388}
   - {fileID: 2047827356}
-  - {fileID: 2041886193}
+  - {fileID: 1079769426}

@@ -25,6 +25,10 @@ public class PlayerControl_Ball : MonoBehaviour
     private ObiSoftbody softbody;
     private bool onGround = false;
 
+    public ObiSolver PlayerSolver => playerSolver;
+    private ObiSolver playerSolver;
+
+    
     private void Awake()
     {
         if (instance == null)
@@ -40,7 +44,8 @@ public class PlayerControl_Ball : MonoBehaviour
     private void Start()
     {
         softbody = GetComponent<ObiSoftbody>();
-        softbody.solver.OnCollision += Solver_OnCollision;
+        playerSolver = softbody.solver;
+        playerSolver.OnCollision += Solver_OnCollision;
         
         if (PlayerInputManager.instance == null) return;
         PlayerInputManager.instance.OnOnMove += HandleMove;

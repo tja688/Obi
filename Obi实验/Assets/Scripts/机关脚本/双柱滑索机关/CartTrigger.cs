@@ -1,66 +1,83 @@
 using UnityEngine;
 using Obi;
-using System; // 需要引入System命名空间来使用Action
+using System;
 
 /// <summary>
-/// 小车触发器 (最终重构版)
-/// 职责：仅负责自身的业务逻辑（抓取玩家）。碰撞检测完全委托给ObiCollisionManager。
+/// 小车触发器 (改造后)
+/// 职责：仅负责自身的业务逻辑（抓取玩家）。碰撞检测直接依赖Solver事件。
 /// </summary>
 public class CartTrigger : MonoBehaviour
 {
     [Header("核心引用")]
     [SerializeField] private PillarController pillarController;
-    [SerializeField] private ObiCollider cartObiCollider; // 只需要引用自身的碰撞体
+    [SerializeField] private ObiCollider cartObiCollider; 
+
+    [Header("核心求解器与目标Actor")]
+    [Tooltip("场景中驱动物理的核心Obi Solver")]
+    [SerializeField] private ObiSolver targetSolver; // [新增]
+    [Tooltip("代表玩家的Obi Actor")]
+    [SerializeField] private ObiActor playerActor;   // [新增]
 
     private ObiParticleAttachment _playerAttachment;
-
-    // 为了能在Unregister时正确取消，需要保存回调方法的实例
-    private Action<Oni.Contact> _onPlayerCollisionAction;
+    
+    // [删除] 不再需要外部管理器的回调实例
 
     void Start()
     {
-        // 获取玩家附件组件
         if (PlayerControl_Ball.instance != null)
         {
             _playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
         }
 
-        // 确保所有引用都已就绪
-        if (cartObiCollider == null || ObiCollisionManager.Instance == null)
+        // [改造] 确保所有新引用都已就绪
+        if (cartObiCollider == null || targetSolver == null || playerActor == null)
         {
-            Debug.LogError("CartTrigger初始化失败：请检查ObiCollider和ObiCollisionManager实例！", this);
+            Debug.LogError("CartTrigger初始化失败：请在Inspector中指定Cart Collider, Target Solver 和 Player Actor！", this);
+            enabled = false;
             return;
         }
-
-        // 创建回调方法的委托实例
-        _onPlayerCollisionAction = HandlePlayerCollision;
         
-        // 向管理器注册： "嘿，管理器，请在'cartObiCollider'和玩家碰撞时，调用我的'HandlePlayerCollision'方法"
-        // 注意：我们没有提供第三个参数(targetActor)，所以管理器会自动设为玩家。
-        ObiCollisionManager.Instance.RegisterCollisionCallback(cartObiCollider, _onPlayerCollisionAction);
+        // [改造] 直接向Solver注册
+        targetSolver.OnCollision += HandleCollision;
     }
     
     void OnDestroy()
     {
-        // 在对象销毁时，务必向管理器取消注册，防止内存泄漏和空引用
-        if (ObiCollisionManager.Instance != null && cartObiCollider != null)
+        // [改造] 直接向Solver取消注册
+        if (targetSolver != null)
         {
-            ObiCollisionManager.Instance.UnregisterCollisionCallback(cartObiCollider, _onPlayerCollisionAction);
+            targetSolver.OnCollision -= HandleCollision;
         }
     }
 
-    /// <summary>
-    /// 这是碰撞发生时，由管理器回调的专属业务逻辑处理函数。
-    /// </summary>
-    /// <param name="contact">由管理器传回的碰撞点信息，目前未使用，但保留以备将来扩展。</param>
-    private void HandlePlayerCollision(Oni.Contact contact)
+    // [改造] 新的统一碰撞处理函数
+    private void HandleCollision(ObiSolver solver, ObiNativeContactList contacts)
     {
-        // 检查冷却状态
+        if (solver != targetSolver) return;
+        
+        var world = ObiColliderWorld.GetInstance();
+
+        foreach (Oni.Contact contact in contacts)
+        {
+            var pair = ObiUtils.GetColliderActorPair(solver, world, contact);
+            if (pair == null) continue;
+
+            // 验证: 碰撞方必须是玩家Actor，且碰撞体必须是这个小车的Collider
+            if (pair.Value.actor == playerActor && pair.Value.collider == cartObiCollider)
+            {
+                // 所有条件满足！执行核心业务逻辑
+                ExecutePlayerGrabbing();
+                break; 
+            }
+        }
+    }
+
+    private void ExecutePlayerGrabbing()
+    {
         if (_playerAttachment == null || _playerAttachment.enabled || (pillarController != null && pillarController.IsAttachmentInGracePeriod)) return;
         
-        Debug.Log("玩家碰撞到小车 (由Manager通知)，开始抓取并请求升降...");
+        Debug.Log("玩家碰撞到小车 (已通过Solver/Actor/Collider验证)，开始抓取并请求升降...");
                 
-        // 执行核心的抓取逻辑
         _playerAttachment.BindToTarget(this.transform);
         _playerAttachment.enabled = true;
 
