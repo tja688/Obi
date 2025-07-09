@@ -61,7 +61,7 @@ public class CartTrigger : MonoBehaviour
         Debug.Log("玩家碰撞到小车 (由Manager通知)，开始抓取并请求升降...");
                 
         // 执行核心的抓取逻辑
-        _playerAttachment.target = this.transform;
+        _playerAttachment.BindToTarget(this.transform);
         _playerAttachment.enabled = true;
 
         if (pillarController != null)
