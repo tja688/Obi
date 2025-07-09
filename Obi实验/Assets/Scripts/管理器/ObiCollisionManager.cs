@@ -145,30 +145,38 @@ public class ObiCollisionManager : MonoBehaviour
         for (int i = 0; i < contacts.count; ++i)
         {
             var contact = contacts[i];
-            
-            Log($"  [接触点 {i+1}/{contacts.count}] bodyA: {contact.bodyA}, bodyB: {contact.bodyB}");
 
-            // 尝试解析接触的双方
-            var actorA = GetActorFromParticle(solver, contact.bodyA);
-            var colliderA = GetColliderFromContact(contact.bodyA);
-            var actorB = GetActorFromParticle(solver, contact.bodyB);
-            var colliderB = GetColliderFromContact(contact.bodyB);
+            // 尝试解析两种可能的组合：
+            // 组合 1: bodyA是粒子, bodyB是碰撞体
+            var actor1 = GetActorFromParticle(solver, contact.bodyA);
+            var collider1 = GetColliderFromContact(contact.bodyB);
 
-            // 打印详细的解析结果
-            string bodyAResult = $"bodyA -> Actor: {(actorA != null ? actorA.name : "null")}, Collider: {(colliderA != null ? colliderA.name : "null")}";
-            string bodyBResult = $"bodyB -> Actor: {(actorB != null ? actorB.name : "null")}, Collider: {(colliderB != null ? colliderB.name : "null")}";
-            Log($"    解析: {bodyAResult} | {bodyBResult}");
+            // 组合 2: bodyA是碰撞体, bodyB是粒子
+            var collider2 = GetColliderFromContact(contact.bodyA);
+            var actor2 = GetActorFromParticle(solver, contact.bodyB);
+
+            // 详细的调试日志，现在能更清晰地看到哪个组合是有效的
+            string combo1_valid = (actor1 != null && collider1 != null) ? $"有效: Actor='{actor1.name}', Collider='{collider1.name}'" : "无效";
+            string combo2_valid = (actor2 != null && collider2 != null) ? $"有效: Actor='{actor2.name}', Collider='{collider2.name}'" : "无效";
+            Log($"  [接触点 {i+1}] bodyA:{contact.bodyA}, bodyB:{contact.bodyB} | 组合1: {combo1_valid} | 组合2: {combo2_valid}");
+
 
             foreach (var registration in solverRegistrations)
             {
-                // 检查两种可能的碰撞组合
-                if ((actorA == registration.TargetActor && colliderB == registration.TargetCollider) ||
-                    (actorB == registration.TargetActor && colliderA == registration.TargetCollider))
+                // 检查组合1是否匹配注册项
+                if (actor1 == registration.TargetActor && collider1 == registration.TargetCollider)
                 {
-                    Log($"    <color=lime>---> 匹配成功! <--</color> 触发注册在 Collider '{registration.TargetCollider.name}' 上的回调。");
+                    Log($"    <color=lime>---> 组合1匹配成功! <--</color> 触发注册在 Collider '{registration.TargetCollider.name}' 上的回调。");
                     registration.Callback?.Invoke(contact);
-                    // 通常一个接触点只应触发一个回调，如果需要支持多个可以移除break。
-                    break; 
+                    break; // 假设一个接触点只处理一次
+                }
+
+                // 检查组合2是否匹配注册项
+                if (actor2 == registration.TargetActor && collider2 == registration.TargetCollider)
+                {
+                    Log($"    <color=lime>---> 组合2匹配成功! <--</color> 触发注册在 Collider '{registration.TargetCollider.name}' 上的回调。");
+                    registration.Callback?.Invoke(contact);
+                    break; // 假设一个接触点只处理一次
                 }
             }
         }
