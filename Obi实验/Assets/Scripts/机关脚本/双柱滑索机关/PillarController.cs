@@ -32,19 +32,19 @@ public class PillarController : MonoBehaviour
     [Tooltip("勾选后，将在控制台打印详细的碰撞检测日志")]
     [SerializeField] private bool enableDebugLogging = true;
 
-    private ObiParticleAttachment _playerAttachment;
-    public bool IsCartInGracePeriod { get; private set; } = false;
-    public bool IsAttachmentInGracePeriod { get; private set; } = false;
-    private bool _isMoving = false;
-    private Transform _lockedPillarParent = null; 
-    private bool _isPillarAHigh = true;
-    private CancellationTokenSource _cts;
+    private ObiParticleAttachment playerAttachment;
+    public bool isCartInGracePeriod { get; private set; } = false;
+    public bool isAttachmentInGracePeriod { get; private set; } = false;
+    private bool isMoving = false;
+    private Transform lockedPillarParent = null; 
+    private bool isPillarAHigh = true;
+    private CancellationTokenSource cts;
     
     #region Unity生命周期
     void Start()
     {
-        _cts = new CancellationTokenSource();
-        if (PlayerControl_Ball.instance != null) { _playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>(); }
+        cts = new CancellationTokenSource();
+        if (PlayerControl_Ball.instance != null) { playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>(); }
         if (playerSolver == null || playerActor == null) { Debug.LogError("PillarController 初始化失败: 请在Inspector中指定 Player Solver 和 Player Actor！", this); enabled = false; return; }
         
         playerSolver.OnCollision += HandleObiCollision;
@@ -53,7 +53,7 @@ public class PillarController : MonoBehaviour
     void OnDestroy() 
     { 
         if (playerSolver != null) { playerSolver.OnCollision -= HandleObiCollision; }
-        if (_cts != null) { _cts.Cancel(); _cts.Dispose(); } 
+        if (cts != null) { cts.Cancel(); cts.Dispose(); } 
     }
     #endregion
 
@@ -122,10 +122,10 @@ public class PillarController : MonoBehaviour
     }
 
     #region 核心逻辑 (现在可以正确访问成员变量)
-    public void LockCartToPillarParent(Transform pillarParentTransform) { if (cartRigidbody != null && cartRigidbody.transform.parent != pillarParentTransform) { cartRigidbody.isKinematic = true; cartRigidbody.transform.SetParent(pillarParentTransform, worldPositionStays: true); _lockedPillarParent = pillarParentTransform; Debug.Log($"运输车已硬锁定到父对象: {pillarParentTransform.name}。"); if (_playerAttachment != null && _playerAttachment.enabled) { Debug.Log("小车已固定，开始释放玩家..."); _playerAttachment.enabled = false; _playerAttachment.target = null; StartAttachmentGracePeriod().Forget(); } } }
-    private async UniTask StartAttachmentGracePeriod() { IsAttachmentInGracePeriod = true; Debug.Log($"抓取功能进入 {attachmentGracePeriodDuration} 秒冷却。"); await UniTask.Delay(System.TimeSpan.FromSeconds(attachmentGracePeriodDuration), cancellationToken: _cts.Token); IsAttachmentInGracePeriod = false; Debug.Log("抓取功能冷却结束。"); }
-    public void RequestPillarSwap(ObiCollider triggeredByPillar = null) { if (_isMoving) return; if (_lockedPillarParent != null && triggeredByPillar != null) { if ((triggeredByPillar == pillarAObiCollider && _lockedPillarParent == pillarParentA) || (triggeredByPillar == pillarBObiCollider && _lockedPillarParent == pillarParentB)) { return; } } InitiatePillarSwap().Forget(); }
-    private async UniTask InitiatePillarSwap() { _isMoving = true; Vector3 sA = pillarParentA.localPosition; Vector3 sB = pillarParentB.localPosition; Vector3 tA, tB; if (_isPillarAHigh) { tA = sA - new Vector3(0, moveDistance, 0); tB = sB + new Vector3(0, moveDistance, 0); } else { tA = sA + new Vector3(0, moveDistance, 0); tB = sB - new Vector3(0, moveDistance, 0); } float e = 0f; while (e < moveDuration) { if (_cts.IsCancellationRequested) { _isMoving = false; return; } e += Time.deltaTime; float t = Mathf.SmoothStep(0.0f, 1.0f, Mathf.Clamp01(e / moveDuration)); pillarParentA.localPosition = Vector3.Lerp(sA, tA, t); pillarParentB.localPosition = Vector3.Lerp(sB, tB, t); await UniTask.Yield(PlayerLoopTiming.Update, _cts.Token); } pillarParentA.localPosition = tA; pillarParentB.localPosition = tB; _isPillarAHigh = !_isPillarAHigh; _isMoving = false; await UnlockCartAsync(); }
-    private async UniTask UnlockCartAsync() { if (cartRigidbody != null && cartRigidbody.transform.parent != null) { _lockedPillarParent = null; cartRigidbody.transform.SetParent(null, worldPositionStays: true); IsCartInGracePeriod = true; cartRigidbody.isKinematic = false; await UniTask.Delay(System.TimeSpan.FromSeconds(gracePeriodDuration), cancellationToken: _cts.Token); IsCartInGracePeriod = false; } }
+    public void LockCartToPillarParent(Transform pillarParentTransform) { if (cartRigidbody != null && cartRigidbody.transform.parent != pillarParentTransform) { cartRigidbody.isKinematic = true; cartRigidbody.transform.SetParent(pillarParentTransform, worldPositionStays: true); lockedPillarParent = pillarParentTransform; Debug.Log($"运输车已硬锁定到父对象: {pillarParentTransform.name}。"); if (playerAttachment != null && playerAttachment.enabled) { Debug.Log("小车已固定，开始释放玩家..."); playerAttachment.enabled = false; playerAttachment.target = null; StartAttachmentGracePeriod().Forget(); } } }
+    private async UniTask StartAttachmentGracePeriod() { isAttachmentInGracePeriod = true; Debug.Log($"抓取功能进入 {attachmentGracePeriodDuration} 秒冷却。"); await UniTask.Delay(System.TimeSpan.FromSeconds(attachmentGracePeriodDuration), cancellationToken: cts.Token); isAttachmentInGracePeriod = false; Debug.Log("抓取功能冷却结束。"); }
+    public void RequestPillarSwap(ObiCollider triggeredByPillar = null) { if (isMoving) return; if (lockedPillarParent != null && triggeredByPillar != null) { if ((triggeredByPillar == pillarAObiCollider && lockedPillarParent == pillarParentA) || (triggeredByPillar == pillarBObiCollider && lockedPillarParent == pillarParentB)) { return; } } InitiatePillarSwap().Forget(); }
+    private async UniTask InitiatePillarSwap() { isMoving = true; Vector3 sA = pillarParentA.localPosition; Vector3 sB = pillarParentB.localPosition; Vector3 tA, tB; if (isPillarAHigh) { tA = sA - new Vector3(0, moveDistance, 0); tB = sB + new Vector3(0, moveDistance, 0); } else { tA = sA + new Vector3(0, moveDistance, 0); tB = sB - new Vector3(0, moveDistance, 0); } float e = 0f; while (e < moveDuration) { if (cts.IsCancellationRequested) { isMoving = false; return; } e += Time.deltaTime; float t = Mathf.SmoothStep(0.0f, 1.0f, Mathf.Clamp01(e / moveDuration)); pillarParentA.localPosition = Vector3.Lerp(sA, tA, t); pillarParentB.localPosition = Vector3.Lerp(sB, tB, t); await UniTask.Yield(PlayerLoopTiming.Update, cts.Token); } pillarParentA.localPosition = tA; pillarParentB.localPosition = tB; isPillarAHigh = !isPillarAHigh; isMoving = false; await UnlockCartAsync(); }
+    private async UniTask UnlockCartAsync() { if (cartRigidbody != null && cartRigidbody.transform.parent != null) { lockedPillarParent = null; cartRigidbody.transform.SetParent(null, worldPositionStays: true); isCartInGracePeriod = true; cartRigidbody.isKinematic = false; await UniTask.Delay(System.TimeSpan.FromSeconds(gracePeriodDuration), cancellationToken: cts.Token); isCartInGracePeriod = false; } }
     #endregion
 }

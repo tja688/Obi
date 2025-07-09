@@ -24,10 +24,9 @@ public class PlayerControl_Ball : MonoBehaviour
     private ObiSoftbody softbody;
     private bool onGround = false;
 
-    public ObiSolver PlayerSolver => playerSolver;
-    private ObiSolver playerSolver;
+    public ObiSolver playerSolver { get; private set; }
 
-    
+
     private void Awake()
     {
         if (instance == null)

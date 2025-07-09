@@ -34,13 +34,10 @@ public class CartCollisionHandler : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         if (pillarController == null) return;
-        if (pillarController.IsCartInGracePeriod) return;
+        if (pillarController.isCartInGracePeriod) return;
 
-        // **[已修改]** 检查碰撞对象的Tag是否为我们设定的【触发球Tag】
         if (collision.gameObject.CompareTag(pillarTriggerTag))
         {
-            // **[已修改]** 调用控制器的锁定方法，并传入【触发球的父对象】的Transform
-            // 这是实现新架构的关键一步
             Transform parentToLockTo = collision.transform.parent;
             if (parentToLockTo != null)
             {

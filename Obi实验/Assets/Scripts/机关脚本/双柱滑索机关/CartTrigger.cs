@@ -18,13 +18,13 @@ public class CartTrigger : MonoBehaviour
     [Tooltip("勾选后，将在控制台打印详细的碰撞检测日志")]
     [SerializeField] private bool enableDebugLogging = true;
 
-    private ObiParticleAttachment _playerAttachment;
+    private ObiParticleAttachment playerAttachment;
     
     void Start()
     {
         if (PlayerControl_Ball.instance != null)
         {
-            _playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
+            playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
         }
 
         if (cartObiCollider == null || playerSolver == null || playerActor == null)
@@ -112,12 +112,12 @@ public class CartTrigger : MonoBehaviour
 
     private void ExecutePlayerGrabbing()
     {
-        if (_playerAttachment == null || _playerAttachment.enabled || (pillarController != null && pillarController.IsAttachmentInGracePeriod)) return;
+        if (playerAttachment == null || playerAttachment.enabled || (pillarController != null && pillarController.isAttachmentInGracePeriod)) return;
         
         Debug.Log("玩家碰撞到小车 (已通过Solver/Actor/Collider验证)，开始抓取并请求升降...");
                 
-        _playerAttachment.BindToTarget(this.transform);
-        _playerAttachment.enabled = true;
+        playerAttachment.BindToTarget(this.transform);
+        playerAttachment.enabled = true;
 
         if (pillarController != null)
         {
