@@ -4218,7 +4218,7 @@ MonoBehaviour:
   cartObiCollider: {fileID: 2097444422}
   playerSolver: {fileID: 1278208582}
   playerActor: {fileID: 2101593900}
-  enableDebugLogging: 1
+  enableDebugLogging: 0
 --- !u!1001 &2101593899
 PrefabInstance:
   m_ObjectHideFlags: 0

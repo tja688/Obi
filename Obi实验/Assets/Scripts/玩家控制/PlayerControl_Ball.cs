@@ -2,7 +2,6 @@ using System.Linq;
 using Obi;
 using UnityEngine;
 
-[RequireComponent(typeof(ObiSoftbody))]
 public class PlayerControl_Ball : MonoBehaviour
 {
     #region Singleton
