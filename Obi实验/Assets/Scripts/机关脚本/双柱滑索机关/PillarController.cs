@@ -61,19 +61,17 @@ public class PillarController : MonoBehaviour
     {
         if (solver != playerSolver) return;
 
-        var world = ObiColliderWorld.GetInstance();
-
         for (int i = 0; i < contacts.count; ++i)
         {
-            var contact = contacts[i];
-            
-            if (TryParseCollisionPair(contact, world, out ObiActor hitActor, out ObiColliderBase hitCollider))
+            if (ObiCollisionUtils.TryParseActorColliderPair(contacts[i], solver, out ObiActor hitActor, out ObiColliderBase hitCollider))
             {
                 if (enableDebugLogging)
                 {
+                    // 日志保持不变，用于验证
                     Debug.Log($"[PillarController] 解码成功: Actor='{hitActor?.name ?? "NULL"}' <--> Collider='{hitCollider?.name ?? "NULL"}'");
                 }
 
+                // 具体的业务逻辑判断保持不变
                 if (hitActor == playerActor && (hitCollider == pillarAObiCollider || hitCollider == pillarBObiCollider))
                 {
                     if (enableDebugLogging)
@@ -86,40 +84,7 @@ public class PillarController : MonoBehaviour
             }
         }
     }
-
-    private bool TryParseCollisionPair(Oni.Contact contact, ObiColliderWorld world, out ObiActor actor, out ObiColliderBase collider)
-    {
-        actor = null;
-        collider = null;
-
-        if (IsParticleFromOurActor(contact.bodyA))
-        {
-            actor = this.playerActor;
-            if (contact.bodyB >= 0 && contact.bodyB < world.colliderHandles.Count)
-            {
-                collider = world.colliderHandles[contact.bodyB].owner;
-            }
-        }
-        else if (IsParticleFromOurActor(contact.bodyB))
-        {
-            actor = this.playerActor;
-            if (contact.bodyA >= 0 && contact.bodyA < world.colliderHandles.Count)
-            {
-                collider = world.colliderHandles[contact.bodyA].owner;
-            }
-        }
-
-        return actor != null && collider != null;
-    }
-
-    private bool IsParticleFromOurActor(int particleSolverIndex)
-    {
-        if (playerSolver == null || !playerSolver.gameObject.activeInHierarchy || particleSolverIndex < 0 || particleSolverIndex >= playerSolver.particleToActor.Length)
-            return false;
-            
-        var p = playerSolver.particleToActor[particleSolverIndex];
-        return p != null && p.actor == this.playerActor;
-    }
+    
 
     #region 核心逻辑 (现在可以正确访问成员变量)
     public void LockCartToPillarParent(Transform pillarParentTransform) { if (cartRigidbody != null && cartRigidbody.transform.parent != pillarParentTransform) { cartRigidbody.isKinematic = true; cartRigidbody.transform.SetParent(pillarParentTransform, worldPositionStays: true); lockedPillarParent = pillarParentTransform; Debug.Log($"运输车已硬锁定到父对象: {pillarParentTransform.name}。"); if (playerAttachment != null && playerAttachment.enabled) { Debug.Log("小车已固定，开始释放玩家..."); playerAttachment.enabled = false; playerAttachment.target = null; StartAttachmentGracePeriod().Forget(); } } }
