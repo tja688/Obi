@@ -9,7 +9,7 @@ using UnityEngine.Serialization;
 
 public class RebirthAndDeath : MonoBehaviour
 {
-    private ObiSolver solver;
+    public ObiSolver solver;
 
     public Camera camera1;
     public ObiSoftbody softbody;
@@ -45,7 +45,6 @@ public class RebirthAndDeath : MonoBehaviour
 
     private void Awake()
     {
-        solver = FindFirstObjectByType<ObiSolver>();
         if (solver == null)
             Debug.LogError($"Unable to find ObiSolver");
     }
