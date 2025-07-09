@@ -1,89 +1,72 @@
 using UnityEngine;
 using Obi;
+using System; // 需要引入System命名空间来使用Action
 
 /// <summary>
-/// 小车触发器（最终版）：
-/// 新增职责：在检测到与玩家碰撞后，负责【抓取】玩家。
-/// 修改：解耦Solver，现在监听指定Player Solver的碰撞事件。
+/// 小车触发器 (最终重构版)
+/// 职责：仅负责自身的业务逻辑（抓取玩家）。碰撞检测完全委托给ObiCollisionManager。
 /// </summary>
 public class CartTrigger : MonoBehaviour
 {
     [Header("核心引用")]
     [SerializeField] private PillarController pillarController;
-    [Tooltip("需要监听其碰撞事件的玩家Solver")]
-    [SerializeField] private ObiSolver playerSolver; // **修改点1: 明确引用玩家的Solver**
-    [SerializeField] private ObiCollider cartObiCollider;
-    
-    private ObiActor playerActor;
-    private ObiParticleAttachment playerAttachment;
+    [SerializeField] private ObiCollider cartObiCollider; // 只需要引用自身的碰撞体
+
+    private ObiParticleAttachment _playerAttachment;
+
+    // 为了能在Unregister时正确取消，需要保存回调方法的实例
+    private Action<Oni.Contact> _onPlayerCollisionAction;
 
     void Start()
     {
-        // 确保关键引用存在
-        if (playerSolver == null)
-        {
-            Debug.LogError("CartTrigger: 玩家Solver(playerSolver)未指定！", this);
-            return;
-        }
-        
-        // 获取一次玩家实例即可，避免重复查找
+        // 获取玩家附件组件
         if (PlayerControl_Ball.instance != null)
         {
-            playerActor = PlayerControl_Ball.instance.GetComponent<ObiActor>();
-            playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
+            _playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
         }
-        else
+
+        // 确保所有引用都已就绪
+        if (cartObiCollider == null || ObiCollisionManager.Instance == null)
         {
-            Debug.LogError("CartTrigger: 无法找到玩家实例(PlayerControl_Ball.instance)！", this);
+            Debug.LogError("CartTrigger初始化失败：请检查ObiCollider和ObiCollisionManager实例！", this);
+            return;
+        }
+
+        // 创建回调方法的委托实例
+        _onPlayerCollisionAction = HandlePlayerCollision;
+        
+        // 向管理器注册： "嘿，管理器，请在'cartObiCollider'和玩家碰撞时，调用我的'HandlePlayerCollision'方法"
+        // 注意：我们没有提供第三个参数(targetActor)，所以管理器会自动设为玩家。
+        ObiCollisionManager.Instance.RegisterCollisionCallback(cartObiCollider, _onPlayerCollisionAction);
+    }
+    
+    void OnDestroy()
+    {
+        // 在对象销毁时，务必向管理器取消注册，防止内存泄漏和空引用
+        if (ObiCollisionManager.Instance != null && cartObiCollider != null)
+        {
+            ObiCollisionManager.Instance.UnregisterCollisionCallback(cartObiCollider, _onPlayerCollisionAction);
         }
     }
 
-    // **修改点2: 监听和取消监听playerSolver**
-    void OnEnable() { if (playerSolver != null) playerSolver.OnCollision += OnObiPlayerCollisionWithCart; }
-    void OnDisable() { if (playerSolver != null) playerSolver.OnCollision -= OnObiPlayerCollisionWithCart; }
-
-    // **修改点3: 使用事件传入的solver作为上下文**
-    private void OnObiPlayerCollisionWithCart(ObiSolver solver, ObiNativeContactList contacts)
+    /// <summary>
+    /// 这是碰撞发生时，由管理器回调的专属业务逻辑处理函数。
+    /// </summary>
+    /// <param name="contact">由管理器传回的碰撞点信息，目前未使用，但保留以备将来扩展。</param>
+    private void HandlePlayerCollision(Oni.Contact contact)
     {
         // 检查冷却状态
-        if (playerAttachment == null || playerAttachment.enabled || (pillarController != null && pillarController.IsAttachmentInGracePeriod)) return;
+        if (_playerAttachment == null || _playerAttachment.enabled || (pillarController != null && pillarController.IsAttachmentInGracePeriod)) return;
+        
+        Debug.Log("玩家碰撞到小车 (由Manager通知)，开始抓取并请求升降...");
+                
+        // 执行核心的抓取逻辑
+        _playerAttachment.target = this.transform;
+        _playerAttachment.enabled = true;
 
-        for (int i = 0; i < contacts.count; i++)
+        if (pillarController != null)
         {
-            var contact = contacts[i];
-            // **修改点4: 将正确的solver上下文传入辅助函数**
-            if ((IsPlayerParticle(solver, contact.bodyA) && IsThisCartCollider(contact.bodyB)) ||
-                (IsPlayerParticle(solver, contact.bodyB) && IsThisCartCollider(contact.bodyA)))
-            {
-                Debug.Log("玩家碰撞到小车，开始抓取并请求升降...");
-                
-                // 使用ObiParticleAttachment的标准方式来附加目标
-                playerAttachment.BindToTarget(this.transform);
-                playerAttachment.enabled = true;
-
-                if (pillarController)
-                {
-                    pillarController.RequestPillarSwap();
-                }
-                
-                return; // 处理完一次碰撞即可退出，防止重复触发
-            }
+            pillarController.RequestPillarSwap();
         }
-    }
-
-    // **修改点5: 辅助函数接收solver上下文**
-    private bool IsPlayerParticle(ObiSolver solverContext, int particleIndex) 
-    { 
-        if (playerActor == null || particleIndex < 0 || particleIndex >= solverContext.particleToActor.Length) return false;
-        var actorHandle = solverContext.particleToActor[particleIndex];
-        return actorHandle != null && actorHandle.actor == playerActor;
-    }
-
-    private bool IsThisCartCollider(int colliderIndex) 
-    { 
-        var world = ObiColliderWorld.GetInstance();
-        if (colliderIndex < 0 || colliderIndex >= world.colliderHandles.Count) return false;
-        var owner = world.colliderHandles[colliderIndex].owner;
-        return owner == cartObiCollider;
     }
 }
