@@ -10,12 +10,21 @@ public class CartTrigger : MonoBehaviour
     [Header("核心引用")]
     [SerializeField] private PillarController pillarController;
     [SerializeField] private ObiSolver obiSolver;
-    [SerializeField] private ObiActor playerActor;
+    private ObiActor _playerActor;
     [SerializeField] private ObiCollider cartObiCollider;
-    [SerializeField] private ObiParticleAttachment playerAttachment;
+    private ObiParticleAttachment _playerAttachment;
 
-    // ... Start方法无需修改 ...
-    void Start() { if (pillarController == null || obiSolver == null || playerActor == null || cartObiCollider == null || playerAttachment == null) { Debug.LogError($"[{name}] 核心组件引用未设置，请检查Inspector！脚本已禁用。", this); enabled = false; } }
+    void Start()
+    {
+        if (obiSolver == null)
+        {
+            obiSolver = FindFirstObjectByType<ObiSolver>();
+        }
+        
+        _playerActor = PlayerControl_Ball.instance.GetComponent<ObiActor>();
+        
+        _playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
+    }
 
     void OnEnable() { if (obiSolver != null) obiSolver.OnCollision += OnObiPlayerCollisionWithCart; }
     void OnDisable() { if (obiSolver != null) obiSolver.OnCollision -= OnObiPlayerCollisionWithCart; }
@@ -23,7 +32,7 @@ public class CartTrigger : MonoBehaviour
     private void OnObiPlayerCollisionWithCart(ObiSolver solver, ObiNativeContactList contacts)
     {
         // [修改] 增加对两种冷却状态的检查
-        if (playerAttachment.enabled || pillarController.IsAttachmentInGracePeriod) return;
+        if (_playerAttachment.enabled || pillarController.IsAttachmentInGracePeriod) return;
 
         for (int i = 0; i < contacts.count; i++)
         {
@@ -33,9 +42,9 @@ public class CartTrigger : MonoBehaviour
             {
                 Debug.Log("玩家碰撞到小车，开始抓取并请求升降...");
                 
-                playerAttachment.enabled = false;
-                playerAttachment.BindToTarget(this.transform);
-                playerAttachment.enabled = true;
+                _playerAttachment.enabled = false;
+                _playerAttachment.BindToTarget(this.transform);
+                _playerAttachment.enabled = true;
 
                 pillarController.RequestPillarSwap();
                 return;
@@ -43,6 +52,6 @@ public class CartTrigger : MonoBehaviour
         }
     }
 
-    private bool IsPlayerParticle(int p) { if(p<0||p>=obiSolver.particleToActor.Length)return false;var i=obiSolver.particleToActor[p];return i!=null&&i.actor==playerActor; }
+    private bool IsPlayerParticle(int p) { if(p<0||p>=obiSolver.particleToActor.Length)return false;var i=obiSolver.particleToActor[p];return i!=null&&i.actor==_playerActor; }
     private bool IsThisCartCollider(int c) { var w=ObiColliderWorld.GetInstance();if(c<0||c>=w.colliderHandles.Count)return false;var o=w.colliderHandles[c].owner;return o==cartObiCollider; }
 }
