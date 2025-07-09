@@ -375,7 +375,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 238d75b833e7b844a9fc58fdb7602bfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSolver: {fileID: 1278208582}
+  playerSolver: {fileID: 1278208582}
   playerActor: {fileID: 2101593900}
   pillarParentA: {fileID: 919013565}
   pillarParentB: {fileID: 1990707297}
@@ -386,6 +386,7 @@ MonoBehaviour:
   attachmentGracePeriodDuration: 1.5
   pillarAObiCollider: {fileID: 579316607}
   pillarBObiCollider: {fileID: 259113169}
+  enableDebugLogging: 0
 --- !u!1 &246372370
 GameObject:
   m_ObjectHideFlags: 0
@@ -1682,52 +1683,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1048212385}
   m_CullTransparentMesh: 0
---- !u!1 &1079769424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1079769426}
-  - component: {fileID: 1079769425}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1079769425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079769424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1079769426
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079769424}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1100414523
 GameObject:
   m_ObjectHideFlags: 0
@@ -3730,6 +3685,52 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.008825842, y: 0.030000007, z: 0.050000016}
   m_Center: {x: 0.00000044703484, y: -0.00000010430813, z: 0.00000021606684}
+--- !u!1 &1905871142
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1905871144}
+  - component: {fileID: 1905871143}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1905871143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905871142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &1905871144
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905871142}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1929705046
 GameObject:
   m_ObjectHideFlags: 0
@@ -4215,8 +4216,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pillarController: {fileID: 233824962}
   cartObiCollider: {fileID: 2097444422}
-  targetSolver: {fileID: 1278208582}
+  playerSolver: {fileID: 1278208582}
   playerActor: {fileID: 2101593900}
+  enableDebugLogging: 1
 --- !u!1001 &2101593899
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5112,4 +5114,4 @@ SceneRoots:
   - {fileID: 1039790952}
   - {fileID: 215527388}
   - {fileID: 2047827356}
-  - {fileID: 1079769426}
+  - {fileID: 1905871144}

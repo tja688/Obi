@@ -2,10 +2,6 @@ using UnityEngine;
 using Obi;
 using System;
 
-/// <summary>
-/// 小车触发器 (改造后)
-/// 职责：仅负责自身的业务逻辑（抓取玩家）。碰撞检测直接依赖Solver事件。
-/// </summary>
 public class CartTrigger : MonoBehaviour
 {
     [Header("核心引用")]
@@ -13,15 +9,17 @@ public class CartTrigger : MonoBehaviour
     [SerializeField] private ObiCollider cartObiCollider; 
 
     [Header("核心求解器与目标Actor")]
-    [Tooltip("场景中驱动物理的核心Obi Solver")]
-    [SerializeField] private ObiSolver targetSolver; // [新增]
+    [Tooltip("【重要】这里必须引用【玩家Actor】所在的那个Solver")]
+    [SerializeField] private ObiSolver playerSolver; 
     [Tooltip("代表玩家的Obi Actor")]
-    [SerializeField] private ObiActor playerActor;   // [新增]
+    [SerializeField] private ObiActor playerActor;
+
+    [Header("调试设置")]
+    [Tooltip("勾选后，将在控制台打印详细的碰撞检测日志")]
+    [SerializeField] private bool enableDebugLogging = true;
 
     private ObiParticleAttachment _playerAttachment;
     
-    // [删除] 不再需要外部管理器的回调实例
-
     void Start()
     {
         if (PlayerControl_Ball.instance != null)
@@ -29,47 +27,87 @@ public class CartTrigger : MonoBehaviour
             _playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
         }
 
-        // [改造] 确保所有新引用都已就绪
-        if (cartObiCollider == null || targetSolver == null || playerActor == null)
+        if (cartObiCollider == null || playerSolver == null || playerActor == null)
         {
-            Debug.LogError("CartTrigger初始化失败：请在Inspector中指定Cart Collider, Target Solver 和 Player Actor！", this);
+            Debug.LogError("CartTrigger初始化失败：请在Inspector中指定Cart Collider, Player Solver 和 Player Actor！", this);
             enabled = false;
             return;
         }
         
-        // [改造] 直接向Solver注册
-        targetSolver.OnCollision += HandleCollision;
+        playerSolver.OnCollision += HandleCollision;
     }
     
     void OnDestroy()
     {
-        // [改造] 直接向Solver取消注册
-        if (targetSolver != null)
+        if (playerSolver != null)
         {
-            targetSolver.OnCollision -= HandleCollision;
+            playerSolver.OnCollision -= HandleCollision;
         }
     }
 
-    // [改造] 新的统一碰撞处理函数
     private void HandleCollision(ObiSolver solver, ObiNativeContactList contacts)
     {
-        if (solver != targetSolver) return;
+        if (solver != playerSolver) return;
         
         var world = ObiColliderWorld.GetInstance();
 
-        foreach (Oni.Contact contact in contacts)
+        for (int i = 0; i < contacts.count; i++)
         {
-            var pair = ObiUtils.GetColliderActorPair(solver, world, contact);
-            if (pair == null) continue;
-
-            // 验证: 碰撞方必须是玩家Actor，且碰撞体必须是这个小车的Collider
-            if (pair.Value.actor == playerActor && pair.Value.collider == cartObiCollider)
+            var contact = contacts[i];
+            
+            if (TryParseCollisionPair(contact, world, out ObiActor hitActor, out ObiColliderBase hitCollider))
             {
-                // 所有条件满足！执行核心业务逻辑
-                ExecutePlayerGrabbing();
-                break; 
+                if (enableDebugLogging)
+                {
+                    Debug.Log($"[CartTrigger] 解码成功: Actor='{hitActor?.name ?? "NULL"}' <--> Collider='{hitCollider?.name ?? "NULL"}'");
+                }
+                
+                if (hitActor == playerActor && hitCollider == cartObiCollider)
+                {
+                    if(enableDebugLogging)
+                    {
+                        Debug.Log($"<color=lime>[CartTrigger] 验证成功! 玩家 '{playerActor.name}' 撞到了小车 '{cartObiCollider.name}'。执行逻辑...</color>");
+                    }
+                    
+                    ExecutePlayerGrabbing();
+                    return; 
+                }
             }
         }
+    }
+
+    private bool TryParseCollisionPair(Oni.Contact contact, ObiColliderWorld world, out ObiActor actor, out ObiColliderBase collider)
+    {
+        actor = null;
+        collider = null;
+
+        if (IsParticleFromOurActor(contact.bodyA))
+        {
+            actor = this.playerActor;
+            if (contact.bodyB >= 0 && contact.bodyB < world.colliderHandles.Count)
+            {
+                collider = world.colliderHandles[contact.bodyB].owner;
+            }
+        }
+        else if (IsParticleFromOurActor(contact.bodyB))
+        {
+            actor = this.playerActor;
+            if (contact.bodyA >= 0 && contact.bodyA < world.colliderHandles.Count)
+            {
+                collider = world.colliderHandles[contact.bodyA].owner;
+            }
+        }
+
+        return actor != null && collider != null;
+    }
+
+    private bool IsParticleFromOurActor(int particleSolverIndex)
+    {
+        if (playerSolver == null || !playerSolver.gameObject.activeInHierarchy || particleSolverIndex < 0 || particleSolverIndex >= playerSolver.particleToActor.Length)
+            return false;
+            
+        var p = playerSolver.particleToActor[particleSolverIndex];
+        return p != null && p.actor == this.playerActor;
     }
 
     private void ExecutePlayerGrabbing()
