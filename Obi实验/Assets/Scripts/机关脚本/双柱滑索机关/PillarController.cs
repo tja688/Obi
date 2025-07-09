@@ -63,6 +63,7 @@ public class PillarController : MonoBehaviour
 
         for (int i = 0; i < contacts.count; ++i)
         {
+            // 使用一行工具方法替代了复杂的解析逻辑！
             if (ObiCollisionUtils.TryParseActorColliderPair(contacts[i], solver, out ObiActor hitActor, out ObiColliderBase hitCollider))
             {
                 if (enableDebugLogging)
