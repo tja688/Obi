@@ -1072,7 +1072,7 @@ GameObject:
   - component: {fileID: 1202464952421183232}
   - component: {fileID: 1397312834769574395}
   m_Layer: 0
-  m_Name: "\u5927\u94C1\u9524x3"
+  m_Name: "\u5927\u94C1\u9524x3\u5E26solver"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

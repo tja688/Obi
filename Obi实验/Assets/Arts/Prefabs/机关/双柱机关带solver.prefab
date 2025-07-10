@@ -1886,7 +1886,7 @@ GameObject:
   - component: {fileID: 4877604449896915756}
   - component: {fileID: 1521574621891745812}
   m_Layer: 0
-  m_Name: "\u53CC\u67F1\u673A\u5173 Solver"
+  m_Name: "\u53CC\u67F1\u673A\u5173\u5E26solver"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
