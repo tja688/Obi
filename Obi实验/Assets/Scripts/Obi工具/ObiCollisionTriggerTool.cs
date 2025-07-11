@@ -13,6 +13,12 @@ using UnityEngine.Serialization;
 [RequireComponent(typeof(ObiCollider))]
 public class ObiCollisionTriggerTool : MonoBehaviour
 {
+    
+    
+    [Header("触发器")]
+    [Tooltip("建议指定触发器")]
+    [SerializeField] private ObiCollider thisCollider;
+    
     // --- 事件名称常量 (建议统一管理) ---
     public const string PlayerChange = "PlayerChange";
 
@@ -27,13 +33,14 @@ public class ObiCollisionTriggerTool : MonoBehaviour
     [Tooltip("当确认发生有效碰撞时，将触发此处的事件。")]
     [SerializeField] private UnityEvent onCollisionConfirmed; // 2. 添加UnityEvent配置栏
 
-    // --- 内部变量 ---
-    private ObiCollider thisCollider;
 
     void Awake()
     {
-        // 获取本地组件的操作可以立即执行
-        thisCollider = GetComponent<ObiCollider>();
+        if (!thisCollider)
+        {
+            thisCollider = GetComponent<ObiCollider>();
+        }
+        
         if (thisCollider == null)
         {
             Debug.LogError($"[ObiCollisionTrigger] 在对象 '{name}' 上找不到 ObiCollider 组件！脚本将不会运行。", this);

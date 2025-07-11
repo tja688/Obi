@@ -1,5 +1,5 @@
 // Filename: PlayerControl_Ball.cs
-// MODIFIED TO FIX MOVEMENT DIRECTION ISSUE
+// MODIFIED TO FIX MOVEMENT DIRECTION ISSUE & ADD ClearMove() METHOD
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -93,6 +93,28 @@ public class PlayerControl_Ball : MonoBehaviour
     }
 
     #endregion
+
+    /// <summary>
+    /// 【新增方法】清除软体的所有线速度和角速度，使其立即停止。
+    /// </summary>
+    public void ClearMove()
+    {
+        if (softbody == null || !softbody.isLoaded) return;
+
+        var solver = softbody.solver;
+        // 遍历该Actor在Solver中的所有粒子
+        for (int i = 0; i < softbody.solverIndices.count; ++i)
+        {
+            int particleIndex = softbody.solverIndices[i];
+            if (particleIndex >= 0 && particleIndex < solver.velocities.count)
+            {
+                // 清除线速度
+                solver.velocities[particleIndex] = Vector3.zero;
+                // 清除角速度
+                solver.angularVelocities[particleIndex] = Vector3.zero;
+            }
+        }
+    }
 
     private void LateUpdate()
     {
