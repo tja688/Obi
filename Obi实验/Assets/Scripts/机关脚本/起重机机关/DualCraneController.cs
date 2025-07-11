@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using Obi;
 
@@ -23,17 +24,18 @@ namespace Obi.Samples
         [Tooltip("绳索允许的最大长度 (Maximum allowed rope length)")]
         public float maxLength = 20f;
 
-        // --- 私有变量 ---
-        private bool isControlEnabled = true; // 控制总开关，默认为开启
+        private void OnEnable()
+        {
+            PlayerControl_Ball.instance.playerControl = false;
+        }
+        
+        private void OnDisable()
+        {
+            PlayerControl_Ball.instance.playerControl = true;
+        }
 
         void Update()
         {
-            // 如果控制未启用，则不执行任何操作
-            if (!isControlEnabled)
-            {
-                return;
-            }
-
             HandleInput();
         }
 
@@ -114,37 +116,5 @@ namespace Obi.Samples
                     break;
             }
         }
-        
-        #region 公开的控制函数 (Public Control Functions)
-        // 这些函数可以被 UnityEvent (例如 UI 按钮的 OnClick 事件) 调用
-
-        /// <summary>
-        /// 启用起重机控制
-        /// </summary>
-        public void EnableControl()
-        {
-            isControlEnabled = true;
-            Debug.Log("起重机控制已启用 (Crane Control Enabled)");
-        }
-
-        /// <summary>
-        /// 禁用起重机控制
-        /// </summary>
-        public void DisableControl()
-        {
-            isControlEnabled = false;
-            Debug.Log("起重机控制已禁用 (Crane Control Disabled)");
-        }
-
-        /// <summary>
-        /// 切换起重机控制的启用/禁用状态
-        /// </summary>
-        public void ToggleControl()
-        {
-            isControlEnabled = !isControlEnabled;
-            Debug.Log("起重机控制状态切换为: " + (isControlEnabled ? "启用" : "禁用"));
-        }
-
-        #endregion
     }
 }

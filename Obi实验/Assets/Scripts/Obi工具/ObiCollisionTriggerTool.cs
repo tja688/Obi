@@ -1,30 +1,36 @@
 using UnityEngine;
+using UnityEngine.Events; // 1. 引入UnityEvents命名空间
 using Obi;
 using System;
-using System.Collections; // 1. 引入命名空间以使用协程
+using System.Collections;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 一个通用的Obi碰撞触发器脚本。
-/// 当一个特定的ObiActor与该对象上的ObiCollider发生碰撞时，会触发一个全局静态事件。
+/// 当一个特定的ObiActor与该对象上的ObiCollider发生碰撞时，会触发一个可在Inspector中配置的UnityEvent。
+/// 同时，它能通过事件中心订阅事件，动态地更换监听目标。
 /// </summary>
 [RequireComponent(typeof(ObiCollider))]
 public class ObiCollisionTriggerTool : MonoBehaviour
 {
-    // --- 公开静态事件 ---
-    public static event Action<ObiCollider, ObiActor> OnObiCollisionTriggered;
+    // --- 事件名称常量 (建议统一管理) ---
+    public const string PlayerChange = "PlayerChange";
 
-    [Header("目标设置 (可选)")]
+    [Header("目标设置 (可选, 可动态更新)")]
     [Tooltip("要监听其碰撞事件的求解器。如果留空，将自动尝试获取玩家的Solver。")]
     [SerializeField] private ObiSolver targetSolver;
 
     [Tooltip("要检测其碰撞的目标Actor。如果留空，将自动尝试获取玩家的Actor。")]
     [SerializeField] private ObiActor targetActor;
 
+    [Header("事件响应")]
+    [Tooltip("当确认发生有效碰撞时，将触发此处的事件。")]
+    [SerializeField] private UnityEvent onCollisionConfirmed; // 2. 添加UnityEvent配置栏
+
     // --- 内部变量 ---
     private ObiCollider thisCollider;
 
-    // 2. Start方法现在变得更简洁
-    void Start()
+    void Awake()
     {
         // 获取本地组件的操作可以立即执行
         thisCollider = GetComponent<ObiCollider>();
@@ -32,56 +38,83 @@ public class ObiCollisionTriggerTool : MonoBehaviour
         {
             Debug.LogError($"[ObiCollisionTrigger] 在对象 '{name}' 上找不到 ObiCollider 组件！脚本将不会运行。", this);
             enabled = false;
-            return;
         }
-        
-        // 启动协程，将真正的初始化逻辑延迟一帧执行
+    }
+
+    private void OnEnable()
+    {
+        // 3. 在OnEnable中订阅事件中心的PlayerChange事件
+        // EventCenter是你之前创建的事件中心类
+        EventCenter.AddListener<ObiSolver, ObiActor>(PlayerChange, HandlePlayerChange);
+
+        // 启动协程，将初始化的查找逻辑延迟一帧执行，避免启动顺序问题
         StartCoroutine(DelayedInitialization());
     }
-    
-    // 3. 新增的协程方法
+
+    private void OnDisable()
+    {
+        // 4. 在OnDisable中取消订阅事件中心和Solver的事件，确保健壮性
+        EventCenter.RemoveListener<ObiSolver, ObiActor>(PlayerChange, HandlePlayerChange);
+
+        if (targetSolver != null)
+        {
+            targetSolver.OnCollision -= HandleSolverCollision;
+        }
+    }
+
     /// <summary>
     /// 延迟一帧执行初始化，以确保其他单例（如PlayerControl_Ball）已准备就绪。
     /// </summary>
     private IEnumerator DelayedInitialization()
     {
-        // 等待下一帧的开始
-        yield return null;
+        yield return null; // 等待下一帧
 
-        // --- 以下是原Start方法中的逻辑 ---
-
-        // 自动配置目标Solver和Actor (如果用户没有手动指定)
         if (targetSolver == null || targetActor == null)
         {
-            Debug.Log($"[ObiCollisionTrigger] 在 '{name}' 上未指定目标，将自动查找玩家...", this);
+            Debug.Log($"[ObiCollisionTrigger] 在 '{name}' 上未指定初始目标，将自动查找玩家...", this);
             if (PlayerControl_Ball.instance != null)
             {
-                // 使用单例来获取玩家的Solver和Actor
-                targetSolver = PlayerControl_Ball.instance.playerSolver;
-                targetActor = PlayerControl_Ball.instance.actor;
+                // 使用新的HandlePlayerChange方法来统一设置初始目标
+                HandlePlayerChange(PlayerControl_Ball.instance.playerSolver, PlayerControl_Ball.instance.actor);
             }
-        }
-        
-        // 最终验证并注册回调
-        if (targetSolver != null && targetActor != null)
-        {
-            Debug.Log($"[ObiCollisionTrigger] 在 '{name}' 上配置成功。监听目标: Actor '{targetActor.name}'，监听器位于 Solver '{targetSolver.name}'。", this);
-            // 注册碰撞事件回调
-            targetSolver.OnCollision += HandleSolverCollision;
+            else
+            {
+                Debug.LogWarning($"[ObiCollisionTrigger] 在 '{name}' 上未能自动找到玩家实例，将等待 '{PlayerChange}' 事件来配置目标。", this);
+            }
         }
         else
         {
-            Debug.LogError($"[ObiCollisionTrigger] 在对象 '{name}' 上最终未能配置好Solver或Actor！脚本将不会运行。", this);
-            enabled = false;
+            // 如果用户在Inspector中预设了目标，则直接使用
+            HandlePlayerChange(targetSolver, targetActor);
         }
     }
 
-    private void OnDestroy()
+    /// <summary>
+    /// 响应 "PlayerChange" 事件，更新监听的目标。
+    /// </summary>
+    private void HandlePlayerChange(ObiSolver newSolver, ObiActor newActor)
     {
-        // 在对象销毁时，务必取消注册，防止内存泄漏
+        Debug.Log($"[ObiCollisionTrigger] 在 '{name}' 上接收到PlayerChange事件，更新目标...", this);
+
+        // 1. 先从旧的Solver上取消注册
         if (targetSolver != null)
         {
             targetSolver.OnCollision -= HandleSolverCollision;
+        }
+
+        // 2. 更新内部存储的Solver和Actor
+        targetSolver = newSolver;
+        targetActor = newActor;
+
+        // 3. 在新的Solver上注册碰撞回调
+        if (targetSolver != null && targetActor != null)
+        {
+            targetSolver.OnCollision += HandleSolverCollision;
+            Debug.Log($"[ObiCollisionTrigger] 在 '{name}' 上成功切换监听目标。新目标: Actor '{targetActor.name}' on Solver '{targetSolver.name}'。", this);
+        }
+        else
+        {
+             Debug.LogWarning($"[ObiCollisionTrigger] 在 '{name}' 上接收到的新目标为null，已停止监听。", this);
         }
     }
 
@@ -90,22 +123,14 @@ public class ObiCollisionTriggerTool : MonoBehaviour
     /// </summary>
     private void HandleSolverCollision(ObiSolver solver, ObiNativeContactList contacts)
     {
-        // 使用我们之前创建的工具类来解析碰撞对
-        for (int i = 0; i < contacts.count; ++i)
+        // 使用工具类来解析碰撞对
+        for (var i = 0; i < contacts.count; ++i)
         {
-            if (ObiCollisionUtils.TryParseActorColliderPair(contacts[i], solver, out ObiActor hitActor, out ObiColliderBase hitCollider))
-            {
-                // 检查解析出的Actor和Collider是否是我们关心的目标
-                if (hitActor == targetActor && hitCollider == thisCollider)
-                {
-                    // 确认碰撞！触发全局静态事件
-                    Debug.Log($"<color=lime>[ObiCollisionTrigger] 事件触发! Actor '{hitActor.name}' <--> Collider '{thisCollider.name}'</color>");
-                    OnObiCollisionTriggered?.Invoke(thisCollider, targetActor);
-
-                    // 通常，一次有效的碰撞触发一次事件就足够了，可以立即返回以提高性能
-                    return;
-                }
-            }
+            if (!ObiCollisionUtils.TryParseActorColliderPair(contacts[i], solver, out var hitActor,
+                    out var hitCollider)) continue;
+            if (hitActor != targetActor || hitCollider != thisCollider) continue;
+            onCollisionConfirmed?.Invoke();
+            return;
         }
     }
 }

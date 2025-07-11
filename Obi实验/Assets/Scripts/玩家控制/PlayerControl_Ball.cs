@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using Obi;
 using System.Linq;
+using UnityEngine.Serialization;
 
 public class PlayerControl_Ball : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class PlayerControl_Ball : MonoBehaviour
     #endregion
 
     [Header("Movement Settings")]
-    public Transform referenceFrame; // 【重要】请确保在Inspector中将你的主摄像机拖拽到这里
+    public Transform referenceFrame; 
     public float acceleration = 80;
     public float jumpPower = 1;
     [Range(0, 1)]
@@ -24,13 +25,14 @@ public class PlayerControl_Ball : MonoBehaviour
     public Transform actorTrans = null;
     public Vector3 offset;
     
+    public bool playerControl = true;
+    
     // --- 私有变量 ---
-    // private Vector3 moveDirection; // <-- 不再需要这个成员变量
-    private Vector2 moveInput; // <-- 【修改1】将输入值保存为成员变量，而不是OnMove里的局部变量
+    private Vector2 moveInput; 
     private ObiSoftbody softbody;
     private bool onGround = false;
 
-    public Vector2 LookInput { get; private set; }
+    public Vector2 lookInput { get; private set; }
     public ObiSolver playerSolver { get; private set; }
 
     private void Awake()
@@ -48,11 +50,9 @@ public class PlayerControl_Ball : MonoBehaviour
     private void Start()
     {
         softbody = GetComponent<ObiSoftbody>();
-        if (softbody != null && softbody.solver != null)
-        {
-            playerSolver = softbody.solver;
-            playerSolver.OnCollision += Solver_OnCollision;
-        }
+        if (softbody == null || softbody.solver == null) return;
+        playerSolver = softbody.solver;
+        playerSolver.OnCollision += Solver_OnCollision;
     }
     
     private void OnDestroy()
@@ -89,7 +89,7 @@ public class PlayerControl_Ball : MonoBehaviour
     /// </summary>
     private void OnLook(InputValue value)
     {
-        LookInput = value.Get<Vector2>();
+        lookInput = value.Get<Vector2>();
     }
 
     #endregion
@@ -104,17 +104,16 @@ public class PlayerControl_Ball : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // 【修改3】将移动方向的计算逻辑移到FixedUpdate中
-        // 这样可以确保每一帧物理更新，都使用最新的摄像机朝向来计算移动方向
+        if (!playerControl) return;
 
-        if (referenceFrame == null) return;
+        if (!referenceFrame) return;
 
         // 1. 根据保存的输入值和当前摄像机的朝向，计算出目标移动方向
         var relativeMove = (referenceFrame.forward * moveInput.y + referenceFrame.right * moveInput.x);
         relativeMove.y = 0; // 保持移动在水平面上
 
         var effectiveAcceleration = onGround ? acceleration : acceleration * airControl;
-        Vector3 moveDirection = relativeMove.normalized * effectiveAcceleration;
+        var moveDirection = relativeMove.normalized * effectiveAcceleration;
 
         // 2. 如果有移动输入，则施加力
         if (moveDirection.sqrMagnitude > 0.01f)
@@ -129,15 +128,11 @@ public class PlayerControl_Ball : MonoBehaviour
         var world = ObiColliderWorld.GetInstance();
         foreach (var contact in e)
         {
-            if (contact.distance > 0.01f)
-            {
-                var col = world.colliderHandles[contact.bodyB].owner;
-                if (col != null)
-                {
-                    onGround = true;
-                    break; 
-                }
-            }
+            if (!(contact.distance > 0.01f)) continue;
+            var col = world.colliderHandles[contact.bodyB].owner;
+            if (!col) continue;
+            onGround = true;
+            break;
         }
     }
 }

@@ -74,7 +74,7 @@ public class CameraFollow : MonoBehaviour
         if (!target) return;
 
         // --- 步骤 1: 从玩家控制器获取输入并更新相机旋转 ---
-        Vector2 lookInput = PlayerControl_Ball.instance != null ? PlayerControl_Ball.instance.LookInput : Vector2.zero;
+        Vector2 lookInput = PlayerControl_Ball.instance != null ? PlayerControl_Ball.instance.lookInput : Vector2.zero;
         
         yaw += lookInput.x * mouseSensitivity;
         pitch -= lookInput.y * mouseSensitivity; 

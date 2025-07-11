@@ -3063,6 +3063,10 @@ PrefabInstance:
       propertyPath: 'solverIndices.serializedContents.Array.data[211]'
       value: 423
       objectReference: {fileID: 0}
+    - target: {fileID: 7530803533070918643, guid: 1ac0545b3787f9c42990a5526fb459b6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8956606260647626426, guid: 1ac0545b3787f9c42990a5526fb459b6, type: 3}
       propertyPath: indexInSystem
       value: 1
@@ -3075,6 +3079,17 @@ PrefabInstance:
       addedObject: {fileID: 628094453}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ac0545b3787f9c42990a5526fb459b6, type: 3}
+--- !u!114 &255500773 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7530803533070918643, guid: 1ac0545b3787f9c42990a5526fb459b6, type: 3}
+  m_PrefabInstance: {fileID: 221920200}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cee3ae1164ee82e4ca6cd658b5657d53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &255500775 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3446966476670167776, guid: 1ac0545b3787f9c42990a5526fb459b6, type: 3}
@@ -3353,6 +3368,8 @@ GameObject:
   - component: {fileID: 628094454}
   - component: {fileID: 628094459}
   - component: {fileID: 628094458}
+  - component: {fileID: 628094460}
+  - component: {fileID: 628094461}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -3507,6 +3524,106 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!114 &628094460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628094452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f3fc1f54fbe084b9a9e7c3b7e9dfb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetSolver: {fileID: 0}
+  targetActor: {fileID: 0}
+  onCollisionConfirmed:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 255500773}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 628094461}
+        m_TargetAssemblyTypeName: UnityEngine.Behaviour, UnityEngine
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+--- !u!114 &628094461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628094452}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7af39a3b49a16304d91fec1a7f759ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grabTarget: {fileID: 0}
+--- !u!1 &650977238
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 650977240}
+  - component: {fileID: 650977239}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &650977239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650977238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &650977240
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 650977238}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &754091650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3744,52 +3861,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1442838518
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1442838520}
-  - component: {fileID: 1442838519}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1442838519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442838518}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1442838520
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1442838518}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1821375423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13914,6 +13985,11 @@ Light:
   m_LightUnit: 1
   m_LuxAtDistance: 1
   m_EnableSpotReflector: 1
+--- !u!1 &536303942358630366 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2145017394203937998, guid: b9a68f1bda1a5cf4b85c58472cb01c82, type: 3}
+  m_PrefabInstance: {fileID: 8528843207654617317}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8528843207654617317
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13969,8 +14045,23 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2145017394203937998, guid: b9a68f1bda1a5cf4b85c58472cb01c82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9060886661237718940}
   m_SourcePrefab: {fileID: 100100000, guid: b9a68f1bda1a5cf4b85c58472cb01c82, type: 3}
+--- !u!114 &9060886661237718940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 536303942358630366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b5bb85bf242dc146a63b8d21831750f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -13983,4 +14074,4 @@ SceneRoots:
   - {fileID: 8528843207654617317}
   - {fileID: 1236467903}
   - {fileID: 221920200}
-  - {fileID: 1442838520}
+  - {fileID: 650977240}
