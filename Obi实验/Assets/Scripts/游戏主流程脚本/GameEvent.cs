@@ -9,5 +9,7 @@ public static class GameEvent
 
     
     // 机关事件 相关
+    public const string ButtonActive = "ButtonActive";
+    public const string ButtonDisable = "ButtonDisable";
 
 }
