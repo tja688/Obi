@@ -2,20 +2,28 @@
 %TAG !u! tag:unity3d.com,2011:
 --- !u!21 &2100000
 Material:
-  serializedVersion: 6
+  serializedVersion: 8
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: RoughGlass
   m_Shader: {fileID: 4800000, guid: 4ae935bab0143fe4ab16d7e7f9a13579, type: 3}
-  m_ShaderKeywords: _FALLOFFOPACITY_ON _USEROUGHNESS_ON _USESMOOTHNESS_ON
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords:
+  - _USECUBEMAP_OFF
+  m_InvalidKeywords:
+  - _FALLOFFOPACITY_ON
+  - _USEROUGHNESS_ON
+  - _USESMOOTHNESS_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
+  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -67,6 +75,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    m_Ints: []
     m_Floats:
     - _AoIntensity: 0
     - _BlurReflection: 2.5
@@ -76,6 +85,7 @@ Material:
     - _BumpScaleDecal: 0.69
     - _BumpScaleDecal1: 1
     - _ChromaticAberration: 0.064
+    - _Cull: 2
     - _Cutoff: 0.5
     - _Depth: -4
     - _DetailNormalMapScale: 1
@@ -84,8 +94,12 @@ Material:
     - _DstBlend: 0
     - _EmissiveIntensity: 0.95
     - _EnableRotation1: 0
+    - _Fade: 0.2
+    - _FalloffFade: 0
+    - _FalloffFade1: 0
     - _FalloffOpacity: 1
     - _FalloffOpacity1: 0
+    - _FalloffOpacityIntensity: 1
     - _Float7: 1
     - _FresnelStrength: 0.5
     - _GlossMapScale: 1
@@ -93,19 +107,27 @@ Material:
     - _GlossinessDecal: 0.335
     - _GlossyReflections: 1
     - _Gradient1: 1
+    - _GradientFade: 1
     - _IndexofRefraction: 4
+    - _Intensity: 1
     - _Invert: 0
     - _InvertAlbedoA1: 0
+    - _InvertFresnelFade: 0
     - _Metallic: 0
     - _MetallicDecal: 0.51
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OffsetX: 0
+    - _OffsetY: 0
     - _Opacity: 1
     - _Parallax: 0.02
     - _Power1: 1
+    - _PowerFalloffFade: 1
+    - _PowerFalloffOpacity: 1
     - _PowerFresnel: 1
     - _ReflectionDecal: 0
     - _ReflectionIntensity: 0.14
+    - _Refraction: 1.1
     - _RefractionAmount: 8.71
     - _Rotation: 90
     - _Rotation1: 0
@@ -141,3 +163,5 @@ Material:
     - _TilingDetails: {r: 1, g: 1, b: 0, a: 0}
     - _Vector0: {r: 0, g: 0, b: 0, a: 0}
     - _Vector1: {r: 0, g: 0, b: 0, a: 0}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1
