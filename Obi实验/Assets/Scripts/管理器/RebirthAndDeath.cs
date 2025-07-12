@@ -24,7 +24,7 @@ public class RebirthAndDeath : MonoBehaviour
     private ObiSolver solver;
     private ObiSoftbody softbody;
     private Camera mainCamera;
-    private CameraFollow cameraFollow;
+    private CameraManager cameraManager;
 
     // 用于存储初始重生位置和旋转
     private Vector3 playerSpawnPosition;
@@ -41,6 +41,18 @@ public class RebirthAndDeath : MonoBehaviour
     /// </summary>
     private void Start()
     {
+        if (!PlayerController.instance)
+        {
+            Debug.LogError("场景中未找到 PlayerController 实例！", this);
+        }
+        
+        EventCenter.AddListener<IControllable>("PlayerChange", OnPlayerChanged);
+
+        if (PlayerController.instance && PlayerController.instance.CurrentControlledObject != null)
+        {
+            OnPlayerChanged(PlayerController.instance.CurrentControlledObject);
+        }
+        
         StartCoroutine(DelayedInitialization());
     }
 
@@ -50,46 +62,14 @@ public class RebirthAndDeath : MonoBehaviour
     /// </summary>
     private IEnumerator DelayedInitialization()
     {
-        // 等待一帧，确保PlayerInputManager.instance可用
-        yield return null;
-
-        // --- 1. 自动查找组件 ---
-        if (PlayerInputManager.instance == null)
+        cameraManager = CameraManager.instance;
+        
+        if (!cameraManager)
         {
-            Debug.LogError("场景中未找到 PlayerInputManager 实例！", this);
-            yield break; // 中断协程
-        }
-
-        // 从PlayerInputManager的子对象中查找Solver和Softbody
-        solver = PlayerInputManager.instance.GetComponentInParent<ObiSolver>();
-        softbody = PlayerInputManager.instance.GetComponentInChildren<ObiSoftbody>();
-        mainCamera = Camera.main; // 查找场景中的主摄像机
-
-        // --- 验证查找到的组件 ---
-        if (solver == null)
-        {
-            Debug.LogError("在 PlayerInputManager 的子对象中未找到 ObiSolver！", this);
-            yield break;
-        }
-        if (softbody == null)
-        {
-            Debug.LogError("在 PlayerInputManager 的子对象中未找到 ObiSoftbody！", this);
-            yield break;
-        }
-        if (mainCamera == null)
-        {
-            Debug.LogError("场景中未找到带有'MainCamera'标签的摄像机！", this);
-            yield break;
-        }
-
-        cameraFollow = mainCamera.GetComponent<CameraFollow>();
-        if (cameraFollow == null)
-        {
-            Debug.LogError("主摄像机上未找到 CameraFollow 组件！", this);
+            Debug.LogError("主摄像机上未找到 cameraManager 组件！", this);
             yield break;
         }
         
-        // --- 2. 获取初始位置作为重生点 ---
         playerSpawnPosition = softbody.transform.position;
         playerSpawnRotation = softbody.transform.rotation;
         cameraSpawnPosition = mainCamera.transform.position;
@@ -98,13 +78,27 @@ public class RebirthAndDeath : MonoBehaviour
         Debug.Log("重生点设置成功！玩家初始位置：" + playerSpawnPosition);
 
         // --- 3. 订阅事件 ---
-        // 将事件订阅移至此处，确保solver不为null
         solver.OnCollision += Solver_OnCollision;
         solver.OnSimulationStart += Solver_OnSimulationStart;
         PlayerInputManager.instance.OnOnReStart += RequestRestart;
         
         isInitialized = true; // 标记初始化完成
     }
+
+    private void OnPlayerChanged(IControllable newPlayer)
+    {
+        // newPlayer
+        
+        if (!solver)
+        {
+            Debug.LogError("在 PlayerInputManager 的子对象中未找到 ObiSolver！", this);
+        }
+        if (!softbody)
+        {
+            Debug.LogError("在 PlayerInputManager 的子对象中未找到 ObiSoftbody！", this);
+        }
+    }
+    
     
     private void OnDestroy()
     {
@@ -127,7 +121,6 @@ public class RebirthAndDeath : MonoBehaviour
     /// </summary>
     private void RequestRestart()
     {
-        // 只有初始化完成后才接受重启请求
         if (isInitialized)
         {
             restartRequested = true;
@@ -141,16 +134,14 @@ public class RebirthAndDeath : MonoBehaviour
     {
         if (!isInitialized || !softbody) return;
 
-        // 仅在请求重启后才执行传送逻辑
-        if (restartRequested)
-        {
-            // 传送玩家和摄像机到记录的重生点
-            softbody.Teleport(playerSpawnPosition, playerSpawnRotation);
-            cameraFollow.Teleport(cameraSpawnPosition, cameraSpawnRotation);
+        if (!restartRequested) return;
+        
+        // 传送玩家和摄像机到记录的重生点
+        softbody.Teleport(playerSpawnPosition, playerSpawnRotation);
+        CameraManager.instance.Teleport(cameraSpawnPosition, cameraSpawnRotation);
 
-            restartRequested = false; // 重置请求标志
-            onRestart.Invoke(); // 触发重启事件
-        }
+        restartRequested = false;
+        onRestart.Invoke();
     }
 
     /// <summary>
@@ -161,6 +152,7 @@ public class RebirthAndDeath : MonoBehaviour
         if (!isInitialized) return;
         
         var world = ObiColliderWorld.GetInstance();
+        
         foreach (var contact in e)
         {
             if (!(contact.distance > 0.01)) continue;
@@ -170,13 +162,13 @@ public class RebirthAndDeath : MonoBehaviour
             if (col == deathPitCollider)
             {
                 onDeath.Invoke();
-                return; // 找到死亡区域后立即返回
+                return;
             }
 
             if (col == finishCollider)
             {
                 onFinish.Invoke();
-                return; // 到达终点后立即返回
+                return;
             }
         }
     }

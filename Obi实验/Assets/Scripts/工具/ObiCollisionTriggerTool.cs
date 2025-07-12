@@ -79,12 +79,12 @@ public class ObiCollisionTriggerTool : MonoBehaviour
         if (targetSolver == null || targetActor == null)
         {
             Debug.Log($"[ObiCollisionTrigger] 在 '{name}' 上未指定初始目标，将自动查找玩家...", this);
-            if (PlayerControl_Ball.instance != null)
+            // if (PlayerControl_Ball.instance != null)
             {
                 // 使用新的HandlePlayerChange方法来统一设置初始目标
-                HandlePlayerChange(PlayerControl_Ball.instance.playerSolver, PlayerControl_Ball.instance.actor);
+                // HandlePlayerChange(PlayerControl_Ball.instance.playerSolver, PlayerControl_Ball.instance.actor);
             }
-            else
+            // else
             {
                 Debug.LogWarning($"[ObiCollisionTrigger] 在 '{name}' 上未能自动找到玩家实例，将等待 '{PlayerChange}' 事件来配置目标。", this);
             }

@@ -44,11 +44,11 @@ public class PillarController : MonoBehaviour
     void Start()
     {
         cts = new CancellationTokenSource();
-        if (PlayerControl_Ball.instance != null) { playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>(); }
-
-        playerSolver = PlayerControl_Ball.instance.GetComponentInParent<ObiSolver>();
-        
-        playerActor =  PlayerControl_Ball.instance.GetComponent<ObiActor>();
+        // if (PlayerControl_Ball.instance != null) { playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>(); }
+        //
+        // playerSolver = PlayerControl_Ball.instance.GetComponentInParent<ObiSolver>();
+        //
+        // playerActor =  PlayerControl_Ball.instance.GetComponent<ObiActor>();
         
         if (playerSolver == null || playerActor == null) { Debug.LogError("PillarController 初始化失败: 请在Inspector中指定 Player Solver 和 Player Actor！", this); enabled = false; return; }
         

@@ -26,12 +26,12 @@ namespace Obi.Samples
 
         private void OnEnable()
         {
-            PlayerControl_Ball.instance.playerControl = false;
+            // PlayerControl_Ball.instance.playerControl = false;
         }
         
         private void OnDisable()
         {
-            PlayerControl_Ball.instance.playerControl = true;
+            // PlayerControl_Ball.instance.playerControl = true;
         }
 
         void Update()
