@@ -25,6 +25,10 @@ public class CartTrigger : MonoBehaviour
         if (PlayerControl_Ball.instance != null)
         {
             playerAttachment = PlayerControl_Ball.instance.GetComponent<ObiParticleAttachment>();
+            
+            playerSolver = PlayerControl_Ball.instance.GetComponentInParent<ObiSolver>();
+        
+            playerActor =  PlayerControl_Ball.instance.GetComponent<ObiActor>();
         }
 
         if (cartObiCollider == null || playerSolver == null || playerActor == null)
