@@ -2,7 +2,7 @@
     "name": "InputSystem_Actions",
     "maps": [
         {
-            "name": "PlayerEco",
+            "name": "Player",
             "id": "df70fa95-8a34-4494-b137-73ab6b9c7d37",
             "actions": [
                 {
@@ -793,29 +793,11 @@
             ]
         },
         {
-            "name": "起重机",
+            "name": "Item",
             "id": "0e3db2e9-eae6-4555-a3ff-397783cc830e",
             "actions": [
                 {
-                    "name": "双拉",
-                    "type": "Button",
-                    "id": "800881d1-ef80-411f-b97c-16cf1f1eaa96",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "双降",
-                    "type": "Button",
-                    "id": "db856456-036e-4ef8-8ae4-e551795089e5",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "左拉",
+                    "name": "Quite",
                     "type": "Button",
                     "id": "2b4edb78-8fe9-42f8-b408-8d70dd0e405f",
                     "expectedControlType": "",
@@ -824,56 +806,43 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "左降",
-                    "type": "Button",
-                    "id": "2bff3990-9f8c-4b9a-9041-2a91f2485e53",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "右拉",
-                    "type": "Button",
-                    "id": "b7928f69-ecba-4a12-b77b-9100495b45c8",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "右降",
-                    "type": "Button",
+                    "name": "MouseMove",
+                    "type": "Value",
                     "id": "b1d78f2b-8a6b-4509-8d5f-e5fec6a06af0",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "LeftButton",
+                    "type": "Button",
+                    "id": "a817160b-ace0-45e9-9112-881ce957fce1",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "RightButton",
+                    "type": "Button",
+                    "id": "409e04b2-1644-469f-ac9c-826dfc9e5e0a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "MouseWheel",
+                    "type": "Value",
+                    "id": "72e4588a-1034-4508-a49b-6189b5468d2a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "2683ddbb-aa6b-41df-93c9-489a10fc7e27",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "双拉",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c16e9fdc-e403-4a57-b794-b3aa8c605a74",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "双降",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "d8928491-6e04-4c1f-9c81-56cc7dae497f",
@@ -881,40 +850,51 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "左拉",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2340df73-3321-4d9e-8e7b-ea475386c3f2",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "左降",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ab2e0b4c-319e-4c1d-aa5f-9c152d72c44e",
-                    "path": "<Keyboard>/e",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "右拉",
+                    "action": "Quite",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "588805e0-f968-4352-8d1d-050997cde725",
-                    "path": "<Keyboard>/d",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "右降",
+                    "action": "MouseMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e5fa0cc5-205f-4dbb-85d9-ee361710a4e1",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c38feed9-e7ad-4501-8a39-5cb73392f19d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "56d9221b-f730-4528-b3e3-170fd07cdb9e",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseWheel",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
