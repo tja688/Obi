@@ -1,9 +1,13 @@
 // CameraManager.cs
 using UnityEngine;
 using System.Collections;
+using Cysharp.Threading.Tasks;
+using System.Threading;
 
 public class CameraManager : MonoBehaviour
 {
+    // ... (所有属性和Awake, Start, OnDestroy等方法保持不变) ...
+    #region Unchanged Region 1
     #region Singleton
     public static CameraManager instance { get; private set; }
     #endregion
@@ -28,9 +32,10 @@ public class CameraManager : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 extrapolatedPos;
     private float yaw, pitch;
-    private Coroutine transitionCoroutine;
     private Transform mechanismTargetTransform;
     private bool lookAtPlayerInMechanismMode = false;
+    
+    private CancellationTokenSource transitionCts;
 
     private void Awake()
     {
@@ -38,12 +43,14 @@ public class CameraManager : MonoBehaviour
         else Destroy(gameObject);
         
         EventCenter.AddListener<IControllable>("PlayerChange", OnPlayerChanged);
-
+        
+        transitionCts = new CancellationTokenSource();
     }
 
     private void Start()
     {
         InitializeFromTarget();
+        // 初始状态下锁定并隐藏鼠标
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
@@ -51,8 +58,69 @@ public class CameraManager : MonoBehaviour
     private void OnDestroy()
     {
         EventCenter.RemoveListener<IControllable>("PlayerChange", OnPlayerChanged);
+
+        transitionCts?.Cancel();
+        transitionCts?.Dispose();
     }
+    #endregion
+
+    #region 公共接口 (已优化)
     
+    /// <summary>
+    /// 进入机关视角模式。
+    /// </summary>
+    public async void EnterMechanismMode(Transform viewTransform, bool lookAtPlayer = false)
+    {
+        transitionCts?.Cancel();
+        transitionCts = new CancellationTokenSource();
+
+        PlayerController.instance.CurrentControlledObject?.ClearMove();
+        PlayerController.instance.RequestStateChange(PlayerController.ControlState.Disabled);
+
+        mechanismTargetTransform = viewTransform;
+        lookAtPlayerInMechanismMode = lookAtPlayer;
+        
+        await TransitionToAsync(viewTransform.position, viewTransform.rotation, CameraState.MechanismMode);
+        
+        // 【优化】运镜到机关视角后，显示并解锁鼠标，以供机关交互 (需求 #1)
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
+        // 需要提供对玩家的控制恢复，如有禁用需要应在具体机关中进行禁用请求。
+        PlayerController.instance.RequestStateChange(PlayerController.ControlState.Gameplay3D);
+    }
+
+    /// <summary>
+    /// 返回玩家视角模式。
+    /// </summary>
+    public async void EnterPlayerMode()
+    {
+        transitionCts?.Cancel();
+        transitionCts = new CancellationTokenSource();
+        
+        PlayerController.instance.CurrentControlledObject?.ClearMove();
+        PlayerController.instance.RequestStateChange(PlayerController.ControlState.Disabled);
+
+        // 【修正】在计算目标位置前，强制刷新相机对玩家当前状态的认知
+        if (PlayerController.instance.CurrentControlledObject != null)
+        {
+            OnPlayerChanged(PlayerController.instance.CurrentControlledObject);
+        }
+
+        // 现在，基于最新的玩家状态来计算返回目标点
+        Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0);
+        Vector3 targetPosition = extrapolatedPos - (targetRotation * Vector3.forward * distanceFromTarget);
+        
+        await TransitionToAsync(targetPosition, targetRotation, CameraState.PlayerMode);
+        
+        PlayerController.instance.RequestStateChange(PlayerController.ControlState.Gameplay3D);
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+    }
+    #endregion
+    
+    // ... (其他所有方法，如OnPlayerChanged, LateUpdate, TransitionToAsync等，保持不变) ...
+    #region Unchanged Region 2
     private void OnPlayerChanged(IControllable newPlayer)
     {
         if (newPlayer == null) return;
@@ -116,42 +184,34 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    #region 公共接口
-    public void EnterMechanismMode(Transform viewTransform, bool lookAtPlayer = false)
-    {
-        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
-        mechanismTargetTransform = viewTransform;
-        lookAtPlayerInMechanismMode = lookAtPlayer;
-        transitionCoroutine = StartCoroutine(TransitionTo(viewTransform.position, viewTransform.rotation, CameraState.MechanismMode));
-    }
-
-    public void EnterPlayerMode()
-    {
-        if (transitionCoroutine != null) StopCoroutine(transitionCoroutine);
-        Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0);
-        Vector3 targetPosition = extrapolatedPos - (targetRotation * Vector3.forward * distanceFromTarget);
-        transitionCoroutine = StartCoroutine(TransitionTo(targetPosition, targetRotation, CameraState.PlayerMode));
-    }
-    #endregion
-
-    private IEnumerator TransitionTo(Vector3 targetPosition, Quaternion targetRotation, CameraState stateAfterTransition)
+    private async UniTask TransitionToAsync(Vector3 targetPosition, Quaternion targetRotation, CameraState stateAfterTransition)
     {
         currentState = CameraState.Transitioning;
         float time = 0;
         Vector3 startPos = transform.position;
         Quaternion startRot = transform.rotation;
-        while (time < transitionDuration)
+        
+        try
         {
-            float t = Mathf.SmoothStep(0f, 1f, time / transitionDuration);
-            transform.position = Vector3.Lerp(startPos, targetPosition, t);
-            transform.rotation = Quaternion.Slerp(startRot, targetRotation, t);
-            time += Time.deltaTime;
-            yield return null;
+            while (time < transitionDuration)
+            {
+                float t = Mathf.SmoothStep(0f, 1f, time / transitionDuration);
+                transform.position = Vector3.Lerp(startPos, targetPosition, t);
+                transform.rotation = Quaternion.Slerp(startRot, targetRotation, t);
+                time += Time.deltaTime;
+                
+                await UniTask.Yield(PlayerLoopTiming.Update, cancellationToken: transitionCts.Token);
+            }
         }
+        catch (System.OperationCanceledException)
+        {
+            Debug.Log("Camera transition was cancelled.");
+            return;
+        }
+
         transform.position = targetPosition;
         transform.rotation = targetRotation;
         currentState = stateAfterTransition;
-        transitionCoroutine = null;
     }
     
     public void Teleport(Vector3 position, Quaternion rotation)
@@ -164,4 +224,5 @@ public class CameraManager : MonoBehaviour
         yaw = newAngles.y;
         pitch = newAngles.x;
     }
+    #endregion
 }

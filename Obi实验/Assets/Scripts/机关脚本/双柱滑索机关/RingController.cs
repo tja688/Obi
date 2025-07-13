@@ -30,7 +30,8 @@ public class RingController : MonoBehaviour
     private float currentNormalizedPos;
     private float targetNormalizedPos;
     private CancellationTokenSource cts;
-
+    private Transform initialPos;
+    
     #region Unity 生命周期
     private void Awake()
     {
@@ -54,6 +55,8 @@ public class RingController : MonoBehaviour
         float totalDist = Vector3.Distance(pathStart.position, pathEnd.position);
         float distFromStart = Vector3.Distance(transform.position, pathStart.position);
         currentNormalizedPos = targetNormalizedPos = Mathf.Clamp01(distFromStart / totalDist);
+        
+        initialPos =  transform;
     }
 
     private void OnDestroy()

@@ -65,7 +65,7 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
     
     public void ClearMove()
     {
-        if (softbody == null || !softbody.isLoaded) return;
+        if (!softbody || !softbody.isLoaded) return;
 
         for (var i = 0; i < softbody.solverIndices.count; ++i)
         {
@@ -75,6 +75,10 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
             playerSolver.velocities[particleIndex] = Vector3.zero;
             playerSolver.angularVelocities[particleIndex] = Vector3.zero;
         }
+        
+        if (playerSolver.velocities.count <= 0) return;
+        playerSolver.velocities.Upload();
+        playerSolver.angularVelocities.Upload();
     }
 
     private void LateUpdate()
