@@ -49,8 +49,6 @@ public class MechanismController : MonoBehaviour
     {
         if (playerInput == null) return;
         
-        // 订阅 "Item" Action Map 中的所有 Action
-        // 注意：这里的"Quite"我假设是"Quit"的笔误，已在代码中修正为 "Quit"
         playerInput.actions["Quit"].performed += HandleQuit;
         playerInput.actions["MouseMove"].performed += HandleMouseMove;
         playerInput.actions["LeftButton"].performed += HandleLeftButton;

@@ -828,7 +828,7 @@
             "id": "0e3db2e9-eae6-4555-a3ff-397783cc830e",
             "actions": [
                 {
-                    "name": "Quite",
+                    "name": "Quit",
                     "type": "Button",
                     "id": "2b4edb78-8fe9-42f8-b408-8d70dd0e405f",
                     "expectedControlType": "",
@@ -881,7 +881,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Quite",
+                    "action": "Quit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
