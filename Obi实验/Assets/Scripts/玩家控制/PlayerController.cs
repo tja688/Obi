@@ -2,9 +2,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-/// <summary>
-/// 核心玩家控制器。单例，处理所有输入并根据状态分发给当前的可控对象。
-/// </summary>
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
@@ -30,15 +27,13 @@ public class PlayerController : MonoBehaviour
 
     [Header("玩家设置")]
     [Tooltip("在编辑器中预先指定一个默认玩家对象。如果为空，将在启动时自动查找。")]
-    // 【修改1】根据您的要求，将 defaultPlayerObject 设为 public
     public GameObject defaultPlayerObject;
 
     private PlayerInput playerInput;
     private IControllable currentControlledObject;
     private ControlState currentState = ControlState.Gameplay3D;
 
-    // 【修改2】新增：存储和暴露相机输入值
-    public Vector2 LookInput { get; private set; }
+    public Vector2 lookInput { get; private set; }
     public IControllable CurrentControlledObject => currentControlledObject;
     public ControlState CurrentState => currentState;
 
@@ -56,29 +51,25 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         if (playerInput == null) return;
-
         playerInput.actions["Move"].performed += HandleMove;
         playerInput.actions["Move"].canceled += HandleMove;
         playerInput.actions["Move2D"].performed += HandleMove2D;
         playerInput.actions["Move2D"].canceled += HandleMove2D;
         playerInput.actions["Jump"].performed += HandleJump;
         playerInput.actions["Interact"].performed += HandleInteract;
-        // 【修改2】新增：监听 Look 输入
         playerInput.actions["Look"].performed += HandleLook;
-        playerInput.actions["Look"].canceled += HandleLook; // 鼠标停止移动时也更新
+        playerInput.actions["Look"].canceled += HandleLook;
     }
 
     private void OnDisable()
     {
         if (playerInput == null) return;
-
         playerInput.actions["Move"].performed -= HandleMove;
         playerInput.actions["Move"].canceled -= HandleMove;
         playerInput.actions["Move2D"].performed -= HandleMove2D;
         playerInput.actions["Move2D"].canceled -= HandleMove2D;
         playerInput.actions["Jump"].performed -= HandleJump;
         playerInput.actions["Interact"].performed -= HandleInteract;
-        // 【修改2】新增：移除 Look 监听
         playerInput.actions["Look"].performed -= HandleLook;
         playerInput.actions["Look"].canceled -= HandleLook;
     }
@@ -89,7 +80,9 @@ public class PlayerController : MonoBehaviour
     {
         if (newPlayer == currentControlledObject) return;
         currentControlledObject = newPlayer;
-        Debug.Log($"[PlayerController] 新的玩家已注册: {newPlayer.gameObject.name}");
+
+        // 【已修正】使用新的属性名 ControlledGameObject，避免堆栈溢出
+        Debug.Log($"[PlayerController] 新的玩家已注册: {newPlayer.controlledGameObject.name}");
         EventCenter.TriggerEvent<IControllable>("PlayerChange", currentControlledObject);
     }
 
@@ -98,9 +91,7 @@ public class PlayerController : MonoBehaviour
         if (currentState == newState) return;
         Debug.Log($"[PlayerController] 状态改变: 从 {currentState} 到 {newState}");
         currentState = newState;
-
-        // 状态切换时重置输入，防止角色持续移动
-        LookInput = Vector2.zero;
+        lookInput = Vector2.zero;
         if (currentControlledObject != null)
         {
             currentControlledObject.Move(Vector2.zero);
@@ -109,19 +100,16 @@ public class PlayerController : MonoBehaviour
     #endregion
 
     #region 输入处理
-    // 【修改2】新增：Look 输入处理器
     private void HandleLook(InputAction.CallbackContext context)
     {
-        // 只要控制器不是Disabled状态，就应该能更新视角
         if (currentState == ControlState.Disabled)
         {
-            LookInput = Vector2.zero;
+            lookInput = Vector2.zero;
             return;
         }
-        LookInput = context.ReadValue<Vector2>();
+        lookInput = context.ReadValue<Vector2>();
     }
     
-    // ... 其他 Handle 方法保持不变 ...
     private void HandleMove(InputAction.CallbackContext context)
     {
         if (currentControlledObject == null || currentState != ControlState.Gameplay3D) return;

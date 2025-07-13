@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 2326406624786428699}
   - component: {fileID: 3209723954239995769}
   - component: {fileID: 6871284672711483290}
-  - component: {fileID: 7396260028659401301}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -650,7 +649,6 @@ MonoBehaviour:
   actor: {fileID: 3564365953202653341}
   actorTrans: {fileID: 2731841592894383414}
   offset: {x: 0, y: 0, z: 0}
-  playerControl: 1
 --- !u!114 &2326406624786428699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -710,18 +708,6 @@ MonoBehaviour:
   filter: -65535
   m_SourceCollider: {fileID: 3209723954239995769}
   m_DistanceField: {fileID: 0}
---- !u!114 &7396260028659401301
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1729366543134554136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b5bb85bf242dc146a63b8d21831750f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1755084150363599394
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +733,7 @@ Transform:
   m_GameObject: {fileID: 1755084150363599394}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.6388235, y: 7.8859177, z: -7.745802}
+  m_LocalPosition: {x: 0, y: 3.5, z: -7.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -811,7 +797,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3811972503886132817}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 11.27, y: 4.55, z: 24.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

@@ -10,13 +10,18 @@ public interface IControllable
     /// <summary>
     /// 获取该可控对象关联的GameObject。
     /// </summary>
-    GameObject gameObject { get; }
+    GameObject controlledGameObject { get; }
 
     /// <summary>
     /// 处理移动输入。
     /// </summary>
     /// <param name="moveVector">2D移动输入向量 (x, y)。</param>
     void Move(Vector2 moveVector);
+    
+    /// <summary>
+    /// 处理移动清理。
+    /// </summary>
+    void ClearMove();
 
     /// <summary>
     /// 处理跳跃输入。
@@ -27,4 +32,6 @@ public interface IControllable
     /// 处理交互输入。
     /// </summary>
     void Interact();
+    
+    
 }

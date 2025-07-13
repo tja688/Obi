@@ -1,14 +1,13 @@
-
+// PlayerControl_Ball.cs
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Obi;
-using System.Linq;
-using UnityEngine.Serialization;
 
-public class PlayerControl_Ball : MonoBehaviour
+public class PlayerControl_Ball : MonoBehaviour, IControllable
 {
     // ---- IControllable 接口实现 ----
-    public GameObject gameObject => this.gameObject;
+    
+    // 【已修正】实现接口中的新属性名，并正确返回 MonoBehaviour 的原生 gameObject
+    public GameObject controlledGameObject => this.gameObject;
 
     public void Move(Vector2 moveVector)
     {
@@ -51,6 +50,9 @@ public class PlayerControl_Ball : MonoBehaviour
         if (softbody == null || softbody.solver == null) return;
         playerSolver = softbody.solver;
         playerSolver.OnCollision += Solver_OnCollision;
+        
+        if (referenceFrame == null)
+            referenceFrame = CameraManager.instance.gameObject.transform;
     }
 
     private void OnDestroy()
@@ -65,14 +67,13 @@ public class PlayerControl_Ball : MonoBehaviour
     {
         if (softbody == null || !softbody.isLoaded) return;
 
-        var solver = softbody.solver;
         for (var i = 0; i < softbody.solverIndices.count; ++i)
         {
             var particleIndex = softbody.solverIndices[i];
-            if (particleIndex < 0 || particleIndex >= solver.velocities.count) continue;
+            if (particleIndex < 0 || particleIndex >= playerSolver.velocities.count) continue;
             
-            solver.velocities[particleIndex] = Vector3.zero;
-            solver.angularVelocities[particleIndex] = Vector3.zero;
+            playerSolver.velocities[particleIndex] = Vector3.zero;
+            playerSolver.angularVelocities[particleIndex] = Vector3.zero;
         }
     }
 
