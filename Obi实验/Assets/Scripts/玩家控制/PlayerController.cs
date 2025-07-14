@@ -133,12 +133,11 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract(InputAction.CallbackContext context)
     {
-        if (currentControlledObject == null) return;
-        if (currentState == ControlState.Gameplay3D || currentState == ControlState.Gameplay2D)
-        {
-            currentControlledObject.Interact();
-        }
+        // 【修改】不再直接调用机关逻辑，而是发布一个全局事件
+        Debug.Log("[PlayerController] 玩家尝试交互，发布 PlayerInteracted 事件。");
+        EventCenter.TriggerEvent("PlayerInteracted");
     }
+
     #endregion
 
     private void SetupDefaultPlayer()

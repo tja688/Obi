@@ -1,23 +1,16 @@
 // MechanismBase.cs
 using UnityEngine;
 using System.Collections;
-using Obi;
 
 /// <summary>
 /// 所有交互机关的抽象基类。
-/// 实现了基于【起点(激活触发器)】和【终点(退出触发器)】的纯事件驱动状态机。
+/// 【已重构】: 使用Unity标准触发器(OnTriggerEnter/Exit)和全局事件(EventCenter)来驱动。
 /// </summary>
+[RequireComponent(typeof(Collider))] // 【新增】确保对象上总有一个碰撞体
 public abstract class MechanismBase : MonoBehaviour, IMechanism
 {
     #region Inspector 可配置参数
-
-    [Header("核心触发器设置")]
-    [Tooltip("【起点】触发器：玩家与此碰撞体接触后，机关将进入'激活'状态。")]
-    public ObiColliderBase activationCollider;
-
-    [Tooltip("【终点】触发器：机关在'激活'状态下，玩家与此碰撞体接触后，将进入'复位'状态。")]
-    public ObiColliderBase deactivationCollider;
-
+    
     [Header("摄像机设置")]
     [Tooltip("是否在机关激活时启用特殊的摄像机模式。")]
     public bool enableCameraMode;
@@ -31,17 +24,15 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
 
     protected enum MechanismState
     {
-        Standby,    // 待激活：等待玩家触碰【起点】
-        Active,     // 激活：等待玩家触碰【终点】或接收到Quit指令
+        Standby,    // 待激活：等待玩家交互
+        Active,     // 激活：玩家正在操作机关
         Resetting   // 复位：正在执行复位逻辑
     }
 
     protected MechanismState currentState { get; private set; } = MechanismState.Standby;
     
-    protected ObiActor playerActor;
-    protected ObiSolver playerSolver;
-
     private Coroutine resetCoroutine;
+    private bool isPlayerInside = false; // 【新增】用于追踪玩家是否在触发器内
 
     #endregion
 
@@ -49,32 +40,37 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
 
     protected virtual void Awake()
     {
-        // 自动获取碰撞体（如果用户未在Inspector中指定）
-        if (activationCollider == null) activationCollider = GetComponent<ObiColliderBase>();
-        if (deactivationCollider == null) deactivationCollider = GetComponent<ObiColliderBase>();
+        // 确保触发器已设置
+        Collider col = GetComponent<Collider>();
+        if (!col.isTrigger)
+        {
+            Debug.LogWarning($"机关 '{gameObject.name}' 的碰撞体未设置为 'Is Trigger'，已自动设置。", this);
+            col.isTrigger = true;
+        }
     }
 
     protected virtual void Start()
     {
-        EventCenter.AddListener<IControllable>("PlayerChange", OnPlayerChanged);
-        if (PlayerController.instance != null && PlayerController.instance.CurrentControlledObject != null)
-            OnPlayerChanged(PlayerController.instance.CurrentControlledObject);
+        // 【修改】订阅新的全局事件
+        EventCenter.AddListener("PlayerInteracted", OnPlayerInteraction);
+        EventCenter.AddListener("MechanismQuitRequested", OnQuitRequested);
         
-        // 游戏开始时，直接进入待激活状态，并启动“起点”触发器的监听
         ExecuteEnterLogic(MechanismState.Standby);
     }
 
     protected virtual void OnDestroy()
     {
-        EventCenter.RemoveListener<IControllable>("PlayerChange", OnPlayerChanged);
-        if (playerSolver != null)
+        // 【修改】注销新的全局事件
+        EventCenter.RemoveListener("PlayerInteracted", OnPlayerInteraction);
+        EventCenter.RemoveListener("MechanismQuitRequested", OnQuitRequested);
+
+        // 如果对象销毁时玩家还在里面，确保交互提示被关闭
+        if(isPlayerInside)
         {
-            playerSolver.OnCollision -= HandleActivationTrigger;
-            playerSolver.OnCollision -= HandleDeactivationTrigger;
+            EventCenter.TriggerEvent("WaitingForInteraction", false);
         }
     }
     
-    // Update 方法现在是空的，因为所有状态转换都由事件驱动
     protected virtual void Update() { }
 
     #endregion
@@ -85,7 +81,6 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
     {
         if (currentState == newState) return;
         
-        // 状态转换规则: Standby -> Active, Active -> Resetting, Resetting -> Standby
         Debug.Log($"[Mechanism] 状态变更: {currentState} -> {newState}", gameObject);
         
         ExecuteExitLogic(currentState);
@@ -112,32 +107,29 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
         }
     }
 
-    // 状态进入/退出时的逻辑
+    // --- 状态进入/退出时的具体逻辑 ---
     protected virtual void OnEnterStandby() 
     {
-        // 启动“起点触发器”监听
-        if (playerSolver != null) playerSolver.OnCollision += HandleActivationTrigger;
+        // 【修改】进入待机状态时，如果玩家已经在触发器里，立即显示交互提示
+        if (isPlayerInside)
+        {
+            EventCenter.TriggerEvent("WaitingForInteraction", true);
+        }
     }
+
     protected virtual void OnExitStandby()
     {
-        // 关闭“起点触发器”监听
-        if (playerSolver != null) playerSolver.OnCollision -= HandleActivationTrigger;
+        // 【修改】离开待机状态（通常是进入激活时），隐藏交互提示
+        EventCenter.TriggerEvent("WaitingForInteraction", false);
     }
 
     protected virtual void OnEnterActive() 
     {
         MechanismController.instance.RegisterMechanism(this);
         if (cameraViewpoint != null) CameraManager.instance.EnterMechanismMode(cameraViewpoint, enableCameraMode);
-        
-        // 启动“终点触发器”监听
-        if (playerSolver != null) playerSolver.OnCollision += HandleDeactivationTrigger;
     }
     
-    protected virtual void OnExitActive()
-    {
-        // 关闭“终点触发器”监听
-        if (playerSolver != null) playerSolver.OnCollision -= HandleDeactivationTrigger;
-    }
+    protected virtual void OnExitActive() { }
 
     protected virtual void OnEnterResetting() 
     {
@@ -151,69 +143,66 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
     protected virtual IEnumerator ResetSequence()
     {
         yield return null;
-        ChangeState(MechanismState.Standby); // 复位后，回到待激活状态，准备下一次触发
+        // 【修改】复位后，直接回到待激活状态。OnEnterStandby会处理后续逻辑。
+        ChangeState(MechanismState.Standby); 
     }
     
     #endregion
     
-    #region 事件与碰撞处理
+    #region 事件与碰撞处理 (已重构)
 
-    private void OnPlayerChanged(IControllable newPlayer)
+    private void OnTriggerEnter(Collider other)
     {
-        // 如果之前有监听，先注销旧的
-        if (playerSolver != null)
+        if (other.CompareTag("Player"))
         {
-            playerSolver.OnCollision -= HandleActivationTrigger;
-            playerSolver.OnCollision -= HandleDeactivationTrigger;
+            isPlayerInside = true;
+            // 如果当前是待机状态，则告诉UI可以显示交互提示了
+            if (currentState == MechanismState.Standby)
+            {
+                Debug.Log("[Mechanism] 玩家进入触发器，发送 WaitingForInteraction(true) 事件。", gameObject);
+                EventCenter.TriggerEvent("WaitingForInteraction", true);
+            }
         }
+    }
 
-        if (newPlayer == null) return;
-        
-        playerActor = newPlayer.controlledGameObject.GetComponent<ObiActor>();
-        if (playerActor != null) 
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
         {
-            playerSolver = playerActor.solver;
-            // 根据当前状态，重新订阅事件
-            ExecuteEnterLogic(currentState); 
-        }
-        else 
-        {
-            playerSolver = null;
+            isPlayerInside = false;
+            Debug.Log("[Mechanism] 玩家退出触发器。", gameObject);
+            
+            // 无论处于何种状态，玩家离开了就不能交互了，关闭提示
+            EventCenter.TriggerEvent("WaitingForInteraction", false);
+
+            // 如果机关是激活状态，玩家离开则自动复位
+            if (currentState == MechanismState.Active)
+            {
+                Debug.Log("[Mechanism] 玩家在激活状态下离开，自动复位。", gameObject);
+                ChangeState(MechanismState.Resetting);
+            }
         }
     }
 
     /// <summary>
-    /// 【起点触发器】: 检测到玩家触碰 activationCollider 后，触发一次并由状态机注销。
+    /// 当接收到全局的玩家交互事件时调用
     /// </summary>
-    private void HandleActivationTrigger(ObiSolver solver, ObiNativeContactList e)
+    private void OnPlayerInteraction()
     {
-        foreach (var contact in e)
+        // 只有在待机状态且玩家在触发器内时，交互才有效
+        if (currentState == MechanismState.Standby && isPlayerInside)
         {
-            if (contact.distance > 0.01f && 
-                ObiCollisionUtils.TryParseActorColliderPair(contact, solver, out var actor, out var collider) &&
-                actor == playerActor && collider == activationCollider)
-            {
-                ChangeState(MechanismState.Active);
-                return; // 找到即触发，无需继续遍历
-            }
+            Debug.Log("[Mechanism] 收到交互请求且条件满足，激活机关。", gameObject);
+            ChangeState(MechanismState.Active);
         }
     }
     
     /// <summary>
-    /// 【终点触发器】: 检测到玩家触碰 deactivationCollider 后，触发一次并由状态机注销。
+    /// 当接收到全局的退出机关事件时调用
     /// </summary>
-    private void HandleDeactivationTrigger(ObiSolver solver, ObiNativeContactList e)
+    private void OnQuitRequested()
     {
-        foreach (var contact in e)
-        {
-            if (contact.distance > 0.01f && 
-                ObiCollisionUtils.TryParseActorColliderPair(contact, solver, out var actor, out var collider) &&
-                actor == playerActor && collider == deactivationCollider)
-            {
-                ChangeState(MechanismState.Resetting);
-                return; // 找到即触发，无需继续遍历
-            }
-        }
+        OnQuit();
     }
     
     #endregion
@@ -225,16 +214,16 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
     public virtual void OnLeftButton(bool isPressed) { }
     public virtual void OnRightButton(bool isPressed) { }
     public virtual void OnMouseWheel(Vector2 scroll) { }
-
+    
     /// <summary>
-    /// 【新增】处理中途退出逻辑。
+    /// 【修改】处理中途退出逻辑。现在由事件 OnQuitRequested 触发。
     /// </summary>
     public virtual void OnQuit() 
     {
         // 只有在激活状态下，Quit指令才有效
         if (currentState == MechanismState.Active)
         {
-            Debug.Log("[Mechanism] 接收到Quit指令，强制进入复位状态。");
+            Debug.Log("[Mechanism] 接收到Quit指令，强制进入复位状态。", gameObject);
             ChangeState(MechanismState.Resetting);
         }
     }

@@ -160,17 +160,7 @@ public class MechanismController : MonoBehaviour
 
     private void HandleQuit(InputAction.CallbackContext context)
     {
-        if (CurrentState == MechanismState.Inactive) return;
-        
-        // 【修正】创建一个激活机关列表的副本
-        var mechanismsToNotify = activeMechanisms.ToList();
-        
-        Debug.Log("Quit action triggered.");
-        
-        // 遍历副本，这样在循环内部修改原始的 activeMechanisms 集合就是安全的
-        foreach (var mechanism in mechanismsToNotify)
-        {
-            mechanism.OnQuit();
-        }
+        Debug.Log("[PlayerController] 玩家请求退出机关，发布 MechanismQuitRequested 事件。");
+        EventCenter.TriggerEvent("MechanismQuitRequested");
     }
 }

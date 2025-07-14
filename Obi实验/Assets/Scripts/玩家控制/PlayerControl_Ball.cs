@@ -23,7 +23,7 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
 
     public void Interact()
     {
-        Debug.Log($"{this.name} 触发了交互！");
+        // Debug.Log($"{this.name} 触发了交互！");
     }
     // ---- 接口实现结束 ----
 
