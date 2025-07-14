@@ -3163,7 +3163,7 @@ MonoBehaviour:
   - {fileID: 7435677298537737283}
   path:
     m_Names:
-    - fixed
+    - End
     - control point
     - fixed
     - fixed
@@ -3695,7 +3695,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 775ad4994fda946d1a5936c7e2dfc785, type: 3}
-  m_Name: fixed
+  m_Name: End
   m_EditorClassIdentifier: 
   particleIndices: 00000000
   m_Blueprint: {fileID: 11400000}
