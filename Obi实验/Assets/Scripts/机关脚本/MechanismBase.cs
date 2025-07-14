@@ -1,6 +1,7 @@
 // MechanismBase.cs
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Serialization;
 
 /// <summary>
 /// 所有交互机关的抽象基类。
@@ -11,9 +12,10 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
 {
     #region Inspector 可配置参数
     
+    [FormerlySerializedAs("enableCameraMode")]
     [Header("摄像机设置")]
     [Tooltip("是否在机关激活时启用特殊的摄像机模式。")]
-    public bool enableCameraMode;
+    public bool enablePlayerFollowMode;
 
     [Tooltip("摄像机在机关模式下的观察点位。若不指定，则不改变摄像机模式。")]
     public Transform cameraViewpoint;
@@ -126,7 +128,7 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
     protected virtual void OnEnterActive() 
     {
         MechanismController.instance.RegisterMechanism(this);
-        if (cameraViewpoint != null) CameraManager.instance.EnterMechanismMode(cameraViewpoint, enableCameraMode);
+        if (cameraViewpoint != null) CameraManager.instance.EnterMechanismMode(cameraViewpoint, enablePlayerFollowMode);
     }
     
     protected virtual void OnExitActive() { }
