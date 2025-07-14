@@ -95,25 +95,27 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public async void EnterPlayerMode()
     {
-        transitionCts?.Cancel();
-        transitionCts = new CancellationTokenSource();
-        
-        PlayerController.instance.CurrentControlledObject?.ClearMove();
-        PlayerController.instance.RequestStateChange(PlayerController.ControlState.Disabled);
+        // transitionCts?.Cancel();
+        // transitionCts = new CancellationTokenSource();
+        //
+        // PlayerController.instance.CurrentControlledObject?.ClearMove();
+        // PlayerController.instance.RequestStateChange(PlayerController.ControlState.Disabled);
+        //
+        // // 【修正】在计算目标位置前，强制刷新相机对玩家当前状态的认知
+        // if (PlayerController.instance.CurrentControlledObject != null)
+        // {
+        //     OnPlayerChanged(PlayerController.instance.CurrentControlledObject);
+        // }
+        //
+        // // 现在，基于最新的玩家状态来计算返回目标点
+        // Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0);
+        // Vector3 targetPosition = extrapolatedPos - (targetRotation * Vector3.forward * distanceFromTarget);
+        //
+        // await TransitionToAsync(targetPosition, targetRotation, CameraState.PlayerMode);
+        //
+        // PlayerController.instance.RequestStateChange(PlayerController.ControlState.Gameplay3D);
 
-        // 【修正】在计算目标位置前，强制刷新相机对玩家当前状态的认知
-        if (PlayerController.instance.CurrentControlledObject != null)
-        {
-            OnPlayerChanged(PlayerController.instance.CurrentControlledObject);
-        }
-
-        // 现在，基于最新的玩家状态来计算返回目标点
-        Quaternion targetRotation = Quaternion.Euler(pitch, yaw, 0);
-        Vector3 targetPosition = extrapolatedPos - (targetRotation * Vector3.forward * distanceFromTarget);
-        
-        await TransitionToAsync(targetPosition, targetRotation, CameraState.PlayerMode);
-        
-        PlayerController.instance.RequestStateChange(PlayerController.ControlState.Gameplay3D);
+        currentState = CameraState.PlayerMode;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
