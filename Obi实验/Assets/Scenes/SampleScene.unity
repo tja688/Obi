@@ -119,6 +119,52 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &248534754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 248534756}
+  - component: {fileID: 248534755}
+  m_Layer: 0
+  m_Name: BurstCollisionWorld
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &248534755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248534754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cellSpans:
+    m_AlignBytes: 16
+--- !u!4 &248534756
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 248534754}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,52 +841,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1 &1860472465
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1860472467}
-  - component: {fileID: 1860472466}
-  m_Layer: 0
-  m_Name: BurstCollisionWorld
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1860472466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860472465}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f1a161c4294214a4fbcb7e9e94800494, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cellSpans:
-    m_AlignBytes: 16
---- !u!4 &1860472467
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1860472465}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2121491197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11735,7 +11735,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8010242541367882984, guid: 9bf0440a1d1f23a4fa4cd5040a030d31, type: 3}
       propertyPath: mechanismLookSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010242541367882984, guid: 9bf0440a1d1f23a4fa4cd5040a030d31, type: 3}
+      propertyPath: mechanismFollowSpeed
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010242541367882984, guid: 9bf0440a1d1f23a4fa4cd5040a030d31, type: 3}
+      propertyPath: mechanismAngleLimit.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010242541367882984, guid: 9bf0440a1d1f23a4fa4cd5040a030d31, type: 3}
+      propertyPath: mechanismAngleLimit.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8010242541367882984, guid: 9bf0440a1d1f23a4fa4cd5040a030d31, type: 3}
+      propertyPath: mechanismLookDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8781014897969581852, guid: 9bf0440a1d1f23a4fa4cd5040a030d31, type: 3}
       propertyPath: m_LocalPosition.x
@@ -15314,6 +15330,10 @@ PrefabInstance:
       propertyPath: 'solverIndices.serializedContents.Array.data[211]'
       value: 211
       objectReference: {fileID: 0}
+    - target: {fileID: 9201471628326693919, guid: 50790613d71568f47ac4cfbbcaf2f419, type: 3}
+      propertyPath: enablePlayerFollowMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15338,4 +15358,4 @@ SceneRoots:
   - {fileID: 1236467903}
   - {fileID: 418954319708570878}
   - {fileID: 3612847111418701929}
-  - {fileID: 1860472467}
+  - {fileID: 248534756}

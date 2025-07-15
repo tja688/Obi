@@ -6,7 +6,6 @@ using System.Threading;
 
 public class CameraManager : MonoBehaviour
 {
-    #region Unchanged Region 1
     #region Singleton
     public static CameraManager instance { get; private set; }
     #endregion
@@ -28,24 +27,21 @@ public class CameraManager : MonoBehaviour
     public float extrapolation = 12;
     [Range(0, 1)] public float smoothness = 0.5f;
 
-    // --- 【新增】机关模式专属设置 ---
     [Header("机关模式设置")]
-    [Tooltip("在机关模式下，摄像机跟随鼠标旋转的平滑速度。")]
-    public float mechanismLookSpeed = 5f;
-    [Tooltip("在机关模式下，摄像机看向鼠标时，目标点与摄像机的距离。")]
-    public float mechanismLookDistance = 15f;
-    // ---
+    [Tooltip("在鼠标跟随模式下，摄像机小范围转动的角度限制（X:上下, Y:左右）。")]
+    public Vector2 mechanismAngleLimit = new Vector2(10f, 15f);
+    [Tooltip("在机关模式下，摄像机跟随的平滑速度。")]
+    public float mechanismFollowSpeed = 5f;
 
     private Vector3 lastPosition;
     private Vector3 extrapolatedPos;
     private float yaw, pitch;
     private Transform mechanismTargetTransform;
-    
-    // 【修改】变量重命名，使其意义更明确
-    private bool followMouseInMechanismMode = false;
+    private Transform mechanismFollowTarget; // 【新增】用于存储机关模式下要跟随的特定目标
+    private Quaternion mechanismBaseRotation;
     
     private CancellationTokenSource transitionCts;
-    private new Camera camera; // 【新增】缓存摄像机组件
+    private new Camera camera;
 
     private void Awake()
     {
@@ -55,7 +51,7 @@ public class CameraManager : MonoBehaviour
         EventCenter.AddListener<IControllable>("PlayerChange", OnPlayerChanged);
         
         transitionCts = new CancellationTokenSource();
-        camera = GetComponent<Camera>(); // 【新增】获取并缓存Camera组件
+        camera = GetComponent<Camera>();
     }
 
     private void Start()
@@ -72,16 +68,15 @@ public class CameraManager : MonoBehaviour
         transitionCts?.Cancel();
         transitionCts?.Dispose();
     }
-    #endregion
 
-    #region 公共接口 (已优化)
+    #region 公共接口
     
     /// <summary>
-    /// 进入机关视角模式。
+    /// 【修改】进入机关视角模式。
     /// </summary>
     /// <param name="viewTransform">机关提供的摄像机点位和初始朝向。</param>
-    /// <param name="followMouse">【修改】是否在机关模式下让摄像机平滑跟随鼠标。</param>
-    public async void EnterMechanismMode(Transform viewTransform, bool followMouse = false)
+    /// <param name="followTarget">【新】一个可选的特定跟随目标。如果为null，则启用有限的鼠标跟随；否则，摄像机将朝向此目标。</param>
+    public async void EnterMechanismMode(Transform viewTransform, Transform followTarget = null)
     {
         transitionCts?.Cancel();
         transitionCts = new CancellationTokenSource();
@@ -90,8 +85,13 @@ public class CameraManager : MonoBehaviour
         PlayerController.instance.RequestStateChange(PlayerController.ControlState.Disabled);
 
         mechanismTargetTransform = viewTransform;
-        // 【修改】使用新的变量名和参数
-        followMouseInMechanismMode = followMouse;
+        this.mechanismFollowTarget = followTarget; // 保存传入的跟随目标
+        
+        // 只有在跟随鼠标时(即没有特定目标时)，才需要记录基准旋转用于计算偏移
+        if (followTarget == null)
+        {
+            mechanismBaseRotation = viewTransform.rotation;
+        }
         
         await TransitionToAsync(viewTransform.position, viewTransform.rotation, CameraState.MechanismMode);
         
@@ -106,18 +106,12 @@ public class CameraManager : MonoBehaviour
     /// </summary>
     public async void EnterPlayerMode()
     {
-        // 您原来的代码已注释，保持不变
-        // transitionCts?.Cancel();
-        // transitionCts = new CancellationTokenSource();
-        // ...
-
         currentState = CameraState.PlayerMode;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
     #endregion
     
-    #region Unchanged Region 2
     private void OnPlayerChanged(IControllable newPlayer)
     {
         if (newPlayer == null) return;
@@ -155,7 +149,6 @@ public class CameraManager : MonoBehaviour
                 HandlePlayerMode();
                 break;
             case CameraState.MechanismMode:
-                // --- 【核心修改】 ---
                 HandleMechanismMode();
                 break;
         }
@@ -174,28 +167,43 @@ public class CameraManager : MonoBehaviour
         transform.position = Vector3.Lerp(transform.position, desiredPosition, linearSpeed);
     }
 
-    // --- 【核心修改】 ---
     /// <summary>
-    /// 处理机关模式下的摄像机行为。
-    /// 如果 followMouseInMechanismMode 为true，摄像机将平滑地转向鼠标指针在3D空间中的投影点。
+    /// 【重构】处理机关模式下的摄像机行为。
+    /// 如果有特定跟随目标(mechanismFollowTarget)，则朝向该目标。
+    /// 否则，执行有限范围的鼠标跟随。
     /// </summary>
     private void HandleMechanismMode()
     {
-        if (followMouseInMechanismMode)
+        // 情况一：如果设置了特定的跟随目标
+        if (mechanismFollowTarget != null)
         {
-            // 1. 从摄像机发出一条经过鼠标指针的射线
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
-
-            // 2. 计算射线上距离摄像机 mechanismLookDistance 远的点作为目标观看点
-            Vector3 lookTargetPoint = ray.GetPoint(mechanismLookDistance);
-
-            // 3. 计算从当前位置看向目标点的目标旋转值
-            Quaternion targetRotation = Quaternion.LookRotation(lookTargetPoint - transform.position);
-
-            // 4. 使用Slerp平滑地将当前旋转插值到目标旋转，实现丝滑的跟随效果
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, mechanismLookSpeed * Time.deltaTime);
+            // 1. 计算从摄像机指向目标的向量
+            Vector3 directionToTarget = mechanismFollowTarget.position - transform.position;
+            
+            // 2. 根据这个向量计算出目标旋转值
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            
+            // 3. 平滑地将摄像机朝向目标
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, mechanismFollowSpeed * Time.deltaTime);
         }
-        // 如果 followMouseInMechanismMode 为 false，则不执行任何操作，摄像机保持在运镜结束时的固定旋转状态。
+        // 情况二：如果没有特定目标，则执行有限范围的鼠标跟随
+        else
+        {
+            // 1. 获取鼠标相对于屏幕中心的偏移量 (范围: -0.5 到 0.5)
+            float mouseX = (Input.mousePosition.x / Screen.width) - 0.5f;
+            float mouseY = (Input.mousePosition.y / Screen.height) - 0.5f;
+
+            // 2. 根据偏移量和角度限制，计算目标旋转的偏移角度
+            float yawOffset = mouseX * mechanismAngleLimit.y * 2f;
+            float pitchOffset = -mouseY * mechanismAngleLimit.x * 2f;
+
+            // 3. 在基准旋转的基础上，应用这个小范围的偏移
+            Quaternion offsetRotation = Quaternion.Euler(pitchOffset, yawOffset, 0);
+            Quaternion targetRotation = mechanismBaseRotation * offsetRotation;
+
+            // 4. 平滑地将当前旋转插值到目标旋转
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, mechanismFollowSpeed * Time.deltaTime);
+        }
     }
 
     private async UniTask TransitionToAsync(Vector3 targetPosition, Quaternion targetRotation, CameraState stateAfterTransition)
@@ -220,7 +228,6 @@ public class CameraManager : MonoBehaviour
         catch (System.OperationCanceledException)
         {
             Debug.Log("Camera transition was cancelled.");
-            // 如果转换被取消，我们需要根据当前模式决定鼠标状态
             if(stateAfterTransition == CameraState.MechanismMode)
             {
                  Cursor.lockState = CursorLockMode.None;
@@ -244,5 +251,4 @@ public class CameraManager : MonoBehaviour
         yaw = newAngles.y;
         pitch = newAngles.x;
     }
-    #endregion
 }

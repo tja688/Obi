@@ -128,7 +128,7 @@ public abstract class MechanismBase : MonoBehaviour, IMechanism
     protected virtual void OnEnterActive() 
     {
         MechanismController.instance.RegisterMechanism(this);
-        if (cameraViewpoint != null) CameraManager.instance.EnterMechanismMode(cameraViewpoint, enablePlayerFollowMode);
+        if (cameraViewpoint != null) CameraManager.instance.EnterMechanismMode(cameraViewpoint);
     }
     
     protected virtual void OnExitActive() { }
