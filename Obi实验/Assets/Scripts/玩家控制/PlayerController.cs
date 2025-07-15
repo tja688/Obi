@@ -1,10 +1,13 @@
-// PlayerController.cs
+// PlayerController.cs (最终修正版)
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+using System.Collections; // 【新增】引入协程命名空间
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
+    // ... (所有已有变量和 Awake, Initialize, Start 方法保持不变) ...
     #region Singleton & Persistence
     public static PlayerController instance { get; private set; }
 
@@ -13,7 +16,6 @@ public class PlayerController : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
             Initialize();
         }
         else
@@ -50,7 +52,7 @@ public class PlayerController : MonoBehaviour
     #region 事件订阅与注销
     private void OnEnable()
     {
-        if (playerInput == null) return;
+        // ... (所有 playerInput.actions 的订阅保持不变) ...
         playerInput.actions["Move"].performed += HandleMove;
         playerInput.actions["Move"].canceled += HandleMove;
         playerInput.actions["Move2D"].performed += HandleMove2D;
@@ -59,11 +61,14 @@ public class PlayerController : MonoBehaviour
         playerInput.actions["Interact"].performed += HandleInteract;
         playerInput.actions["Look"].performed += HandleLook;
         playerInput.actions["Look"].canceled += HandleLook;
+        playerInput.actions["Restart"].performed += HandleRestart;
+
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
     {
-        if (playerInput == null) return;
+        // ... (所有 playerInput.actions 的取消订阅保持不变) ...
         playerInput.actions["Move"].performed -= HandleMove;
         playerInput.actions["Move"].canceled -= HandleMove;
         playerInput.actions["Move2D"].performed -= HandleMove2D;
@@ -72,6 +77,9 @@ public class PlayerController : MonoBehaviour
         playerInput.actions["Interact"].performed -= HandleInteract;
         playerInput.actions["Look"].performed -= HandleLook;
         playerInput.actions["Look"].canceled -= HandleLook;
+        playerInput.actions["Restart"].performed -= HandleRestart;
+
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     #endregion
 
@@ -79,11 +87,18 @@ public class PlayerController : MonoBehaviour
     public void RegisterPlayer(IControllable newPlayer)
     {
         if (newPlayer == currentControlledObject) return;
+        currentControlledObject = null; 
         currentControlledObject = newPlayer;
 
-        // 【已修正】使用新的属性名 ControlledGameObject，避免堆栈溢出
-        Debug.Log($"[PlayerController] 新的玩家已注册: {newPlayer.controlledGameObject.name}");
-        EventCenter.TriggerEvent<IControllable>("PlayerChange", currentControlledObject);
+        if (newPlayer != null)
+        {
+            Debug.Log($"[PlayerController] 新的玩家已注册: {newPlayer.controlledGameObject.name}");
+            EventCenter.TriggerEvent<IControllable>("PlayerChange", currentControlledObject);
+        }
+        else
+        {
+            Debug.LogWarning("[PlayerController] 注册了一个空的玩家对象。");
+        }
     }
 
     public void RequestStateChange(ControlState newState)
@@ -133,12 +148,39 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract(InputAction.CallbackContext context)
     {
-        // 【修改】不再直接调用机关逻辑，而是发布一个全局事件
         Debug.Log("[PlayerController] 玩家尝试交互，发布 PlayerInteracted 事件。");
         EventCenter.TriggerEvent("PlayerInteracted");
     }
 
+    private void HandleRestart(InputAction.CallbackContext context)
+    {
+        Debug.Log("[PlayerController] 玩家请求重启，发布 GameRestartRequested 事件。");
+        EventCenter.TriggerEvent("GameRestartRequested");
+    }
     #endregion
+
+    /// <summary>
+    /// 【修改】当场景加载后，启动一个协程来延迟执行玩家查找。
+    /// </summary>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // 停止之前的协程，以防万一
+        StopAllCoroutines();
+        // 启动新协程
+        StartCoroutine(FindPlayerInNewSceneCoroutine());
+    }
+
+    /// <summary>
+    /// 【新增】延迟一帧查找玩家的协程。
+    /// </summary>
+    private IEnumerator FindPlayerInNewSceneCoroutine()
+    {
+        // 等待一帧，确保新场景中的所有对象都已完成初始化
+        yield return null; 
+
+        Debug.Log($"[PlayerController] 延迟一帧后，在新场景 '{SceneManager.GetActiveScene().name}' 中查找玩家...");
+        SetupDefaultPlayer();
+    }
 
     private void SetupDefaultPlayer()
     {
@@ -155,14 +197,14 @@ public class PlayerController : MonoBehaviour
         else
         {
             Debug.LogWarning("[PlayerController] 未在Inspector中配置默认玩家。正在场景中自动查找...");
-            target = FindObjectOfType<MonoBehaviour>(true) as IControllable;
-            if (target != null)
+            if (FindObjectOfType<MonoBehaviour>(true) is IControllable playerComponent)
             {
-                RegisterPlayer(target);
+                RegisterPlayer(playerComponent);
             }
             else
             {
-                Debug.LogError("[PlayerController] 严重警告: 场景中找不到任何实现了IControllable接口的对象！控制器将不会有任何作用。");
+                Debug.LogError("[PlayerController] 严重警告: 即使延迟一帧后，在新加载的场景中仍然找不到任何实现了IControllable接口的对象！");
+                RegisterPlayer(null);
             }
         }
     }

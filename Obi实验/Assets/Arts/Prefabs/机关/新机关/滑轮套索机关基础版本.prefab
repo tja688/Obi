@@ -3351,7 +3351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7f58b759170ffc41922b998d8cdad7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enablePlayerFollowMode: 0
+  enablePlayerFollowMode: 1
   cameraViewpoint: {fileID: 2544367518654724065}
   weightA: {fileID: 3914875638920807686}
   weightB: {fileID: 1830169250355155698}

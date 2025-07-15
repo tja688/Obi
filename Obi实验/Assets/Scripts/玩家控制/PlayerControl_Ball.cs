@@ -6,7 +6,6 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
 {
     // ---- IControllable 接口实现 ----
     
-    // 【已修正】实现接口中的新属性名，并正确返回 MonoBehaviour 的原生 gameObject
     public GameObject controlledGameObject => this.gameObject;
 
     public void Move(Vector2 moveVector)
@@ -23,7 +22,6 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
 
     public void Interact()
     {
-        // Debug.Log($"{this.name} 触发了交互！");
     }
     // ---- 接口实现结束 ----
 
