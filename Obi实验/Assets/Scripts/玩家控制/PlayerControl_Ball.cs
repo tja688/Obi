@@ -2,6 +2,7 @@
 using UnityEngine;
 using Obi;
 
+[RequireComponent(typeof(PlayerGrabTool))] 
 public class PlayerControl_Ball : MonoBehaviour, IControllable
 {
     // ---- IControllable 接口实现 ----
@@ -22,6 +23,35 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
 
     public void Interact()
     {
+        // 具体的交互逻辑可以写在这里
+    }
+
+    /// <summary>
+    /// 【新增】实现被抓取接口
+    /// </summary>
+    public void BeGrabbed(Transform grabber)
+    {
+        if (grabTool != null)
+        {
+            Debug.Log($"[PlayerControl_Ball] 被 {grabber.name} 抓取。");
+            grabTool.GrabPlayer(grabber);
+        }
+        else
+        {
+            Debug.LogError("[PlayerControl_Ball] 抓取失败，未找到 PlayerGrabTool 组件！");
+        }
+    }
+
+    /// <summary>
+    /// 【新增】实现被释放接口
+    /// </summary>
+    public void BeReleased()
+    {
+        if (grabTool != null)
+        {
+            Debug.Log("[PlayerControl_Ball] 被释放。");
+            grabTool.ReleasePlayer();
+        }
     }
     // ---- 接口实现结束 ----
 
@@ -37,6 +67,8 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
     public Transform actorTrans = null;
     public Vector3 offset;
 
+    // 【新增】抓取工具的引用
+    private PlayerGrabTool grabTool;
     private Vector2 moveInput;
     private ObiSoftbody softbody;
     private bool onGround = false;
@@ -44,6 +76,9 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
     
     private void Start()
     {
+        // 【新增】获取抓取工具组件
+        grabTool = GetComponent<PlayerGrabTool>();
+
         softbody = GetComponent<ObiSoftbody>();
         if (softbody == null || softbody.solver == null) return;
         playerSolver = softbody.solver;
@@ -51,14 +86,6 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
         
         if (referenceFrame == null)
             referenceFrame = CameraManager.instance.gameObject.transform;
-    }
-
-    private void OnDestroy()
-    {
-        if (softbody != null && softbody.solver != null)
-        {
-            softbody.solver.OnCollision -= Solver_OnCollision;
-        }
     }
     
     public void ClearMove()
@@ -114,6 +141,14 @@ public class PlayerControl_Ball : MonoBehaviour, IControllable
             if (!col) continue;
             onGround = true;
             break;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (softbody != null && softbody.solver != null)
+        {
+            softbody.solver.OnCollision -= Solver_OnCollision;
         }
     }
 }

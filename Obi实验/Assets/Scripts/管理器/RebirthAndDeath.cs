@@ -66,8 +66,7 @@ public class RebirthAndDeath : MonoBehaviour
 
             if (col == finishCollider)
             {
-                Debug.Log("[RebirthAndDeath] 玩家到达终点！");
-                // 可以在此禁用脚本，防止重复触发
+                EventCenter.TriggerEvent("LevelFinished");
                 this.enabled = false; 
                 return;
             }

@@ -33,5 +33,14 @@ public interface IControllable
     /// </summary>
     void Interact();
     
-    
+    /// <summary>
+    /// 【新增】处理被抓取时的逻辑。
+    /// </summary>
+    /// <param name="grabber">抓取者的Transform，用于物理附着。</param>
+    void BeGrabbed(Transform grabber);
+
+    /// <summary>
+    /// 【新增】处理被释放时的逻辑。
+    /// </summary>
+    void BeReleased();
 }

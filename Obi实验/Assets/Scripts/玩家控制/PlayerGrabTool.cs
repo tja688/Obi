@@ -6,45 +6,15 @@ using Obi;
 /// 需要与 ObiParticleAttachment 和 ObiActor 组件在同一个 GameObject 上。
 /// </summary>
 [RequireComponent(typeof(ObiParticleAttachment))]
-public class ObiAttachmentManager : MonoBehaviour
+public class PlayerGrabTool : MonoBehaviour
 {
-    #region Singleton Pattern
     
-    private static ObiAttachmentManager _instance;
-
-    /// <summary>
-    /// 获取 ObiAttachmentManager 的全局唯一实例。
-    /// </summary>
-    public static ObiAttachmentManager Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = FindObjectOfType<ObiAttachmentManager>();
-                if (_instance == null)
-                {
-                    Debug.LogError("场景中未找到 ObiAttachmentManager 实例。请确保已将其添加到带有 ObiParticleAttachment 的对象上。");
-                }
-            }
-            return _instance;
-        }
-    }
-
-    #endregion
-
+    [HideInInspector] public bool isGrabbed = false;
+    
     private ObiParticleAttachment particleAttachment;
 
-    private void Awake()
+    private void Start()
     {
-        // 实现单例模式
-        if (_instance != null && _instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        _instance = this;
-
         // 获取关联的 ObiParticleAttachment 组件
         particleAttachment = GetComponent<ObiParticleAttachment>();
         if (particleAttachment == null)
@@ -53,7 +23,6 @@ public class ObiAttachmentManager : MonoBehaviour
             return;
         }
 
-        // 初始状态下禁用 Attachment
         particleAttachment.enabled = false;
     }
 
@@ -96,6 +65,8 @@ public class ObiAttachmentManager : MonoBehaviour
 
         // 3. 启用 Attachment 组件以应用抓取效果
         particleAttachment.enabled = true;
+        
+        isGrabbed = true;
     }
 
     /// <summary>
@@ -115,5 +86,7 @@ public class ObiAttachmentManager : MonoBehaviour
         // 2. 将 target 设置为 null，彻底清除绑定关系
         // ObiParticleAttachment 的 target set 访问器会调用 Bind()，从而清理内部状态
         particleAttachment.target = null;
+        
+        isGrabbed = false;
     }
 }

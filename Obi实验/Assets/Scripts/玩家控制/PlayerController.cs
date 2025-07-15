@@ -1,13 +1,13 @@
-// PlayerController.cs (最终修正版)
+// PlayerController.cs
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using System.Collections; // 【新增】引入协程命名空间
+using System.Collections;
 
 [RequireComponent(typeof(PlayerInput))]
 public class PlayerController : MonoBehaviour
 {
-    // ... (所有已有变量和 Awake, Initialize, Start 方法保持不变) ...
+    // ... (Singleton, Awake, Initialize, Start 等保持不变) ...
     #region Singleton & Persistence
     public static PlayerController instance { get; private set; }
 
@@ -25,7 +25,8 @@ public class PlayerController : MonoBehaviour
     }
     #endregion
 
-    public enum ControlState { Gameplay3D, Gameplay2D, Disabled }
+    // 【修改】增加新的状态
+    public enum ControlState { Gameplay3D, Gameplay2D, Disabled, Grappled }
 
     [Header("玩家设置")]
     [Tooltip("在编辑器中预先指定一个默认玩家对象。如果为空，将在启动时自动查找。")]
@@ -49,10 +50,10 @@ public class PlayerController : MonoBehaviour
         SetupDefaultPlayer();
     }
 
+    // ... (事件订阅 OnEnable/OnDisable 保持不变) ...
     #region 事件订阅与注销
     private void OnEnable()
     {
-        // ... (所有 playerInput.actions 的订阅保持不变) ...
         playerInput.actions["Move"].performed += HandleMove;
         playerInput.actions["Move"].canceled += HandleMove;
         playerInput.actions["Move2D"].performed += HandleMove2D;
@@ -68,7 +69,6 @@ public class PlayerController : MonoBehaviour
 
     private void OnDisable()
     {
-        // ... (所有 playerInput.actions 的取消订阅保持不变) ...
         playerInput.actions["Move"].performed -= HandleMove;
         playerInput.actions["Move"].canceled -= HandleMove;
         playerInput.actions["Move2D"].performed -= HandleMove2D;
@@ -82,7 +82,8 @@ public class PlayerController : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     #endregion
-
+    
+    // ... (RegisterPlayer 保持不变) ...
     #region 公共方法
     public void RegisterPlayer(IControllable newPlayer)
     {
@@ -100,7 +101,7 @@ public class PlayerController : MonoBehaviour
             Debug.LogWarning("[PlayerController] 注册了一个空的玩家对象。");
         }
     }
-
+    
     public void RequestStateChange(ControlState newState)
     {
         if (currentState == newState) return;
@@ -109,14 +110,53 @@ public class PlayerController : MonoBehaviour
         lookInput = Vector2.zero;
         if (currentControlledObject != null)
         {
-            currentControlledObject.Move(Vector2.zero);
+            // 在状态切换时清除移动输入，防止角色卡在移动状态
+            currentControlledObject.Move(Vector2.zero); 
         }
+    }
+
+    /// <summary>
+    /// 【新增】外部系统请求抓取当前玩家的公共接口。
+    /// </summary>
+    /// <param name="grabber">抓取者的Transform。</param>
+    public void RequestGrab(Transform grabber)
+    {
+        if (currentControlledObject == null || currentState == ControlState.Grappled || grabber == null)
+        {
+            Debug.LogWarning("[PlayerController] 抓取请求被拒绝：玩家为空或已被抓取。");
+            return;
+        }
+
+        // 1. 转换到抓取状态
+        RequestStateChange(ControlState.Grappled);
+        
+        // 2. 通知当前控制对象执行被抓取的具体逻辑
+        currentControlledObject.BeGrabbed(grabber);
+    }
+
+    /// <summary>
+    /// 【新增】外部系统请求释放当前玩家的公共接口。
+    /// </summary>
+    public void RequestRelease()
+    {
+        if (currentControlledObject == null || currentState != ControlState.Grappled)
+        {
+            Debug.LogWarning("[PlayerController] 释放请求被拒绝：玩家为空或未被抓取。");
+            return;
+        }
+        
+        // 1. 通知当前控制对象执行被释放的具体逻辑
+        currentControlledObject.BeReleased();
+        
+        // 2. 恢复到默认的3D游戏状态 (可以根据需要改为2D或其他)
+        RequestStateChange(ControlState.Gameplay3D);
     }
     #endregion
 
     #region 输入处理
     private void HandleLook(InputAction.CallbackContext context)
     {
+        // 只要不是完全禁用，视角就可以控制
         if (currentState == ControlState.Disabled)
         {
             lookInput = Vector2.zero;
@@ -127,12 +167,14 @@ public class PlayerController : MonoBehaviour
     
     private void HandleMove(InputAction.CallbackContext context)
     {
+        // 当状态不是 Gameplay3D 时，此处的判断会直接返回，从而阻断移动输入
         if (currentControlledObject == null || currentState != ControlState.Gameplay3D) return;
         currentControlledObject.Move(context.ReadValue<Vector2>());
     }
 
     private void HandleMove2D(InputAction.CallbackContext context)
     {
+        // 当状态不是 Gameplay2D 时，此处的判断会直接返回
         if (currentControlledObject == null || currentState != ControlState.Gameplay2D) return;
         currentControlledObject.Move(context.ReadValue<Vector2>());
     }
@@ -140,6 +182,7 @@ public class PlayerController : MonoBehaviour
     private void HandleJump(InputAction.CallbackContext context)
     {
         if (currentControlledObject == null) return;
+        // 此处的判断确保只有在 3D 或 2D 模式下才能跳跃，Grappled 状态下无法跳跃
         if (currentState == ControlState.Gameplay3D || currentState == ControlState.Gameplay2D)
         {
             currentControlledObject.Jump();
@@ -148,6 +191,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleInteract(InputAction.CallbackContext context)
     {
+        // 交互不受状态影响，始终可以触发
         Debug.Log("[PlayerController] 玩家尝试交互，发布 PlayerInteracted 事件。");
         EventCenter.TriggerEvent("PlayerInteracted");
     }
@@ -158,30 +202,20 @@ public class PlayerController : MonoBehaviour
         EventCenter.TriggerEvent("GameRestartRequested");
     }
     #endregion
-
-    /// <summary>
-    /// 【修改】当场景加载后，启动一个协程来延迟执行玩家查找。
-    /// </summary>
+    
+    // ... (场景加载逻辑 OnSceneLoaded, FindPlayerInNewSceneCoroutine, SetupDefaultPlayer 保持不变) ...
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        // 停止之前的协程，以防万一
         StopAllCoroutines();
-        // 启动新协程
         StartCoroutine(FindPlayerInNewSceneCoroutine());
     }
-
-    /// <summary>
-    /// 【新增】延迟一帧查找玩家的协程。
-    /// </summary>
     private IEnumerator FindPlayerInNewSceneCoroutine()
     {
-        // 等待一帧，确保新场景中的所有对象都已完成初始化
         yield return null; 
 
         Debug.Log($"[PlayerController] 延迟一帧后，在新场景 '{SceneManager.GetActiveScene().name}' 中查找玩家...");
         SetupDefaultPlayer();
     }
-
     private void SetupDefaultPlayer()
     {
         IControllable target = null;
