@@ -1057,18 +1057,19 @@ GameObject:
   - component: {fileID: 1006659052968517461}
   - component: {fileID: 7475313061486097157}
   - component: {fileID: 788861877}
+  - component: {fileID: 8813639549204842220}
   - component: {fileID: 788861878}
   - component: {fileID: 788861887}
   - component: {fileID: 788861888}
   - component: {fileID: 8813639549204842218}
   - component: {fileID: 8813639549204842219}
   - component: {fileID: 8813639549204842221}
-  - component: {fileID: 8813639549204842220}
   - component: {fileID: 8813639549204842222}
   - component: {fileID: 8813639549204842223}
   - component: {fileID: 8813639549204842224}
   - component: {fileID: 8813639549204842225}
   - component: {fileID: 8813639549204842226}
+  - component: {fileID: 8813639549204842227}
   m_Layer: 0
   m_Name: Prism
   m_TagString: Untagged
@@ -2314,17 +2315,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435336633728200261}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8fbe93a5eb8c343488c3b2e3675ffa0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   colliderTag: TestObi
-  pinPoolSize: 64
+  pinPoolSize: 200
   pinStiffness: 1
-  enableDisengagement: 1
+  enableDisengagement: 0
   disengagementDistance: 0.01
-  enableVisualization: 1
+  enableVisualization: 0
   pinnedParticleColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!114 &8813639549204842219
 MonoBehaviour:
@@ -2468,7 +2469,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435336633728200261}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0b0331eb45feb8847aed3f84930afeaa, type: 3}
   m_Name: 
@@ -2476,6 +2477,50 @@ MonoBehaviour:
   targetColliders:
   - {fileID: 1314042674}
   massOnCollision: 100000
+--- !u!114 &8813639549204842227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435336633728200261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdb1b909ba82f45899af962695745cad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skin: {fileID: 0}
+  gradient:
+    serializedVersion: 2
+    key0: {r: 0, g: 0.550797, b: 1, a: 1}
+    key1: {r: 0.45882356, g: 0.9911286, b: 1, a: 1}
+    key2: {r: 1, g: 1, b: 1, a: 0}
+    key3: {r: 1, g: 0.98475426, b: 0, a: 0}
+    key4: {r: 1, g: 0, b: 0, a: 0}
+    key5: {r: 1, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 16384
+    ctime2: 32768
+    ctime3: 49151
+    ctime4: 65535
+    ctime5: 65535
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 5
+    m_NumAlphaKeys: 2
+  deformationScaling: 20
 --- !u!33 &9182914726789703291
 MeshFilter:
   m_ObjectHideFlags: 0
