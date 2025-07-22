@@ -2878,6 +2878,7 @@ GameObject:
   - component: {fileID: 8813639549204842220}
   - component: {fileID: 8813639549204842222}
   - component: {fileID: 8813639549204842223}
+  - component: {fileID: 8813639549204842224}
   m_Layer: 0
   m_Name: Prism
   m_TagString: Untagged
@@ -3120,7 +3121,7 @@ MonoBehaviour:
     SORFactor: 1
     enabled: 0
   shapeMatchingConstraintParameters:
-    evaluationOrder: 0
+    evaluationOrder: 1
     iterations: 1
     SORFactor: 1
     enabled: 1
@@ -4066,7 +4067,7 @@ MonoBehaviour:
   m_CollisionMaterial: {fileID: 0}
   m_SurfaceCollisions: 0
   m_MassScale: 1
-  m_SoftbodyBlueprint: {fileID: 11400000, guid: 666339076d77340eb916be28a35e5379, type: 2}
+  m_SoftbodyBlueprint: {fileID: 11400000, guid: c9f1c3eada0420548a747aced9d2ccd8, type: 2}
   m_SelfCollisions: 0
   m_DirectionalCollisions: 0
   centerBatch: -1
@@ -4227,7 +4228,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435336633728200261}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cafbd3d36d1a15d4a8676473d4198b29, type: 3}
   m_Name: 
@@ -4239,6 +4240,21 @@ MonoBehaviour:
   deactivationDelay: 3
   enableVisualization: 1
   guardedParticleColor: {r: 1, g: 0, b: 1, a: 1}
+--- !u!114 &8813639549204842224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435336633728200261}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b0331eb45feb8847aed3f84930afeaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetColliders:
+  - {fileID: 1314042674}
+  massOnCollision: 100000
 --- !u!33 &9182914726789703291
 MeshFilter:
   m_ObjectHideFlags: 0
