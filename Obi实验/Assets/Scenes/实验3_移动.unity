@@ -2877,6 +2877,7 @@ GameObject:
   - component: {fileID: 8813639549204842219}
   - component: {fileID: 8813639549204842220}
   - component: {fileID: 8813639549204842222}
+  - component: {fileID: 8813639549204842223}
   m_Layer: 0
   m_Name: Prism
   m_TagString: Untagged
@@ -4208,7 +4209,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435336633728200261}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3c7c39174bd763b4abc8401b47b0b82f, type: 3}
   m_Name: 
@@ -4216,11 +4217,28 @@ MonoBehaviour:
   colliderTag: TestObi
   pinPoolSize: 64
   pinStiffness: 1
-  enableDisengagement: 1
-  disengagementDistance: 0.1
   enableVisualization: 1
   pinnedParticleColor: {r: 1, g: 0.00969137, b: 0, a: 1}
   enableDebugLogs: 0
+--- !u!114 &8813639549204842223
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435336633728200261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cafbd3d36d1a15d4a8676473d4198b29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guardPrefab: {fileID: 2129563517566819695, guid: 0d77a2b416be42e4b8273b78854024d4, type: 3}
+  colliderTag: TestObi
+  pinPoolSize: 200
+  pinStiffness: 1
+  deactivationDelay: 3
+  enableVisualization: 1
+  guardedParticleColor: {r: 1, g: 0, b: 1, a: 1}
 --- !u!33 &9182914726789703291
 MeshFilter:
   m_ObjectHideFlags: 0
