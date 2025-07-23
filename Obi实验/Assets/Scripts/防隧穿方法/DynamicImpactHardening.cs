@@ -3,13 +3,16 @@ using Obi;
 using System.Collections.Generic;
 
 /// <summary>
-/// 动态冲击硬化脚本 V1.1
+/// 动态冲击硬化脚本 V1.0
+/// 融合了动态Pin约束、形变检测、质量缩放和智能回弹释放机制，专门用于解决高速冲击下的软体穿透问题。
 /// 
-/// V1.1 更新日志:
-/// 1. 【新增】Pin约束冷却机制：在回弹释放所有Pin后，会进入冷却状态。在该状态下，即使有新的碰撞也不会创建Pin。
-///    此状态会一直持续，直到软体质量完全恢复到初始值后，系统才会重置，准备迎接下一次冲击。这完美实现了“Pin只挡第一下”的逻辑。
-/// 2. 【优化】质量配置：移除了AnimationCurve，改为更直观的“最大质量”和“达到最大质量的形变量”配置。
-/// 3. 【新增】调试监控：在Inspector中实时显示当前软体的归一化形变值，便于观察和调试。
+/// 工作流程:
+/// 1. OnCollision: 当与指定Tag的物体碰撞时，立即为接触的粒子创建Pin约束，将其“钉”在碰撞体上。
+/// 2. LateUpdate (每帧执行):
+///    a. 计算整个软体的总形变程度。
+///    b. 根据形变程度，通过AnimationCurve来动态增加软体的质量。
+///    c. 【核心】比较当前帧与上一帧的形变量，一旦检测到形变开始减小（即进入“回弹”阶段），立即释放所有Pin约束。
+///    d. 如果不再与目标物体碰撞，则将质量恢复到原始值。
 /// </summary>
 [RequireComponent(typeof(ObiSoftbody))]
 public class DynamicImpactHardening : MonoBehaviour
@@ -24,10 +27,8 @@ public class DynamicImpactHardening : MonoBehaviour
     public float pinStiffness = 1f;
 
     [Header("形变与质量响应")]
-    [Tooltip("冲击时软体能达到的最大质量值。")]
-    public float maxMassOnImpact = 50f;
-    [Tooltip("达到最大质量所需的形变值。形变达到此值时，质量将等于'最大质量值'。")]
-    public float deformationForMaxMass = 0.5f;
+    [Tooltip("用于将归一化的形变程度映射到质量的乘数。X轴(0-1)是形变程度，Y轴是质量乘数。")]
+    public AnimationCurve massScaleCurve = AnimationCurve.Linear(0, 1, 1, 10);
     [Tooltip("开始改变质量的形变阈值，避免微小形变也触发质量变化。")]
     public float deformationThresholdForMassChange = 0.01f;
     [Tooltip("用于计算形变的缩放系数，调节形变值的敏感度。")]
@@ -43,8 +44,6 @@ public class DynamicImpactHardening : MonoBehaviour
     public bool enableDeformationColoring = true;
     [Tooltip("形变程度到颜色的渐变映射。")]
     public Gradient deformationColorGradient;
-    [Tooltip("【只读】当前计算出的实时归一化形变值(0-1)。"), Range(0, 1)]
-    public float currentNormalizedDeformation;
 
     // --- 内部状态变量 ---
     private ObiSoftbody softbody;
@@ -53,15 +52,16 @@ public class DynamicImpactHardening : MonoBehaviour
     private ObiPinConstraintsBatch dynamicPinBatch;
     private ObiShapeMatchingConstraintsData shapeMatchingConstraintsData;
 
+    // Pin约束管理 (借鉴 DynamicPinStiffener 的高效做法)
     private readonly Dictionary<int, int> particleToBatchIndex = new Dictionary<int, int>();
 
     // 状态追踪
     private float originalMassScale;
     private bool isMassModified = false;
-    private bool isPinCooldownActive = false; // V1.1 新增：Pin约束冷却状态
     private float totalDeformationLastFrame = 0f;
     private readonly HashSet<ObiColliderBase> collidingCollidersThisFrame = new HashSet<ObiColliderBase>();
 
+    // 可视化
     private readonly Dictionary<int, Color> originalParticleColors = new Dictionary<int, Color>();
 
     #region Unity生命周期与Obi事件
@@ -87,6 +87,7 @@ public class DynamicImpactHardening : MonoBehaviour
 
     private void OnBlueprintLoaded(ObiActor actor, ObiActorBlueprint blueprint)
     {
+        // 获取形变约束以计算形变
         shapeMatchingConstraintsData = softbody.GetConstraintsByType(Oni.ConstraintType.ShapeMatching) as ObiShapeMatchingConstraintsData;
         if (shapeMatchingConstraintsData == null)
         {
@@ -95,6 +96,7 @@ public class DynamicImpactHardening : MonoBehaviour
             return;
         }
         
+        // 记录原始质量
         originalMassScale = softbody.massScale;
 
         SetupDynamicBatch();
@@ -115,40 +117,41 @@ public class DynamicImpactHardening : MonoBehaviour
         if (solver == null || !softbody.isLoaded || shapeMatchingConstraintsData == null) return;
 
         bool constraintsChanged = false;
-        
-        float currentDeformation = CalculateTotalDeformation();
-        // V1.1 更新Debug监视器
-        currentNormalizedDeformation = Mathf.Clamp01(currentDeformation / deformationForMaxMass);
 
-        // 1. 【核心】回弹检测与Pin约束释放
-        if (!isPinCooldownActive && particleToBatchIndex.Count > 0 && currentDeformation < totalDeformationLastFrame * (1 - reboundDetectionSensitivity))
+        // 1. 计算当前帧的总形变
+        float currentDeformation = CalculateTotalDeformation();
+
+        // 2. 【核心】回弹检测与Pin约束释放
+        // 如果当前形变明显小于上一帧，说明软体开始回弹
+        if (particleToBatchIndex.Count > 0 && currentDeformation < totalDeformationLastFrame * (1 - reboundDetectionSensitivity))
         {
             Debug.Log("<color=cyan>检测到回弹，释放所有Pin约束！</color>");
             constraintsChanged = ReleaseAllPins();
-            // V1.1 新增：激活Pin冷却
-            isPinCooldownActive = true; 
-            Debug.Log("<color=orange>Pin约束冷却已激活，待质量恢复后重置。</color>");
         }
         
-        // 2. 质量管理
+        // 3. 质量管理
+        // 如果本帧有碰撞发生
         if (collidingCollidersThisFrame.Count > 0)
         {
+            // 并且形变超过阈值
             if (currentDeformation > deformationThresholdForMassChange)
             {
-                // V1.1 修改：使用更直观的Lerp进行质量计算
-                float t = currentNormalizedDeformation; // 使用上面计算好的归一化值
-                softbody.SetMass(Mathf.Lerp(originalMassScale, maxMassOnImpact, t));
+                // 使用AnimationCurve计算质量乘数并应用
+                float massMultiplier = massScaleCurve.Evaluate(Mathf.Clamp01(currentDeformation));
+                softbody.massScale = originalMassScale * massMultiplier;
                 isMassModified = true;
             }
         }
-        else 
+        else // 如果本帧没有任何目标碰撞
         {
+            // 如果质量之前被修改过，则恢复
             if (isMassModified)
             {
                 RestoreOriginalMass();
             }
         }
 
+        // 4. 更新与清理
         if (constraintsChanged)
         {
             softbody.SetConstraintsDirty(Oni.ConstraintType.Pin);
@@ -156,10 +159,13 @@ public class DynamicImpactHardening : MonoBehaviour
 
         if (enableDeformationColoring)
         {
-            UpdateColors(currentNormalizedDeformation);
+            UpdateColors(currentDeformation);
         }
 
+        // 更新上一帧形变值，为下一帧做准备
         totalDeformationLastFrame = currentDeformation;
+
+        // 清理当前帧的碰撞记录
         collidingCollidersThisFrame.Clear();
     }
     #endregion
@@ -167,15 +173,12 @@ public class DynamicImpactHardening : MonoBehaviour
     #region 碰撞与Pin约束管理
     private void Solver_OnCollision(ObiSolver solver, ObiNativeContactList contacts)
     {
-        // V1.1 新增：如果Pin处于冷却状态，则直接跳过，不创建任何新约束
-        if (isPinCooldownActive) return;
-
         if (contacts.count == 0 || dynamicPinBatch == null) return;
 
         bool needsUpdate = false;
         for (int i = 0; i < contacts.count; ++i)
         {
-            if (dynamicPinBatch.activeConstraintCount >= pinPoolSize) break; 
+            if (dynamicPinBatch.activeConstraintCount >= pinPoolSize) break; // 池已满
 
             Oni.Contact contact = contacts[i];
             int particleSolverIndex = GetParticleSolverIndexFromContact(contact);
@@ -185,6 +188,7 @@ public class DynamicImpactHardening : MonoBehaviour
             if (otherCollider == null || !otherCollider.gameObject.activeInHierarchy) continue;
             if (!string.IsNullOrEmpty(colliderTag) && !otherCollider.CompareTag(colliderTag)) continue;
 
+            // 记录发生碰撞的碰撞体
             collidingCollidersThisFrame.Add(otherCollider);
             
             Matrix4x4 bindMatrix = otherCollider.transform.worldToLocalMatrix * solver.transform.localToWorldMatrix;
@@ -219,6 +223,8 @@ public class DynamicImpactHardening : MonoBehaviour
     private bool ReleaseAllPins()
     {
         if (particleToBatchIndex.Count == 0) return false;
+
+        // 清空所有约束和追踪字典
         particleToBatchIndex.Clear();
         dynamicPinBatch.activeConstraintCount = 0;
         return true;
@@ -228,6 +234,7 @@ public class DynamicImpactHardening : MonoBehaviour
     #region 形变计算
     private float CalculateTotalDeformation()
     {
+        // 借鉴 DeformationToColors.cs 的逻辑
         float totalDeformation = 0;
         int activeClusters = 0;
 
@@ -244,6 +251,7 @@ public class DynamicImpactHardening : MonoBehaviour
 
                 for (int i = 0; i < batch.activeConstraintCount; i++)
                 {
+                    // 使用 Frobenius 范数来估计形变，减2是为了归一化（无形变时约为2）
                     float deformation = solverBatch.linearTransforms[offset + i].FrobeniusNorm() - 2;
                     if (deformation > 0)
                     {
@@ -254,6 +262,7 @@ public class DynamicImpactHardening : MonoBehaviour
             }
         }
         
+        // 返回平均形变并应用一个缩放系数
         if (activeClusters > 0)
         {
             return (totalDeformation / activeClusters) * deformationScaling;
@@ -268,27 +277,23 @@ public class DynamicImpactHardening : MonoBehaviour
         softbody.massScale = originalMassScale;
         isMassModified = false;
         Debug.Log("<color=green>碰撞结束，恢复原始质量。</color>");
-        
-        // V1.1 新增：当质量恢复时，解除Pin的冷却状态，让系统可以响应下一次冲击
-        if (isPinCooldownActive)
-        {
-            isPinCooldownActive = false;
-            Debug.Log("<color=lime>质量已恢复，Pin约束系统已重置，准备下一次冲击。</color>");
-        }
     }
     
-    private void UpdateColors(float normalizedDeformation)
+    private void UpdateColors(float currentDeformation)
     {
         if (!enableDeformationColoring || solver == null) return;
         
+        // 先恢复所有颜色，防止旧的颜色残留
         RestoreAllParticleColors();
         
-        Color deformationColor = deformationColorGradient.Evaluate(normalizedDeformation);
+        // 根据形变上色
+        Color deformationColor = deformationColorGradient.Evaluate(Mathf.Clamp01(currentDeformation));
 
+        // 将颜色应用到所有被Pin住的粒子，或整个软体上（可根据需求修改）
         for (int i = 0; i < softbody.solverIndices.count; ++i)
         {
             int solverIndex = softbody.solverIndices[i];
-            if (solver.invMasses[solverIndex] > 0)
+            if (solver.invMasses[solverIndex] > 0) // 只为非固定粒子上色
             {
                 if (!originalParticleColors.ContainsKey(solverIndex))
                 {
