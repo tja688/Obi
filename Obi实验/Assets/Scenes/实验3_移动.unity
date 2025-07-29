@@ -4345,7 +4345,8 @@ MonoBehaviour:
   targetColliderTag: TestObi
   pinPoolSize: 128
   pinStiffness: 1
-  baselineDeformationThreshold: 0.05
+  baselineDeformationThreshold: 0.02
+  minCooldownDuration: 0.2
   enableVisualization: 1
   pinnedParticleColor: {r: 1, g: 0, b: 0, a: 1}
   enableDebugGUI: 1
