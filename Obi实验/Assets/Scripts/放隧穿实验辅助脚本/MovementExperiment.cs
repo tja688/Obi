@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class MovementExperiment : MonoBehaviour
 {
+    // 模式设置
+    [Header("Mode Settings")]
+    public bool forwardBackwardOnly = true; // 新增：仅前进后退模式开关，默认为开
+
     // 移动参数
     [Header("Movement Settings")]
     public float moveSpeed = 5f;        // 匀速移动速度
@@ -45,12 +49,26 @@ public class MovementExperiment : MonoBehaviour
     private void HandleMovement()
     {
         // 获取输入
-        float horizontal = Input.GetAxis("Horizontal"); // A/D
-        float vertical = Input.GetAxis("Vertical");     // W/S
+        float horizontal = 0f;
+        float vertical = 0f;
         float elevation = 0f;
         
-        if (Input.GetKey(KeyCode.Q)) elevation = -1f;
-        if (Input.GetKey(KeyCode.E)) elevation = 1f;
+        // --- 修改开始 ---
+        if (forwardBackwardOnly)
+        {
+            // 仅前进后退模式：只检测垂直输入
+            vertical = Input.GetAxis("Vertical"); // W/S 或 方向键上/下
+        }
+        else
+        {
+            // 全向移动模式（原始逻辑）
+            horizontal = Input.GetAxis("Horizontal"); // A/D
+            vertical = Input.GetAxis("Vertical");     // W/S
+            
+            if (Input.GetKey(KeyCode.Q)) elevation = -1f;
+            if (Input.GetKey(KeyCode.E)) elevation = 1f;
+        }
+        // --- 修改结束 ---
 
         // 计算目标速度
         Vector3 targetVelocity = new Vector3(horizontal, elevation, vertical).normalized * moveSpeed;
@@ -60,8 +78,6 @@ public class MovementExperiment : MonoBehaviour
         
         // 应用移动
         rb.linearVelocity = currentVelocity;
-        
-
     }
 
     private void ApplyImpulse()
@@ -99,10 +115,12 @@ public class MovementExperiment : MonoBehaviour
         smoothDampVelocity = Vector3.zero;
     }
 
-    // 可选：在Inspector中显示当前速度
+    // 可选：在Inspector中显示当前速度和模式
     void OnGUI()
     {
         GUILayout.Label($"当前速度: {currentVelocity.magnitude:F2}");
         GUILayout.Label($"冲量力度: {impulseForce:F2}");
+        // 新增：显示当前模式
+        GUILayout.Label($"前进后退模式: {(forwardBackwardOnly ? "开启" : "关闭")}");
     }
 }
