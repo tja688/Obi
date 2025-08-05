@@ -1681,6 +1681,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c7c822689de6b4681d8548ea1ffe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardBackwardOnly: 1
   moveSpeed: 5
   impulseForce: 100
   rotationSpeed: 5
@@ -1976,6 +1977,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c7c822689de6b4681d8548ea1ffe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardBackwardOnly: 1
   moveSpeed: 5
   impulseForce: 100
   rotationSpeed: 5
@@ -2474,6 +2476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c7c822689de6b4681d8548ea1ffe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardBackwardOnly: 1
   moveSpeed: 5
   impulseForce: 100
   rotationSpeed: 5
@@ -4346,7 +4349,7 @@ MonoBehaviour:
   targetColliderTag: TestObi
   pinPoolSize: 128
   pinStiffness: 1
-  baselineDeformationThreshold: 0.02
+  baselineDeformationThreshold: 0.01
   minCooldownDuration: 0.2
   enableVisualization: 1
   pinnedParticleColor: {r: 1, g: 0, b: 0, a: 1}
@@ -4383,6 +4386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42c7c822689de6b4681d8548ea1ffe10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  forwardBackwardOnly: 1
   moveSpeed: 5
   impulseForce: 100
   rotationSpeed: 5
