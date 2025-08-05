@@ -4353,7 +4353,7 @@ MonoBehaviour:
   minCooldownDuration: 0.2
   enableVisualization: 1
   pinnedParticleColor: {r: 1, g: 0, b: 0, a: 1}
-  enableDebugGUI: 1
+  enableDebugGUI: 0
 --- !u!114 &8813639549204842227
 MonoBehaviour:
   m_ObjectHideFlags: 0
