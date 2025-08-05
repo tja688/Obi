@@ -7,6 +7,7 @@ TagManager:
   - TestObi
   - Pillar
   - PillarTrigger
+  - Floor
   layers:
   - Default
   - TransparentFX

@@ -74,6 +74,7 @@ public class GravityDropTest : MonoBehaviour
         rb.angularVelocity = Vector3.zero;
         rb.useGravity = false;
         gravityEnabled = false;
+        rb.mass = initialMass;
         Debug.Log("已重置位置，重力关闭");
     }
 
