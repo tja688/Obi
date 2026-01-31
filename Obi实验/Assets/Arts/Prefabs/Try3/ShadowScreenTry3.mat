@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: ShadowScreenTry3
+  m_Shader: {fileID: 4800000, guid: 24df055ec55473a47beeec0a26ed8c8f, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _DirtTex:
+        m_Texture: {fileID: 2800000, guid: 283f897e4925411ebbaa758b4cb13fc2, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 4f618c02dec9a724cbb608ff4b238f98, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NormalMap:
+        m_Texture: {fileID: 2800000, guid: 8878a782f4334ecbbcf683b3ac780966, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _PuppetTex:
+        m_Texture: {fileID: 8400000, guid: 1a29391d56bc2ab4fb91097a102b3759, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _ShadowTex:
+        m_Texture: {fileID: 8400000, guid: 1ca1fca2bf791f44eb86ddae0b3defe1, type: 2}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BlurScale: 1
+    - _DirtStrength: 0.1
+    - _EmissionIntensity: 1
+    - _FlickerFastMax: 1.05
+    - _FlickerFastMin: 0.95
+    - _FlickerMax: 1.1
+    - _FlickerMin: 0.8
+    - _LightFocus: 3
+    - _LightJitter: 0.03
+    - _LightJitterSpeed: 0.4
+    - _NoiseScaleFast: 50
+    - _NoiseScaleSlow: 5
+    - _PuppetStrength: 0.9
+    - _Saturation: 1
+    - _ShadowBlend: 1
+    - _ShadowStrength: 1
+    - _WobbleSpeed: 1
+    - _WobbleStrength: 0.005
+    m_Colors:
+    - _LightCenter: {r: 0.5, g: 0.5, b: 0, a: 0}
+    - _LightColor: {r: 1, g: 0.86, b: 0.7, a: 1}
+    - _ShadowTint: {r: 0.3915094, g: 0.37488872, b: 0.37488872, a: 0.6862745}
+  m_BuildTextureStacks: []
