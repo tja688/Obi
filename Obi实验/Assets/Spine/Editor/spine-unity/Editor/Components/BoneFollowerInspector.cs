@@ -125,7 +125,7 @@ namespace Spine.Unity.Editor {
 			if (serializedObject.isEditingMultipleObjects) {
 				if (needsReset) {
 					needsReset = false;
-					foreach (var o in targets) {
+					foreach (var o in serializedObject.targetObjects) {
 						var bf = (BoneFollower)o;
 						bf.Initialize();
 						bf.LateUpdate();

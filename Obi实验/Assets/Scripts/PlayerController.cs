@@ -1,29 +1,28 @@
-using NUnit.Framework;
 using Spine;
 using Spine.Unity;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using AnimationState = Spine.AnimationState;
 
-/// <summary>
-/// Spine角色启动动画+AD移动动画控制
-/// 挂载在带有SkeletonAnimation的Spine角色物体上
-/// </summary>
+[RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
     public float Speed;
-    public static List<ItemData> items=new List<ItemData>();
+    public static List<ItemData> items = new List<ItemData>();
+
     private SkeletonAnimation skeletonAnim;
     private AnimationState animState;
     private Skeleton skeleton;
+    private Rigidbody playerRigidbody;
     private bool isStartOver;
     private bool isMoving;
+    private Vector3 movementInput;
+
     public GameObject inventoryPanel;
-    private bool isInventoryActive=false;
+    private bool isInventoryActive = false;
     public ScrollRect scroolRect;
     private bool isShowItem = false;
     private static List<GameObject> itemSlots = new List<GameObject>();
@@ -35,28 +34,44 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI info;
     public GameObject itemInfoPanel;
     public static PlayerController Instance { get; private set; }
+
     private void Awake()
     {
         Instance = this;
-        skeletonAnim = this.GetComponent<SkeletonAnimation>();
+        skeletonAnim = GetComponent<SkeletonAnimation>();
         animState = skeletonAnim.AnimationState;
         skeleton = skeletonAnim.Skeleton;
+
+        playerRigidbody = GetComponent<Rigidbody>();
+        if (playerRigidbody == null)
+        {
+            playerRigidbody = gameObject.AddComponent<Rigidbody>();
+        }
+
+        playerRigidbody.useGravity = false;
+        playerRigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY;
+        playerRigidbody.interpolation = RigidbodyInterpolation.Interpolate;
+        playerRigidbody.collisionDetectionMode = CollisionDetectionMode.Continuous;
+
         isStartOver = false;
         isMoving = false;
+        movementInput = Vector3.zero;
         Speed = 5;
         animState.Complete += OnStartAnim;
     }
+
     private void Start()
     {
-        PlayAnim( "start", false);
+        PlayAnim("start", false);
     }
+
     private void Update()
     {
         if (isStartOver)
         {
             MoveInput();
             ControlInventory();
-            if (isInventoryActive&&!isShowItem)
+            if (isInventoryActive && !isShowItem)
             {
                 ShowItem();
                 isShowItem = true;
@@ -71,22 +86,46 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
+    private void FixedUpdate()
+    {
+        if (!isStartOver || playerRigidbody == null)
+        {
+            return;
+        }
+
+        if (isMoving)
+        {
+            Vector3 moveDirection = movementInput.normalized;
+            playerRigidbody.linearVelocity = new Vector3(moveDirection.x * Speed, playerRigidbody.linearVelocity.y, moveDirection.z * Speed);
+        }
+        else
+        {
+            playerRigidbody.linearVelocity = new Vector3(0f, playerRigidbody.linearVelocity.y, 0f);
+        }
+    }
+
     private void OnStartAnim(TrackEntry track)
     {
         animState.Complete -= OnStartAnim;
-        PlayAnim( "idle", true);
+        PlayAnim("idle", true);
         isStartOver = true;
     }
+
     private void MoveInput()
     {
         float horizontal = Input.GetAxisRaw("Horizontal");
         float vertical = Input.GetAxisRaw("Vertical");
-        isMoving = horizontal != 0 || vertical != 0 ? true : false;
-        if(InteractDialog.isOnDialog||isInventoryActive) isMoving = false;
+        isMoving = horizontal != 0 || vertical != 0;
+        if (InteractDialog.isOnDialog || isInventoryActive)
+        {
+            isMoving = false;
+        }
+
+        movementInput = isMoving ? new Vector3(horizontal, 0f, vertical) : Vector3.zero;
+
         if (isMoving)
         {
-            Vector3 movePos = new Vector3(horizontal * Speed * Time.deltaTime, 0, vertical * Speed * Time.deltaTime);
-            this.transform.Translate(movePos);
             skeleton.ScaleX = horizontal > 0 ? 1 : -1;
             PlayAnim("walk", true);
         }
@@ -94,17 +133,18 @@ public class PlayerController : MonoBehaviour
         {
             PlayAnim("idle", true);
         }
-
     }
+
     private void PlayAnim(string AnimName, bool isLoop)
     {
         TrackEntry currentTrack = animState.GetCurrent(0);
-        if (currentTrack.Animation.Name==AnimName) return;
+        if (currentTrack != null && currentTrack.Animation.Name == AnimName) return;
         animState.SetAnimation(0, AnimName, isLoop);
     }
+
     private void ControlInventory()
     {
-        if (Input.GetKeyDown(KeyCode.Tab)&&!isInventoryActive)
+        if (Input.GetKeyDown(KeyCode.Tab) && !isInventoryActive)
         {
             inventoryPanel.gameObject.SetActive(true);
             isInventoryActive = true;
@@ -114,29 +154,31 @@ public class PlayerController : MonoBehaviour
             inventoryPanel.gameObject.SetActive(false);
             isInventoryActive = false;
             isShowItem = false;
-            for(int i = 0; i < itemSlots.Count; i++)
+            for (int i = 0; i < itemSlots.Count; i++)
             {
                 Destroy(itemSlots[i]);
             }
         }
     }
+
     private void ShowItem()
     {
-        for(int i=0;i<items.Count;i++)
+        for (int i = 0; i < items.Count; i++)
         {
-            GameObject item=Instantiate(Resources.Load<GameObject>("Prefabs/item"));
-            ItemInfo itemData=item.AddComponent<ItemInfo>();
+            GameObject item = Instantiate(Resources.Load<GameObject>("Prefabs/item"));
+            ItemInfo itemData = item.AddComponent<ItemInfo>();
             itemData.name = items[i].name;
             itemData.describe = items[i].describe;
             AddIsHoverLisenerToItem(item);
             Image img = item.GetComponent<Image>();
-            img.sprite = Resources.Load<Sprite>("Picture/"+items[i].name);
-            item.transform.SetParent(scroolRect.content,false);
+            img.sprite = Resources.Load<Sprite>("Picture/" + items[i].name);
+            item.transform.SetParent(scroolRect.content, false);
             item.transform.localPosition = new Vector3(10, -10, 0) + new Vector3(i * 250, 0, 0);
-            scroolRect.content.sizeDelta = new Vector2((i+1)*250, 223);
+            scroolRect.content.sizeDelta = new Vector2((i + 1) * 250, 223);
             itemSlots.Add(item);
         }
     }
+
     private void AddIsHoverLisenerToItem(GameObject item)
     {
         et = item.GetComponent<EventTrigger>();
@@ -147,8 +189,8 @@ public class PlayerController : MonoBehaviour
         {
             isHoverOnItem = true;
             ItemInfo itemInfo = item.GetComponent<ItemInfo>();
-            OnHoverItemName=itemInfo.name;
-            OnHoverItemInfo=itemInfo.describe;
+            OnHoverItemName = itemInfo.name;
+            OnHoverItemInfo = itemInfo.describe;
         });
         EventTrigger.Entry entry2 = new EventTrigger.Entry();
         entry2.eventID = EventTriggerType.PointerExit;
@@ -159,6 +201,7 @@ public class PlayerController : MonoBehaviour
         et.triggers.Add(entry1);
         et.triggers.Add(entry2);
     }
+
     public void UpdateShowItem()
     {
         if (!isInventoryActive) return;
@@ -168,6 +211,7 @@ public class PlayerController : MonoBehaviour
         }
         ShowItem();
     }
+
     private void ShowItemInfo()
     {
         title.text = OnHoverItemName;
@@ -175,6 +219,7 @@ public class PlayerController : MonoBehaviour
         itemInfoPanel.gameObject.SetActive(true);
         itemInfoPanel.transform.position = Input.mousePosition;
     }
+
     private void HideItemInfo()
     {
         itemInfoPanel.gameObject.SetActive(false);

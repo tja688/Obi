@@ -87,7 +87,7 @@ namespace Spine.Unity.Editor {
 		protected bool TargetIsValid {
 			get {
 				if (serializedObject.isEditingMultipleObjects) {
-					foreach (var o in targets) {
+					foreach (var o in serializedObject.targetObjects) {
 						var component = (SkeletonRenderer)o;
 						if (!component.valid)
 							return false;
@@ -159,7 +159,13 @@ namespace Spine.Unity.Editor {
 		}
 
 		public void OnSceneGUI () {
-			var skeletonRenderer = (SkeletonRenderer)target;
+			if (Event.current == null || Event.current.type != EventType.Repaint)
+				return;
+
+			var skeletonRenderer = target as SkeletonRenderer;
+			if (skeletonRenderer == null)
+				return;
+
 			var skeleton = skeletonRenderer.Skeleton;
 			var transform = skeletonRenderer.transform;
 			if (skeleton == null) return;
@@ -174,7 +180,7 @@ namespace Spine.Unity.Editor {
 			if (serializedObject.ApplyModifiedProperties() || SpineInspectorUtility.UndoRedoPerformed(Event.current) ||
 				AreAnyMaskMaterialsMissing()) {
 				if (!Application.isPlaying) {
-					foreach (var o in targets)
+					foreach (var o in serializedObject.targetObjects)
 						SpineEditorUtilities.ReinitializeComponent((SkeletonRenderer)o);
 					SceneView.RepaintAll();
 				}
@@ -186,11 +192,11 @@ namespace Spine.Unity.Editor {
 			if (Event.current.type == EventType.Layout) {
 				if (forceReloadQueued) {
 					forceReloadQueued = false;
-					foreach (var c in targets) {
+					foreach (var c in serializedObject.targetObjects) {
 						SpineEditorUtilities.ReloadSkeletonDataAssetAndComponent(c as SkeletonRenderer);
 					}
 				} else {
-					foreach (var c in targets) {
+					foreach (var c in serializedObject.targetObjects) {
 						var component = c as SkeletonRenderer;
 						if (!component.valid) {
 							SpineEditorUtilities.ReinitializeComponent(component);
@@ -202,35 +208,35 @@ namespace Spine.Unity.Editor {
 				#if BUILT_IN_SPRITE_MASK_COMPONENT
 				if (setMaskNoneMaterialsQueued) {
 					setMaskNoneMaterialsQueued = false;
-					foreach (var c in targets)
+					foreach (var c in serializedObject.targetObjects)
 						EditorSetMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.None);
 				}
 				if (setInsideMaskMaterialsQueued) {
 					setInsideMaskMaterialsQueued = false;
-					foreach (var c in targets)
+					foreach (var c in serializedObject.targetObjects)
 						EditorSetMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleInsideMask);
 				}
 				if (setOutsideMaskMaterialsQueued) {
 					setOutsideMaskMaterialsQueued = false;
-					foreach (var c in targets)
+					foreach (var c in serializedObject.targetObjects)
 						EditorSetMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleOutsideMask);
 				}
 
 				if (deleteInsideMaskMaterialsQueued) {
 					deleteInsideMaskMaterialsQueued = false;
-					foreach (var c in targets)
+					foreach (var c in serializedObject.targetObjects)
 						EditorDeleteMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleInsideMask);
 				}
 				if (deleteOutsideMaskMaterialsQueued) {
 					deleteOutsideMaskMaterialsQueued = false;
-					foreach (var c in targets)
+					foreach (var c in serializedObject.targetObjects)
 						EditorDeleteMaskMaterials(c as SkeletonRenderer, SpriteMaskInteraction.VisibleOutsideMask);
 				}
 				#endif
 
 #if NO_PREFAB_MESH
 				if (isInspectingPrefab) {
-					foreach (var c in targets) {
+					foreach (var c in serializedObject.targetObjects) {
 						var component = (SkeletonRenderer)c;
 						MeshFilter meshFilter = component.GetComponent<MeshFilter>();
 						if (meshFilter != null && meshFilter.sharedMesh != null)
@@ -400,18 +406,18 @@ namespace Spine.Unity.Editor {
 		}
 
 		protected void SkeletonRootMotionParameter() {
-			SkeletonRootMotionParameter(targets);
+			SkeletonRootMotionParameter(serializedObject.targetObjects);
 		}
 
-		public static void SkeletonRootMotionParameter(Object[] targets) {
+		public static void SkeletonRootMotionParameter(Object[] targetObjects) {
 			int rootMotionComponentCount = 0;
-			foreach (var t in targets) {
+			foreach (var t in targetObjects) {
 				var component = t as Component;
 				if (component.GetComponent<SkeletonRootMotion>() != null) {
 					++rootMotionComponentCount;
 				}
 			}
-			bool allHaveRootMotion = rootMotionComponentCount == targets.Length;
+			bool allHaveRootMotion = rootMotionComponentCount == targetObjects.Length;
 			bool anyHaveRootMotion = rootMotionComponentCount > 0;
 
 			using (new GUILayout.HorizontalScope()) {
@@ -419,7 +425,7 @@ namespace Spine.Unity.Editor {
 
 				if (!allHaveRootMotion) {
 					if (GUILayout.Button(SpineInspectorUtility.TempContent("Add Component", Icons.constraintTransform), GUILayout.MaxWidth(130), GUILayout.Height(18))) {
-						foreach (var t in targets) {
+						foreach (var t in targetObjects) {
 							var component = t as Component;
 							if (component.GetComponent<SkeletonRootMotion>() == null) {
 								component.gameObject.AddComponent<SkeletonRootMotion>();
@@ -429,7 +435,7 @@ namespace Spine.Unity.Editor {
 				}
 				if (anyHaveRootMotion) {
 					if (GUILayout.Button(SpineInspectorUtility.TempContent("Remove Component", Icons.constraintTransform), GUILayout.MaxWidth(140), GUILayout.Height(18))) {
-						foreach (var t in targets) {
+						foreach (var t in targetObjects) {
 							var component = t as Component;
 							var rootMotionComponent = component.GetComponent<SkeletonRootMotion>();
 							if (rootMotionComponent  != null) {
@@ -524,7 +530,7 @@ namespace Spine.Unity.Editor {
 			if (!Application.isPlaying && Event.current.type == EventType.Layout && !initialSkinName.hasMultipleDifferentValues) {
 				bool mismatchDetected = false;
 				string newSkinName = initialSkinName.stringValue;
-				foreach (var o in targets) {
+				foreach (var o in serializedObject.targetObjects) {
 					mismatchDetected |= UpdateIfSkinMismatch((SkeletonRenderer)o, newSkinName);
 				}
 
@@ -564,7 +570,7 @@ namespace Spine.Unity.Editor {
 
 		bool AreAnyMaskMaterialsMissing() {
 			#if BUILT_IN_SPRITE_MASK_COMPONENT
-			foreach (var o in targets) {
+			foreach (var o in serializedObject.targetObjects) {
 				var component = (SkeletonRenderer)o;
 				if (!component.valid)
 					continue;

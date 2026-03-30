@@ -218,7 +218,7 @@ namespace Obi
                 if (EditorGUI.EndChangeCheck())
                 {
                     serializedObject.ApplyModifiedProperties();
-                    foreach (var t in targets)
+                    foreach (var t in serializedObject.targetObjects)
                         (t as ObiSolver).UpdateBackend();
                 }
 
@@ -356,7 +356,7 @@ namespace Obi
                 if (EditorGUI.EndChangeCheck())
                 {
                     serializedObject.ApplyModifiedProperties();
-                    foreach (var t in targets)
+                    foreach (var t in serializedObject.targetObjects)
                         (t as ObiSolver).dirtyRendering |= (int)Oni.RenderingSystemType.Fluid;
                 }
 

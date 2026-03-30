@@ -92,11 +92,21 @@ namespace Spine.Unity.Editor {
 			}
 		}
 
+		static Shader GetBoneShader () {
+			return Shader.Find("Hidden/Spine/Bones") ??
+				Shader.Find("Spine/Skeleton") ??
+				Shader.Find("Sprites/Default") ??
+				Shader.Find("Unlit/Color");
+		}
+
 		static Material _boneMaterial;
 		static Material BoneMaterial {
 			get {
 				if (_boneMaterial == null) {
-					_boneMaterial = new Material(Shader.Find("Hidden/Spine/Bones"));
+					var shader = GetBoneShader();
+					if (shader == null)
+						return null;
+					_boneMaterial = new Material(shader);
 					_boneMaterial.SetColor("_Color", SpineHandles.BoneColor);
 				}
 
@@ -104,20 +114,29 @@ namespace Spine.Unity.Editor {
 			}
 		}
 		public static Material GetBoneMaterial () {
-			BoneMaterial.SetColor("_Color", SpineHandles.BoneColor);
-			return BoneMaterial;
+			var material = BoneMaterial;
+			if (material == null)
+				return null;
+			material.SetColor("_Color", SpineHandles.BoneColor);
+			return material;
 		}
 
 		public static Material GetBoneMaterial (Color color) {
-			BoneMaterial.SetColor("_Color", color);
-			return BoneMaterial;
+			var material = BoneMaterial;
+			if (material == null)
+				return null;
+			material.SetColor("_Color", color);
+			return material;
 		}
 
 		static Material _ikMaterial;
 		public static Material IKMaterial {
 			get {
 				if (_ikMaterial == null) {
-					_ikMaterial = new Material(Shader.Find("Hidden/Spine/Bones"));
+					var shader = GetBoneShader();
+					if (shader == null)
+						return null;
+					_ikMaterial = new Material(shader);
 					_ikMaterial.SetColor("_Color", SpineHandles.IkColor);
 				}
 				return _ikMaterial;
@@ -219,7 +238,10 @@ namespace Spine.Unity.Editor {
 				const float my = 1.5f;
 				scale.y *= (SpineEditorUtilities.Preferences.handleScale + 1f) * 0.5f;
 				scale.y = Mathf.Clamp(scale.x, -my * skeletonRenderScale, my * skeletonRenderScale);
-				SpineHandles.GetBoneMaterial().SetPass(0);
+				var material = SpineHandles.GetBoneMaterial();
+				if (material == null)
+					return;
+				material.SetPass(0);
 				Graphics.DrawMeshNow(SpineHandles.BoneMesh, transform.localToWorldMatrix * Matrix4x4.TRS(pos, rot, scale));
 			} else {
 				var wp = transform.TransformPoint(pos);
@@ -236,7 +258,10 @@ namespace Spine.Unity.Editor {
 				const float my = 1.5f;
 				scale.y *= (SpineEditorUtilities.Preferences.handleScale + 1f) * 0.5f;
 				scale.y = Mathf.Clamp(scale.x, -my, my);
-				SpineHandles.GetBoneMaterial(color).SetPass(0);
+				var material = SpineHandles.GetBoneMaterial(color);
+				if (material == null)
+					return;
+				material.SetPass(0);
 				Graphics.DrawMeshNow(SpineHandles.BoneMesh, transform.localToWorldMatrix * Matrix4x4.TRS(pos, rot, scale));
 			} else {
 				var wp = transform.TransformPoint(pos);
@@ -444,7 +469,10 @@ namespace Spine.Unity.Editor {
 		static void DrawArrowhead2D (Vector3 pos, float localRotation, float scale = 1f) {
 			scale *= SpineEditorUtilities.Preferences.handleScale;
 
-			SpineHandles.IKMaterial.SetPass(0);
+			var material = SpineHandles.IKMaterial;
+			if (material == null)
+				return;
+			material.SetPass(0);
 			Graphics.DrawMeshNow(SpineHandles.ArrowheadMesh, Matrix4x4.TRS(pos, Quaternion.Euler(0, 0, localRotation), new Vector3(scale, scale, scale)));
 		}
 
@@ -464,7 +492,10 @@ namespace Spine.Unity.Editor {
 			m.m21 *= s;
 			m.m22 *= s;
 
-			SpineHandles.IKMaterial.SetPass(0);
+			var material = SpineHandles.IKMaterial;
+			if (material == null)
+				return;
+			material.SetPass(0);
 			Graphics.DrawMeshNow(SpineHandles.ArrowheadMesh, m);
 		}
 
