@@ -10,12 +10,6 @@
       },
       "hash": "6907badefdea468892329ccee89402d7a989ae62"
     },
-    "com.kyrylokuzyk.primetween": {
-      "version": "file:../Assets/Plugins/PrimeTween/internal/com.kyrylokuzyk.primetween.tgz",
-      "depth": 0,
-      "source": "local-tarball",
-      "dependencies": {}
-    },
     "com.unity.ai.navigation": {
       "version": "2.0.10",
       "depth": 0,
